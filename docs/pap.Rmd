@@ -65,7 +65,7 @@ The sample, recruited through [KiesKompas](https://www.kieskompas.nl/en/), will 
 Kieskompas works with non-random opt-in respondents.
 Therefore, I measure many demographic background variables (see [Section 3.2](#control-variables)).
 Balance checks will be conducted to demonstrate whether certain categories are over represented in a certain experimental group.
-The study has been approved by the [Research Ethics Review Committee](https://fsw.vu.nl/nl/onderzoek/research-ethics-review/index.aspx) of the _Vrije Universiteit Amsterdam_ (see the approval [here](https://github.com/MarikenvdVelden/compromise-punish/blob/main/docs/2022-3-30-59.pdf)).
+The study has been approved by the [Research Ethics Review Committee](https://fsw.vu.nl/nl/onderzoek/research-ethics-review/index.aspx) of the _Vrije Universiteit Amsterdam_ (see the approval [here](https://github.com/MarikenvdVelden/bias-experiment/blob/master/docs/2022-3-30-59.pdf)).
 To ensure good quality of our data, one attention check (discussed in more detail in [Section 3.3](#attention-checks)) is included.
 
 ## Experimental Protocol
@@ -81,9 +81,8 @@ Therefter, participants see the experimental stimuli.
 The stimuli in the experiment are to show respondents fully specified or underspecified sentences on the issue position of a political actor or a masked political actor (see Section Treatment for more details). 
 
 ## Power Analysis
-As detailed in [Section 4](#analysis), we conduct an OLS regression for the four sentences
-each of the dependent variables (i.e. sen 2--4): a) "The people, not politicians, should make the most important political decisions"; b) "The politicians in the German Bundestag need to follow the will of the people"; and c) "The political differences between elites and the people are greater than the differences among citizens".
-The manipulation, i.e. the civic conception (i.e. _Bürger_) or th ethnic conception (i.e. _Volk_) as well as respondents national identity and far right party ID are the main independent variables.
+As detailed in [Section 4](#analysis), we conduct an OLS regression for the four sentences.
+The manipulation, i.e. the masking condition vs. the political actor, as well as the specification of the sentence (i.e. _fully specified_ or _underspecified_) as well as respondents ideological distance to the party and their levels of political knowledge are the main independent variables.
   
 To calculate power for the hypotheses, the R package `DeclareDesign` is used [@blair2019declaring].
 The effect sizes are between $b = 0.2$ and $b = 0.1$ -- i.e. a small effect visualized by the purple and blue lines in Figure \ref{fig:power1}.
@@ -98,34 +97,43 @@ p
 # Measures
 
 ## Dependent Variables
-We rely on the three items in the populism scale that mention the people: a) "The people, not politicians, should make the most important political decisions"; b) "The politicians in the German Bundestag need to follow the will of the people"; and c) "The political differences between elites and the people are greater than the differences among citizens". All items are measured on a 5-point Likert-scale: `very much disagree`, `disagree`, `neutral`, `agree`, `very much agree`.
+We rely on whether or not a party's (implied) stance is coded according to the party’s position (H1 and H3) as well as whether or not the statement is coded as a stance at all (H3). For each issue, we ask the respondent `what is according to the sentence above the position of [ACTOR]?`, with the answer categories: `in favor`, `against`, `no stance`, `don't know`.
 
-See Table \ref{tab:dv} for the exact phrasing of the question.
+## Treatment
+Respondents are randomly assigned to either view a political party as an actor, or a masked condition, where they see `X` as an actor; simultaneously, respondents see either a fully specified sentence or a underspecified sentence, in which one needs additional information to interpret the positon on an actor.
+Table \ref{tab:conditions} gives an overview of the variations in treatment  in the survey as well as their English translations.
 
-```{r dv, topcaption=TRUE}
-d <- tibble(Variable = c("Item 2 (DV1)",
-                         "Item 3 (DV2)",
-                         "Item 4 (DV3)"), 
-            `Wording ENG` = c("The people, not politicians, should make the most important political decisions","he politicians in the German Bundestag need to follow the will of the people", "The political differences between elites and the people are greater than the differences among citizens"),
-            `Wording DE` = c("[Die Bürger/Das Volk], und nicht die Politiker, sollte(n) die wichtigsten politischen Entscheidungen treffen", "Die Abgeordneten des Deutschen Bundestags müssen dem Willen [der Bürger/des Volkes] Folge leisten", "Die politischen Unterschiede zwischen den Eliten und [den Bürgern/dem Volk] sind größer als die Unterschiede (zwischen Bürgern)"))
+```{r conditions, topcaption=TRUE}
+d <- tibble(Condition = c(rep("Specified", 4),
+                          rep("Underspecified", 4)), 
+            `Wording ENG` = c("[PVV/X] says immigration should be made harder.",
+                              "[GreenLeft/X] says nitrogen emissions need to be reduced.",
+                              "[Labour Party/X] says tax rate should go up for highest earners.",
+                              "[Forum for Democracy/X] says that membership in the European Union has been especially bad for the Netherlands so far.".
+                              "[PVV/X] says many immigrants are coming this way.",
+                              "[GreenLeft/X] says nitrogen policy must be different.",
+                              "[Labour Party/X] says tax system must be changed.",
+                              "[Forum for Democracy/X] says the Netherlands should have a different role in the European Union."),
+            `Wording NL` = c("[PVV/X] zegt dat immigratie moeilijker gemaakt moet worden.",
+                             "[GroenLinks/X] zegt dat stikstofuitstoot meer tegengegaan moet worden.",
+                             "[PvdA/X] zegt dat het belastingtarief voor de hoogste inkomens omhoog moet.",
+                             "[Forum voor Democratie/X] zegt dat het lidmaatschap van de Europese Unie tot nu toe vooral slecht geweest voor Nederland is.",
+                             "[PVV/X] zegt dat veel immigranten deze kant op komen.",
+                             "[GroenLinks/X] zegt dat het stikstofbeleid anders moet.",
+                             "[PvdA/X] zegt dat het belastingstelsel moet worden aangepast.",
+                             "[Forum voor Democratie/X] zegt dat Nederland een andere rol in de Europese Unie moet hebben."))
 
-kbl(d, booktabs =T, caption = "\\label{tab:dv}Survey Questions - DV") %>%
+kbl(d, booktabs =T, caption = "\\label{tab:conditions}Survey Questions - Experimental Conditions") %>%
   kable_styling(latex_options = c("striped", "hold_position"),
                 full_width = F, fixed_thead = T, position = "center") %>%
   column_spec(1, width = "3cm") %>%
   column_spec(2, width = "7cm") %>%
   column_spec(3, width = "7cm")
-
 ```
-
-## Treatment
-Respondents are randomly assigned to the populism items translated into German using either the civic conception (i.e. _Bürger_) or the ethnic conception (i.e. _Volk_).
-
-&nbsp;
 
 ## Control Variables
 
-As control variables, the following _demographics_ are measured: gender, age, education, geographical region, level of urbanness, vote choice in the 2021 parliamentary elections, employment, and income.
+As control variables, the following _demographics_ are measured post-treatment: gender, age, education, geographical region, level of urbanness, employment, and income.
 For the analysis, only variables that are unbalanced over the experimental conditions will be included.
 Table \ref{tab:demographics} gives an overview of the questions asked in the survey as well as their English translations.
 
@@ -136,38 +144,27 @@ Table \ref{tab:demographics} gives an overview of the questions asked in the sur
 - _Education_ is measured as the highest successfully completed level of education, recoded into four categories: `low`, `middle`, `high`, and `none`.
 I create dummy variables for each level of education with the lowest category as base category.
 
-- _Urbanness_ Respondents are asked for what the type of location they live: `big city`, `suburb of a large city`, `middle-szed or small city`, `rural village`, `detached house in the countryside`, `don't know/won't say`.
-
-- _Vote Recall_ Respondents were asked which party they voted for in the last election with their second vote. Answering categories were: `CDU/CSU`, `SPD`, `AfD`, `FDP`, `DIE LINKE`, `BÜNDNIS 90/DIE GRÜNEN`, `Other party:`, `I didn't vote/wasn't eligble to vote`, `Don't know/won't say`.
-
 - _Employment_ Respondents were asked which category of employment -- `Full-time employed`, `Part-time employed`, `Entrepreneur`, `Unemployed and searching for a job`, `Unemployed and not searching for a job or incapacitated`, `Housewife/Househusband or else`, `Retired`, `Student or full-time education` -- applied most to them. 
 
 - _Income_ Respondents were questioned on their monthly income in bins of €500 -- `€500 or less`, `€501-€1000`, `€1001-€1500`, `€1501-€2000`, `€2001-€2500`, `€2501-€3000`, `€3001-€3500`, `€3501-€4000`, `€4501-€7500`, `€7501 or more` -- as well as giving them the options of `won't  say` and `don't know`.
 
-- _Geographical region_ is measured using the same questions as the [German Longitudinal Election Study](https://www.gesis.org/wahlen/gles), asking respondents where they are born and currently live, differentiating between the different German provinces (_Bundesl{\"a}nder_): Baden-W{\"u}rtemberg, Bavaria, Berlin, Brandenburg, Bremen, Hamburg, Hessen, Lower Saxony, Mecklenburg-Western Pomerania, North Rhine-
-Westphalia, Rhineland-Palatinate, Saarland, Saxony, Saxony-Anholt, Schleswig-Holstein, and Thuringia.
+- _Geographical region_ is measured using the _Nielsen districs_, dividing the Netherlands into 1) the 3 major cities plus suburbs, Amsterdam (plus Diemen, Ouder-Amstel, Landsmeer, Amstelveen), Rotterdam (plus Schiedam, Capelle aan den IJssel, Krimpen aan den IJssel, Nederlek, Ridderkerk, Barendrecht, Albrandswaard) and The Hague (plus Leidschendam, Voorburg, Rijswijk, Wassenaar, Wateringen); 2) West (Noord-Holland, Zuid-Holland and Utrecht (excluding the major cities and their suburbs; 3) North (Groningen, Friesland and Drenthe), 4) East (Overijssel, Gelderland and Flevoland); and South (Zeeland, Noord-Brabant and Limburg).
+
 
 ```{r demographics, topcaption=TRUE}
-d <- tibble(Variable = c("gender (D1)", "age (D2)", "education (D3)",
-                         "geographical-region (D4)", "vote-recall2 (D6)", "employment (D7)",
-                         "income (D8)", "living-place (D9)", "birth-place (D10)"), 
-            `Wording ENG` = c("Which gender do you feel you belong to?", "To which of the following age groups do you belong?",
-                              "What is your highest educational qualification?", 
-                             "Which of the following categories best describes where you live?",
-                             "Which party did you vote for with your second vote in the last federal election in September 2021?",
-                             "Now we would like to ask you something about your employment. Which of this list applies to you?",
-                              "What is the total monthly net income of your household? This refers to the sum that remains after deducting taxes and social security contributions.",
-                             "In which federal state or on the territory of which present federal state do you currently live?",
-                              "And in which federal state or on the territory of which present federal state were you born?"),
-            `Wording DE` = c("Welchem Geschlecht fühlen Sie sich zugehörig?", 
-                             "Zu welcher der nachfolgenden Altersgruppen gehören Sie?",
-                             "Was ist Ihr höchster Bildungsabschluss?",
-                             "Welche der folgenden Kategorien beschreibt am besten, wo Sie wohnen?",
-                             "Welche Partei haben Sie bei der letzten Bundestagswahl im September 2021 mit Ihrer Zweitstimme gewählt?",
-                             "Nun möchten wir Sie gerne etwas zu Ihrer Erwerbstätigkeit fragen. Was von dieser Liste trifft auf Sie zu?",
-                             "Wie hoch ist das monatliche Netto-Einkommen Ihres Haushaltes insgesamt? Gemeint ist die Summe, die nach Abzug von Steuern und Sozialversicherungsbeiträgen übrig bleibt.",
-                             "Im welchen Bundesland bzw. auf dem Gebiet welches heutigen Bundeslandes wohnen Sie derzeit?",
-                             "Und in welchem Bundesland bzw. auf dem Gebiet welches heutigen Bundeslandes wurden Sie geboren?"))
+d <- tibble(Variable = c("gender (D1)", "age (D2)", 
+                         "region (D3)", "job (D5)", "income (D6)",
+                         "education (D7)"), 
+            `Wording ENG` = c("What is your gender?", "What is your year of birth?",
+                             "In which region do you live?",
+                             "What applies most to you? Are you...",
+                              "Can you indicate which income groups your net monthly household income falls into?",
+                             "What is your highest level of education?", ),
+            `Wording NL` = c("Wat is uw geslacht?", "Wat is uw geboortejaar?", 
+                             "In welke regio woont u?",
+                             "Wat is het meest op u van toepassing? Bent u...",
+                             "Kunt u aangeven in welke inkomensgroepen uw netto maandelijks huishoudinkomen valt?", 
+                             "Wat is uw hoogst GENOTEN opleiding",))
 
 kbl(d, booktabs =T, caption = "\\label{tab:demographics}Survey Questions - Demographics") %>%
   kable_styling(latex_options = c("striped", "hold_position"),
@@ -175,33 +172,53 @@ kbl(d, booktabs =T, caption = "\\label{tab:demographics}Survey Questions - Demog
   column_spec(1, width = "3cm") %>%
   column_spec(2, width = "7cm") %>%
   column_spec(3, width = "7cm")
-
 ```
 
-In addition, pre-treatment, respondents' ideological position, political knowledge, interest, and attitude towards national identity are measured (see Table \ref{tab:pret}).
+In addition, pre-treatment, respondents' ideological position, political knowledge, vote recall, and position on the issues migration, climate, tax, and EU are measured (see Table \ref{tab:pret}).
 Those variables will only be included in the analyses if balance checks indicate they are necessary.
 Moreover, the variables will be used to explore heterogeneous relationships. 
 
 - _Ideological position_ is measured using an 11-point scale ranging from left (`0`) to right (`10`).
 
-- _Exclusive national identity_ is measured with four statements ("being born in Germany", "having German ancestors", "being able to speak German", "adhering to German traditions and customs") on a 5-point Likert-scale: `very much disagree`, `disagree`, `neutral`, `agree`, `very much agree`. If `Cronbach's` $\alpha =>0.8$, we will construct an additive scale for this measure.
-When `Cronbach's` $\alpha <0.8$, we will add the statement as seperate dependent variables in the multiverse analysis. 
+- _Vote Recall_ Respondents were asked which party they voted for in the 2021 parliamentary elections. The options were 1) all parties that were elected into parliament -- `Bij1`, `BoerBurgerBeweging`, `CDA`, `ChristenUnie`, `D66`, `Denk`, `Forum for Democracy`, `JA21`, `GroenLinks`, `PvdA`, `Animal Rights Party`, `PVV`, `SGP`, `SP`, `VOLT`,`VVD`, `50Plus Party` -- 2) another party; 3) blanco vote; and 4) a `Don't know` option.
 
 
 ```{r pret, topcaption=TRUE}
-d <- tibble(Variable = c("political-knowledge1 (PT4)", "political-knowledge2 (PT5)", "political-knowledge3 (PT6)", "political-interest (PT7)","RILE (PT8)", "Exclusive national identity (HT4)", "Exclusive national identity (HT4-1)", "Exclusive national identity (HT4-2)", "Exclusive national identity (HT4-3)", "Exclusive national identity (HT4-4)" ), 
-            `Wording ENG` = c("In the federal election, you have two votes, a first vote and a second vote. How is that actually, which of the two votes is decisive for the distribution of seats in the Bundestag?",
-                             "Now we would like to know from you, from what percentage of the second votes a party can send deputies in any case in the Bundestag?",
-                             "And can you say approximately what the current unemployment rate is in Germany? Is it lower or higher than 10 percent?", 
-                             "Once speaking in general terms: How interested are you in politics - very strongly, strongly, moderately, less strongly, or not at all?",
-                            "In politics, people often talk about 'left' and 'right.' Where would you classify yourself?",
-                            "Some people think that the following points are important to be truly German. Others do not think they are important. How important do you think the following points are to being German?", "being born in Germany", "having German ancestors", "being able to speak German", "adhering to German traditions and customs"),
-            `Wording DE` = c("Bei der Bundestagswahl haben Sie ja zwei Stimmen, eine Erststimme und eine Zweitstimme. Wie ist das eigentlich, welche der beiden Stimmen ist ausschlaggebend für die Sitzverteilung im Bundestag?",
-                             "Jetzt möchten wir gerne von Ihnen wissen, ab wie viel Prozent der Zweitstimmen eine Partei auf jeden Fall Abgeordnete in den Bundestag entsenden kann? ",
-                             "Und können Sie ungefähr sagen, wie hoch die derzeitige Arbeitslosenquote in Deutschland ist? Ist sie niedriger oder höher als 10 Prozent?", 
-                             "Einmal ganz allgemein gesprochen: Wie stark interessieren Sie sich für Politik – sehr stark, stark, mittelmäßig, weniger stark oder überhaupt nicht?",
-                            "In der Politik reden die Leute häufig von 'links' und 'rechts'. Wo würden Sie sich selbst einordnen?",
-                            "Manche Leute meinen, dass die folgenden Punkte wichtig sind, um wirklich deutsch zu sein. Andere halten diese nicht für wichtig. Für wie wichtig halten Sie die folgenden Punkte, um deutsch zu sein?", "in Deutschland geboren sein", "deutsche Vorfahren haben", "deutsch sprechen können", "sich an deutsche Traditionen und Gepflogenheiten halten"))
+d <- tibble(Variable = c("vote recall (PT1)", "introduction",
+                         "migration (PT2)", "climate (PT3)",
+                         "tax (PT4)", "EU (PT5)", "RILE (PT6)",
+                         "political-knowledge1 (PT7_1)", 
+                         "political-knowledge2 (PT7_2)", 
+                         "political-knowledge3 (PT7_3)", 
+                         "political-knowledge4 (PT7_4)", 
+                         "political-knowledge5 (PT7_5)",
+                         "political-knowledge5 (PT7_6)"), 
+            `Wording ENG` = c( "Which party did you vote for during the last parliamentary elections of March 2021?",
+                               "To what extent do you agree with the following statements:",
+                               "There are too many immigrants in the Netherlands.",
+                               "The climate crisis is exaggerated.",
+                               "The tax rate for the highest earners should go up",
+                               ""
+                               "In politics there is often talk about left and right. Where would you put yourself on this scale?",
+                               "Which parties currently form the coalition government?",
+                               "Which of the following is the current Finance Minister in the Rutte cabinet?",
+                               "Which political party was the second-largest party in the last Lower House elections on March 17?",
+                               "By whom are members of the Senate elected?",
+                               "Who makes or is making new laws in the Netherlands?",
+                               "If the government and the House of Representatives pass a law that is not in line with the Dutch Constitution, may the courts disapprove it?"),
+            `Wording NL` = c("Op welke politieke partij heeft u bij de vorige Tweede Kamerverkiezingen van maart 2021 gestemd?",
+                             "In hoeverre bent u het eens met onderstaande stellingen:",
+                             "Er zijn te veel immigranten in Nederland.",
+                             "De klimaatcrisis wordt overdreven.",
+                             "Het belastingtarief voor de hoogste inkomens moet omhoog",
+                             "Het lidmaatschap van de Europese Unie is tot nu toe vooral slecht geweest voor Nederland",
+                             "In de politiek wordt vaak gesproken over links en rechts. Waar zou u uzelf op deze schaal plaatsen?",
+                             "Welke partijen vormen op dit moment de coalitieregering?",
+                            "Wie van de volgende personen is de huidige minister van Financiën in het kabinet Rutte?",
+                            "Welke politieke partij was de op één na grootste partij tijdens de afgelopen Tweede Kamerverkiezingen van 17 maart?",
+                            "Door wie worden de leden van de Eerste Kamer gekozen?",
+                            "Wie maakt of maken in Nederland nieuwe wetten?",
+                            "Als de regering en de Tweede Kamer een wet aannemen die niet overeenkomt met de Nederlandse Grondwet, mag de rechter deze wet dan afkeuren?"))
 
 kbl(d, booktabs =T, caption = "\\label{tab:pret}Survey Questions - PreTreatment Questions") %>%
   kable_styling(latex_options = c("striped", "hold_position"),
@@ -211,155 +228,142 @@ kbl(d, booktabs =T, caption = "\\label{tab:pret}Survey Questions - PreTreatment 
   column_spec(3, width = "7cm")
 ```
 
-- _Political knowledge_ is measured with three items. First, respondents are asked which of the two votes is determinative for the seat distribution in parliament: `first vote`, `second vote`, `both`, `don't know`. Secondly, respondents are asked about the electoral threshold. Last, respondents are asked whether or not the unemployment rate is over ten procent.
+- _Political knowledge_ is measured with six items from the DPES.
 
-- _Political interest_ is measured by asking people how strongly they are interested in politics using a 5-point Likert-scale (`very strong`, `strong`, `medium`, `less strong`, `not at all`) and a `don't know/won't say` option.
+- _Position on migration_ is measured by asking people whether or not there are too many immigrants in the Netherlands using a 5-point Likert-scale (`fully disagree`, `disagree`, `neutral`, `agree`, `fully agree`).
 
-## Attention Checks
-We include two attention checks in the survey.
-The first one is after the demographic covariates, the second one is asked just before respondents enter the round of the experimental treatments.
+- _Position on climate_ is measured by asking people whether or not the climate crisis is exaggerated using a 5-point Likert-scale (`fully disagree`, `disagree`, `neutral`, `agree`, `fully agree`).
+
+- _Position on tax_ is measured by asking people whether or not the  tax rate for the highest earners should go up using a 5-point Likert-scale (`fully disagree`, `disagree`, `neutral`, `agree`, `fully agree`).
+
+
+- _Position on the EU_ is measured by asking people whether or not membership in the European Union has been especially bad for the Netherlands so far using a 5-point Likert-scale (`fully disagree`, `disagree`, `neutral`, `agree`, `fully agree`).
+
+
+## Attention Check
+We include one attention checks in the survey.
+This is asked just before respondents enter the round of the experimental treatments.
 The attention checks are taken from @berinsky2014separating and adapted to the German context by the authors.
 If a respondents fails the first attention check, a warning appears and the respondent can only continue with the survey once the respondent has correctly answered the question correctly.
-The second attention check also has a warning -- meaning that respondents have to select two options -- but if they fail to correctly pass the check, they are excluded.
-Each excluded respondent due to failing an attention check is replaced with another ``good respondent".
-  
-**Attention Check 1**  When a big news story breaks people often go online to get up-to-the-minute details on what is going on.
+
+**Attention Check**  When a big news story breaks people often go online to get up-to-the-minute details on what is going on.
 We want to know which websites people trust to get this information.
 We also want to know if people are paying attention to the question.
-To show that you have read this much, please ignore the question and select BILD-Zeitung and Süddeutsche Zeitung as your two answers.
-When there is a big news story, which is the one news website you would visit first? (Please only choose one).
-Eight (German) news outlets are provided to choose from.
-Respondents pass the attention check if they select _BILD-Zeitung_ and _Süddeutsche Zeitung_.
-  
-**Attention Check 2**:
-We would like to get a sense of your general preferences.
-Most  modern  theories  of  decision  making  recognize  that  decisions  do  not take  place  in  a  vacuum.
-Individual  preferences  and  knowledge,  along  with  situational variables can greatly impact the decision process.
-To demonstrate that you've read this much,  just  go  ahead  and  select  both  red  and  green  among  the  alternatives  below,  no matter what your favourite color is.  Yes, ignore the question below and select both of those options.
-What is your favourite color?
-Six colors are provided to choose from, respondents pass the attention check if they select red and green.
+To show that you have read this much, please ignore the question and select Volkskrant and Metro as your two answers.
+When there is a big news story, which is the one news website you would visit first? (Please
+only choose one).
+Eight (Dutch) news outlets are provided to choose from.
+Respondents pass the attention check if they select _de Volkskrant_ and _Metro_.
+
 
 ## Exclusion Criteria
 Participants are required to respond to each question.
-Participants who fail the second attention check will be excluded but replaced by another participant.
+
 
 # Analysis
-We test the hypotheses formulated in [Section 1](#expectations) by fitting linear multivariate regressions separately for the two issues.
-In each model, we will estimate the coefficient for whether the party compromised or remained steadfast (H1), whether or not the coalition talks continued (H2), and the interaction of compromise and the outcome (H3).
+We test the hypotheses formulated in [Section 1](#expectations) by fitting linear multivariate regressions pooling the issues.
+In each model, we will estimate the coefficient for whether the actor in the sentence is masked or not, as well as for whether the sentence is fully specified or underspecified. We will add ideological distance from the party mentioned as well as political knowledge as interactions with the experimental conditions.
 We will only add control variables in the analyses that are unbalanced, as explained in [Section 4.1](#balance-checks).
 
 ## Balance Checks
-We will conduct a balance test based on demographics (age, gender, education, geographical region, level of urbanness,employment, and income), vote choice in the 2021 parliamentary elections, ideological self-placement, political knowledge, political interest, party identity strength, and positions on and salience of the three issues, using the `cobalt` R package [@greifer2021]. 
-If the groups are unbalanced on one of these variables -- i.e. standardized mean differences $<0.05$ -- I will add the covariates to the analyses.
-I will use the code below to conduct the balance tests (see [here](https://github.com/MarikenvdVelden/compromise-punish/tree/main/src/analysis/balance-test.R) for the R script).
+We will conduct a balance test based on demographics (age, gender, education, geographical region, level of urbanness,employment, and income), vote choice in the 2021 parliamentary elections, ideological self-placement, political knowledge, and positions on the issues, using the `cobalt` R package [@greifer2021]. 
+If the groups are unbalanced on one of these variables -- i.e. standardized mean differences $<0.05$ -- we will add the covariates to the analyses.
+We will use the code below to conduct the balance tests (see [here](https://github.com/MarikenvdVelden/compromise-punish/tree/main/src/analysis/balance-test.R) for the R script).
 
 ```{r balance, eval=FALSE, echo = TRUE}
 covs <- d %>%
-  mutate(treatment = populism) %>%
-  select(populism, D1:D10, PT1:PT8, HT4) 
+  mutate(treatment = sentence) %>%
+  select(sentence, D1:D7, PT1:PT&) 
 
 balanced <-bal.tab(treatment ~ factor(D1) + D2 +
                      factor(D3) + D4 + D5 + 
-                     factor(D6) + D7 + D8 + D9 +
-                     D10 + PT4 + PT5 + PT6 + PT7 + 
-                     PT8 + HT4,
+                     factor(D6) + D7 + PT1 + 
+                     PT2 + PT3 + PT4 + PT5 + 
+                     PT6 + PT7,
                      data = covs,
           thresholds = c(m = 0.05))[[1]] 
 ```
 
 ## Hypothesis 1
-We test the _Ethnic Conception hypothesis_, we will conduct a difference in means for the group who received the ethnic and the civic question wording, for all populist items containing a reference to _the people_ -- see code chunck below.
+To test the _Ideological Bias hypothesis_, we will conduct a multilevel model, with respondents clustered in issues, see code chunck below.
+Using the pooled data we will estimate a within groups fixed effects model. 
+$Y\hat{Y}_{r, i, t}$ in Equation \ref{eq:pooled} denotes the  evaluation  of  a stance by respondent $r$, during issue $i$ and at experimental round $t$ -- ranging from round 1 to round 4.
+The standard errors are clustered at the individual level.\
+
+$$\begin{equation}\label{eq:pooled}
+    \hat{stance-correct}_{r, i, t} =\beta_{0} + \beta_{1}masked_{r, i, t} +
+    \beta_{2}specification_{r, i, t} + 
+    \beta_{3}ideological-distance-to-party_{r, i, t} +
+    \beta_{4}political-knowledge_{r, i, t} +
+    \alpha_{i} + \gamma_{t} + \varepsilon_{r, i, t}
+\end{equation}$$
+
+We consider evidence for H1a when the effect of $\beta_{3}$ is postive and statistically significant.
+If the Average Marginal Effect of $\beta_{3}$ is positive and statistically siginificant when $\beta_{2} = 1$ (i.e. condition is underspecidied), the second _Ideological Bias hypothesis_ (H1b) will be confirmed.
+
+
+
 
 ```{r h1, eval = FALSE, echo = TRUE}
-source(here::here("src/lib/functions.R"))
+h1a <- lmer(stance_correct ~ masked + specification + 
+              ideological_distance_to_party + political_knowledge +
+              (1 | issue), data= d)
 
-df %>% 
-  mutate(ethnic == if_else(populist=="Volk", "Ethnic", "Civic")) %>%
-  select(`POST-2`, `POST-3`, `POST-4`, ethnic) %>%
-  gather(key = variable, value = value, -ethnic) %>%
-  group_by(ethnic, variable) %>%
-  summarise(value = list(value)) %>% 
-  spread(ethnic, value) %>% 
-  group_by(variable) %>% 
-  mutate(p_value = t.test(unlist(Ethnic), unlist(Civic))$p.value,
-         t_value = t.test(unlist(Ethnic), unlist(Civic))$statistic)
+h1b <- lmer(stance_correct ~ masked + 
+              specification * ideological_distance_to_party + 
+              political_knowledge + (1 | issue), data= d)
 ```
 
-## Hypothesis 2a
+## Hypothesis 2
+To test the _Overinterpretation Hypotheses_, we will conduct a multilevel model, with respondents clustered in issues, see code chunck below.
+Using the pooled data we will estimate a within groups fixed effects model. 
+$Y\hat{Y}_{r, i, t}$ in Equation \ref{eq:pooled} denotes the  evaluation  of  a stance by respondent $r$, during issue $i$ and at experimental round $t$ -- ranging from round 1 to round 4.
+The standard errors are clustered at the individual level
 
-We test the _Exclusive National Identity hypothesis_ using the equation and the code chunk below.
-The coefficient of $\beta_{1}$ denotes the difference in populist attitude for civic and ethnic conceptions of the people.
-The coefficient of $\beta_{2}$ denotes the difference in populist attitude for different levels of national identity.
-The coefficient of $\beta_{3}$ is the interaction of the  $\beta_{1}$ and  $\beta_{2}$.
-If the Average Marginal Effect of $\beta_{1}$ is positive and statistically significant for higher values of $\beta_{2}$ (i.e. stronger national identity), then H2a will be confirmed.
+$$\begin{equation}\label{eq:pooled}
+    \hat{stance-correct}_{r, i, t} =\beta_{0} + \beta_{1}masked_{r, i, t} +
+    \beta_{2}specification_{r, i, t} + 
+    \beta_{3}heterogeneous_treatment{r, i, t} +
+    \beta_{4} specification * heterogeneous_treatment_{r, i, t} +
+    \alpha_{i} + \gamma_{t} + \varepsilon_{r, i, t}
+\end{equation}$$
 
+When the Average Marginal Effect of $\beta_{3}$ ideological distance is positive and statistically siginificant when $\beta_{2} = 1$ (i.e. condition is underspecidied), the _Ideological Overinterpretation hypothesis_ (H2a) will be confirmed.
+When the Average Marginal Effect of $\beta_{3}$ political knowledge is positive and statistically siginificant when $\beta_{2} = 1$ (i.e. condition is underspecidied), the _Political Knowledge Overinterpretation hypothesis_ (H2b) will be confirmed.
 
-$$\begin{aligned}
-    \hat{Y}_{item} = \beta_{0} + \beta_{1}Ethnic  +
-    \beta_{2}National \ Identity + \beta_{3} Ethnic * National \ Identity + \nonumber \\
-    \beta_{4}Unbalanced \ Covariates + \varepsilon
-  \end{aligned}$$
+```{r h2, eval = FALSE, echo = TRUE}
+h2a <- lmer(stance ~ masked + specification * ideological_distance_to_party +
+              political_knowledge + (1 | issue), data= d)
 
-```{r h2a, eval = FALSE, echo = TRUE}
-source(here::here("src/lib/functions.R"))
-
-df <- d %>% 
-  mutate(ethnic == if_else(populist=="Volk", "Ethnic", "Civic"))  %>%
-  select(`POST-2`, ethnic, HT4)
-h2a_1 <- lm(`POST-2` ~  ethnic * HT4,
-                   data = df)
-
-df <- d %>% 
-  mutate(ethnic == if_else(populist=="Volk", "Ethnic", "Civic"))  %>%
-  select(`POST-3`, ethnic, HT4)
-h2a_2 <- lm(`POST-3` ~  ethnic * HT4,
-                   data = df)
-
-df <- d %>% 
-  mutate(ethnic == if_else(populist=="Volk", "Ethnic", "Civic"))  %>%
-  select(`POST-4`, ethnic, HT4)
-h2a_3 <- lm(`POST-4` ~  ethnic * HT4,
-                   data = df)
+h2b <- lmer(stance ~ masked + 
+              specification * ypolitical_knowledge + 
+              ideological_distance_to_party + (1 | issue), data= d)
 ```
 
+## Hypothesis 3
+To test the _Masking Solution hypotheses_, we will conduct a multilevel model, with respondents clustered in issues, see code chunck below.
+Using the pooled data we will estimate a within groups fixed effects model. 
+$Y\hat{Y}_{r, i, t}$ in Equation \ref{eq:pooled} denotes the  evaluation  of  a stance by respondent $r$, during issue $i$ and at experimental round $t$ -- ranging from round 1 to round 4.
+The standard errors are clustered at the individual level
 
-## Hypothesis 2b
+$$\begin{equation}\label{eq:pooled}
+    \hat{stance-correct}_{r, i, t} =\beta_{0} + \beta_{1}masked_{r, i, t} +
+    \beta_{2}specification_{r, i, t} + 
+    \beta_{3}heterogeneous_treatment{r, i, t} +
+    \beta_{4} masked * heterogeneous_treatment_{r, i, t} +
+    \alpha_{i} + \gamma_{t} + \varepsilon_{r, i, t}
+\end{equation}$$
 
-We test the _Far Right Party ID hypothesis_ using the equation and the code chunk below.
-The coefficient of $\beta_{1}$ denotes the difference in populist attitude for civic and ethnic conceptions of the people.
-The coefficient of $\beta_{2}$ denotes the difference in populist attitude for whether or not a respondent has voted for a far right party.
-The coefficient of $\beta_{3}$ is the interaction of the  $\beta_{1}$ and  $\beta_{2}$.
-If the Average Marginal Effect of $\beta_{1}$ is positive and statistically significant for higher values of $\beta_{2}=1$ (i.e. voted for a radical right party), then H2b will be confirmed.
+When the Average Marginal Effect of $\beta_{3}$ ideological distance is negatiive and statistically siginificant when $\beta_{2} = 1$ (i.e. condition is masked), the first _Masking Solution hypothesis_ (H3a) will be confirmed.
+When the Average Marginal Effect of $\beta_{3}$ political knowledge is negative and statistically siginificant when $\beta_{2} = 1$ (i.e. condition is masked), the second _Masking Solution hypothesis_ (H3b) will be confirmed.
 
-$$\begin{aligned}
-    \hat{Y}_{item} = \beta_{0} + \beta_{1}Ethnic  +
-    \beta_{2}Far \ Right \ Party \ ID + \beta_{3} Ethnic * Far \ Right \ Party \ ID + \nonumber\\
-    \beta_{4}Unbalanced \ Covariates + \varepsilon
-  \end{aligned}$$
+```{r h3, eval = FALSE, echo = TRUE}
+h3a <- lmer(stance ~ masked + specification * ideological_distance_to_party +
+              political_knowledge + (1 | issue), data= d)
 
-```{r h2b, eval = FALSE, echo = TRUE}
-source(here::here("src/lib/functions.R"))
-
-df <- d %>% 
-  mutate(afd_vote == if_else(`D6-3`==1, 1, 0),
-         ethnic == if_else(populist=="Volk", "Ethnic", "Civic"))  %>%
-  select(`POST-2`, ethnic, afd_vote)
-h2a_1 <- lm(`POST-2` ~  ethnic * afd_vote,
-                   data = df)
-
-df <- d %>% 
-  mutate(afd_vote == if_else(`D6-3`==1, 1, 0),
-         ethnic == if_else(populist=="Volk", "Ethnic", "Civic"))  %>%
-  select(`POST-3`, ethnic, afd_vote)
-h2a_2 <- lm(`POST-3` ~  ethnic * afd_vote,
-                   data = df)
-
-df <- d %>% 
-  mutate(afd_vote == if_else(`D6-3`==1, 1, 0),
-         ethnic == if_else(populist=="Volk", "Ethnic", "Civic"))  %>%
-  select(`POST-4`, ethnic, afd_vote)
-h2a_3 <- lm(`POST-4` ~  ethnic * afd_vote,
-                   data = df)
+h3b <- lmer(stance ~ masked + 
+              specification * ypolitical_knowledge + 
+              ideological_distance_to_party + (1 | issue), data= d)
 ```
 
 
