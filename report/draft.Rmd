@@ -51,8 +51,8 @@ author:
 - affiliation: Computational Linguistics & Text Mining Lab, Vrije Universiteit Amsterdam
 - name: Kasper Welbers
 - affiliation: Dep. of Communciation Science, Vrije Universiteit Amsterdam
-thanks: "* = Corresponding author, Replication files are available on the author's Github account (https://github.com/MarikenvdVelden/bias-experiment); Author contributions: designed the study: MACGvdV, WvA, AF, FL, MR, & KW; conducted the study: MACGvdV, FL & MR; data cleaning & analysis: MACGvdV; writing of the paper: MACGvdV"
-anonymous: TRUE
+thanks: "* = Corresponding author, Replication files are available on the author's Github account (https://github.com/MarikenvdVelden/bias-experiment); Author contributions: a) designed the study: MACGvdV, WvA, AF, FL, MR, & KW; b) conducted the study: MACGvdV, FL & MR; c) data cleaning & analysis: MACGvdV; d) writing of the paper: MACGvdV"
+anonymous: FALSE
 abstract: "Information is key to inform the behavior of citizens, and thereby for the social scientists studying them. The democratization of data has lead to numerous possibilities to gather and analyze textual data. These enourmous amounts of data are typically handled by machine learning techniques to classify into meaningful variables. The performance of these models are compared to a so-called golden standards, created by human annotators. Having a high level of agreement between these annotators is key, but some suggest personal characteristics of annotators, like political ideology or knowledge, interfere. We show in two pre-registered experiments that XXX. Thereby [contribution]."
 keywords: "Experiment, Annotation Bias, Ideology, Measurinig Political Position, Text-as-Data, Political Knowledge"
 geometry: margin=1in
@@ -104,7 +104,7 @@ While this yields lots of experiences as to how to train coders so that we get r
 While the crowd offers a solution to some of these issues [@van2021validity], the main underlying assumption that there is one correct interpretation for every input example remains untouched.
 At the same time, trends of polarization have shown that people do interpret information according to their ideological position. 
 _Does this mean that some are right and others are wrong? Or is there an ideological difference in the ground truth?_
-This question presents a fundamental challenge to the main way of working when collecting gold standard data, as we operate from the baseline assumption that disagreement among the annotators should be avoided or reduced.
+These questions presents a fundamental challenge to the main way of working when collecting gold standard data, as we operate from the baseline assumption that disagreement among the annotators should be avoided or reduced.
 Typically, when specific cases continuously cause disagreement, more instructions are added to limit interpretations [for recent innovations to improve annotation, see for example: @barbera2021automated; @struthers2020bridging; @winter2020online; @debell2013harder; @benoit2016crowd, @ying2022topics].
 However, work in computational linguistics has shown that increased annotation instructions do not increase quality [@parmar2022don].
 This leaves us between a rock and a hard place. Is there a potential bias in annotators that we should account for? 
@@ -127,23 +127,45 @@ Our findings thus underline the importance of taking disagreement seriously for 
 We should look beyond the majority vote and modeling it in the data, because if an algorithm is trained on biased data from disagreeing annotators, it will reproduce and often exacerbate that bias when it is applied to new data [e.g., see @prost2019debiasing]. 
 To be able to model these characteristic of annotators, we should survey the characteristics of annotators when using the crowd (see Webb-Williams et al. 2023 for a similar argument, yet different annotator characteristics).
 
-[^1]: The data and research compendium is published on the [main author's github page](link) -- annonymized for the review process.
+[^1]: The data and research compendium is published on the [main author's github page](https://github.com/MarikenvdVelden/bias-experiment) -- annonymized for the review process.
 
 # Whose Truth is it Anyway? Disagreement & Perspectivism in Creating Gold Standard Data
-To test whether societal trends of polarization have an effect on our crowd-coders, and by extension on the quality of our annotated gold standard data. To that end, we have formulated the following hypotheses:
+Generating large data-sets has become one of the main drivers of progress in natural language understanding.
+In studies of political communication, the most familiar annotation tasks involve identifying basic concepts.
+This often involve noting the topic of the text, the position of the actor or the tone of the text. 
+A recent study [@van2021validity] demonstrates that using crowd-coding platforms is a good way to collect such large data-sets.
+However, having only a few workers annotate the majority of text of interest has raised concerns about data diversity and models' ability to generalize beyond the crowd-workers:
+In a series of experiments, @geva2019we show that often models do not generalize well to annotations from annotators that did not contribute to the training set, suggesting that annotator bias should be monitored during data-set creation.
+One such potential bias, especially in times of increasing polarization [@iyengar2019origins; @gidron2019toward; @boxell2022cross], is based on ideological position of the annotator. 
+Given that annotators on crows-coding platforms tend to be younger and hold more liberal values than the general public [@clifford2015samples;@huff2015these], this could potentially hamper the data diversity and generalizability of the model.
+An additional reason to monitor the annotators ideological position as a potential source of annotator bias is that a recent study in NLP showed that experiential factors influence the consistency of how political ideologies are perceived [@shen2021sounds].
+Their finding challenges the "ground-truth" assumption we as researcher make that a position for example is either left-leaning or right-wing leaning. 
+People with different ideological backgrounds might experience that position differently. 
+This challenges us.
+We are interested in the effect of e.g. elite communication. 
+To study this, we allow for heterogeneous treatment effects in experimental work.
+This indicates that we often do not assume that the treatment, often using text, has the same effect for different partisans.
+Yet, at the same time, we forget or ignore that knowledge when creating large data-sets for our machine learning models. 
+To test whether people with different ideological backgrounds as well as their politicall knowledge might experience that position differently, challenging our ground-truth assumption in data annotation, we propose the following hypotheses:
 
-> **Ideological Bias hypothesis** (_H1a_): The larger the ideological distance between respondent and the party, the less likely respondents code stances according to the party’s position.
+> **Ideological Bias hypothesis** (_H1a_): The larger the ideological distance between respondent and the party, the less likely respondents annotate statements according to the party’s uttered position.
 
-> **Ideological Bias hypothesis** (_H1b_): The effect of H1a is stronger for the underspecified condition.
+> **Ideological Bias hypothesis** (_H1b_): The effect of H1a is stronger for sentences in which the party's position can be infered (i.e. underspecified sentences).
+
 
 > **Ideological Overinterpretation hypothesis** (_H2a_):  The larger the ideological distance between respondent and the party, the more likely respondents interpret underspecified sentences as stance.
 
 > **Political Knowledge Overinterpretation hypothesis** (_H2b_): The more political knowledge, the more likely people interpret underspecified sentences as stance. 
 
+If these biases exists, how can we alleviate them?
+For the Austrian National Elections, @ennser2018impact already demonstrated that showing party labels impact annotators' assessment of the party position.
+So, one solution is masking:
+
 > **Masking Solution hypothesis** (_H3a_):  Masking reduces the effect of respondents’ ideological position for coding stances according to the party’s position.
 
 > **Masking Solution hypothesis** (_H3b_): Masking reduces the effect of respondents’ level of political knowledge for coding stances according to the party’s position. 
 
+Think about perspectivism for another solution!
 
 
 # Data, Methods & Measurement
