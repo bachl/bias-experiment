@@ -34,7 +34,7 @@ header-includes:
 ```{r setup, include=FALSE}
 ## include this at top of your RMarkdown file for pretty output
 ## make sure to have the printr package installed: install.packages('printr')
-knitr::opts_chunk$set(message = FALSE, warning = FALSE, echo = FALSE)
+knitr::opts_chunk$set(message = FALSE, warning = FALSE, echo = FALSE,cache = TRUE)
 #library(printr)
 library(tidyverse)
 library(kableExtra)
@@ -109,7 +109,7 @@ d <- tibble(Condition = c(rep("Specified", 4),
             `Wording ENG` = c("[PVV/X] says immigration should be made harder.",
                               "[GreenLeft/X] says nitrogen emissions need to be reduced.",
                               "[Labour Party/X] says tax rate should go up for highest earners.",
-                              "[Forum for Democracy/X] says that membership in the European Union has been especially bad for the Netherlands so far.".
+                              "[Forum for Democracy/X] says that membership in the European Union has been especially bad for the Netherlands so far.",
                               "[PVV/X] says many immigrants are coming this way.",
                               "[GreenLeft/X] says nitrogen policy must be different.",
                               "[Labour Party/X] says tax system must be changed.",
@@ -155,16 +155,17 @@ I create dummy variables for each level of education with the lowest category as
 d <- tibble(Variable = c("gender (D1)", "age (D2)", 
                          "region (D3)", "job (D5)", "income (D6)",
                          "education (D7)"), 
-            `Wording ENG` = c("What is your gender?", "What is your year of birth?",
+            `Wording ENG` = c("What is your gender?", 
+                              "What is your year of birth?",
                              "In which region do you live?",
                              "What applies most to you? Are you...",
                               "Can you indicate which income groups your net monthly household income falls into?",
-                             "What is your highest level of education?", ),
+                             "What is your highest level of education?"),
             `Wording NL` = c("Wat is uw geslacht?", "Wat is uw geboortejaar?", 
                              "In welke regio woont u?",
                              "Wat is het meest op u van toepassing? Bent u...",
                              "Kunt u aangeven in welke inkomensgroepen uw netto maandelijks huishoudinkomen valt?", 
-                             "Wat is uw hoogst GENOTEN opleiding",))
+                             "Wat is uw hoogst GENOTEN opleiding"))
 
 kbl(d, booktabs =T, caption = "\\label{tab:demographics}Survey Questions - Demographics") %>%
   kable_styling(latex_options = c("striped", "hold_position"),
@@ -198,7 +199,7 @@ d <- tibble(Variable = c("vote recall (PT1)", "introduction",
                                "There are too many immigrants in the Netherlands.",
                                "The climate crisis is exaggerated.",
                                "The tax rate for the highest earners should go up",
-                               ""
+                               "The Netherlands should have a different role in the European Union.",
                                "In politics there is often talk about left and right. Where would you put yourself on this scale?",
                                "Which parties currently form the coalition government?",
                                "Which of the following is the current Finance Minister in the Rutte cabinet?",
@@ -268,7 +269,7 @@ We will only add control variables in the analyses that are unbalanced, as expla
 ## Balance Checks
 We will conduct a balance test based on demographics (age, gender, education, geographical region, level of urbanness,employment, and income), vote choice in the 2021 parliamentary elections, ideological self-placement, political knowledge, and positions on the issues, using the `cobalt` R package [@greifer2021]. 
 If the groups are unbalanced on one of these variables -- i.e. standardized mean differences $<0.05$ -- we will add the covariates to the analyses.
-We will use the code below to conduct the balance tests (see [here](https://github.com/MarikenvdVelden/compromise-punish/tree/main/src/analysis/balance-test.R) for the R script).
+We will use the code below to conduct the balance tests (see [here](https://github.com/MarikenvdVelden/bias-experiment/blob/master/src/analysis/balance-test.R) for the R script).
 
 ```{r balance, eval=FALSE, echo = TRUE}
 covs <- d %>%
@@ -287,16 +288,16 @@ balanced <-bal.tab(treatment ~ factor(D1) + D2 +
 ## Hypothesis 1
 To test the _Ideological Bias hypothesis_, we will conduct a multilevel model, with respondents clustered in issues, see code chunck below.
 Using the pooled data we will estimate a within groups fixed effects model. 
-$Y\hat{Y}_{r, i, t}$ in Equation \ref{eq:pooled} denotes the  evaluation  of  a stance by respondent $r$, during issue $i$ and at experimental round $t$ -- ranging from round 1 to round 4.
+$Y\hat{Y}_{r, i, t}$ in Equation \ref{eq:pooled1} denotes the  evaluation  of  a stance by respondent $r$, during issue $i$ and at experimental round $t$ -- ranging from round 1 to round 4.
 The standard errors are clustered at the individual level.\
 
-$$\begin{equation}\label{eq:pooled}
+\begin{equation}\label{eq:pooled1}
     \hat{stance-correct}_{r, i, t} =\beta_{0} + \beta_{1}masked_{r, i, t} +
     \beta_{2}specification_{r, i, t} + 
     \beta_{3}ideological-distance-to-party_{r, i, t} +
     \beta_{4}political-knowledge_{r, i, t} +
     \alpha_{i} + \gamma_{t} + \varepsilon_{r, i, t}
-\end{equation}$$
+\end{equation}
 
 We consider evidence for H1a when the effect of $\beta_{3}$ is postive and statistically significant.
 If the Average Marginal Effect of $\beta_{3}$ is positive and statistically siginificant when $\beta_{2} = 1$ (i.e. condition is underspecidied), the second _Ideological Bias hypothesis_ (H1b) will be confirmed.
@@ -317,16 +318,16 @@ h1b <- lmer(stance_correct ~ masked +
 ## Hypothesis 2
 To test the _Overinterpretation Hypotheses_, we will conduct a multilevel model, with respondents clustered in issues, see code chunck below.
 Using the pooled data we will estimate a within groups fixed effects model. 
-$Y\hat{Y}_{r, i, t}$ in Equation \ref{eq:pooled} denotes the  evaluation  of  a stance by respondent $r$, during issue $i$ and at experimental round $t$ -- ranging from round 1 to round 4.
+$Y\hat{Y}_{r, i, t}$ in Equation \ref{eq:pooled2} denotes the  evaluation  of  a stance by respondent $r$, during issue $i$ and at experimental round $t$ -- ranging from round 1 to round 4.
 The standard errors are clustered at the individual level
 
-$$\begin{equation}\label{eq:pooled}
+\begin{equation}\label{eq:pooled2}
     \hat{stance-correct}_{r, i, t} =\beta_{0} + \beta_{1}masked_{r, i, t} +
     \beta_{2}specification_{r, i, t} + 
     \beta_{3}heterogeneous_treatment{r, i, t} +
     \beta_{4} specification * heterogeneous_treatment_{r, i, t} +
     \alpha_{i} + \gamma_{t} + \varepsilon_{r, i, t}
-\end{equation}$$
+\end{equation}
 
 When the Average Marginal Effect of $\beta_{3}$ ideological distance is positive and statistically siginificant when $\beta_{2} = 1$ (i.e. condition is underspecidied), the _Ideological Overinterpretation hypothesis_ (H2a) will be confirmed.
 When the Average Marginal Effect of $\beta_{3}$ political knowledge is positive and statistically siginificant when $\beta_{2} = 1$ (i.e. condition is underspecidied), the _Political Knowledge Overinterpretation hypothesis_ (H2b) will be confirmed.
@@ -343,16 +344,16 @@ h2b <- lmer(stance ~ masked +
 ## Hypothesis 3
 To test the _Masking Solution hypotheses_, we will conduct a multilevel model, with respondents clustered in issues, see code chunck below.
 Using the pooled data we will estimate a within groups fixed effects model. 
-$Y\hat{Y}_{r, i, t}$ in Equation \ref{eq:pooled} denotes the  evaluation  of  a stance by respondent $r$, during issue $i$ and at experimental round $t$ -- ranging from round 1 to round 4.
+$Y\hat{Y}_{r, i, t}$ in Equation \ref{eq:pooled3} denotes the  evaluation  of  a stance by respondent $r$, during issue $i$ and at experimental round $t$ -- ranging from round 1 to round 4.
 The standard errors are clustered at the individual level
 
-$$\begin{equation}\label{eq:pooled}
+\begin{equation}\label{eq:pooled3}
     \hat{stance-correct}_{r, i, t} =\beta_{0} + \beta_{1}masked_{r, i, t} +
     \beta_{2}specification_{r, i, t} + 
     \beta_{3}heterogeneous_treatment{r, i, t} +
     \beta_{4} masked * heterogeneous_treatment_{r, i, t} +
     \alpha_{i} + \gamma_{t} + \varepsilon_{r, i, t}
-\end{equation}$$
+\end{equation}
 
 When the Average Marginal Effect of $\beta_{3}$ ideological distance is negatiive and statistically siginificant when $\beta_{2} = 1$ (i.e. condition is masked), the first _Masking Solution hypothesis_ (H3a) will be confirmed.
 When the Average Marginal Effect of $\beta_{3}$ political knowledge is negative and statistically siginificant when $\beta_{2} = 1$ (i.e. condition is masked), the second _Masking Solution hypothesis_ (H3b) will be confirmed.
@@ -369,8 +370,7 @@ h3b <- lmer(stance ~ masked +
 
 ## Statistical Significance
 All the hypotheses are directional, and therefore all of the tests will be one-tailed.
-We will use an $\alpha$-value of $0.05$ as the value for statistical significance in all models above.
+We will use an $\alpha$-value of ``0.05` as the value for statistical significance in all models above.
 
-  
 \newpage
 # References

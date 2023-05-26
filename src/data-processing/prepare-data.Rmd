@@ -1,0 +1,195 @@
+---
+title: 'Prepare Data'
+author: 
+output: 
+  github_document:
+    toc: yes
+always_allow_html: true
+editor_options: 
+  
+  chunk_output_type: console
+---
+
+```{r "setup", include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE,
+                      fig.align = "center",
+                      fig.path=('../../report/figures/'))
+library(printr)
+options(digits = 2)
+library(rmarkdown)
+```
+
+## Required Packages &amp; Reproducibility
+```{r "env", message=FALSE, warning=F}
+rm(list=ls())
+source(here::here("src/lib/functions.R"))
+#renv::snapshot()
+```
+
+## Tidy Data
+This code chuck downloads the data from Qualtrics using the API and cleans the raw data.
+
+```{r "get & clean data", results="hide"}
+#Clean Dutch Data
+d_nl <- read_sav(here("data/raw-private/NLOZ2206_Mariken_Bias-experiment.sav"))
+source(here("src/data-processing/clean_data_nl.R"))
+
+#Clean US Data
+d_us <- fetch_survey(surveyID = "SV_86XBcsFUJka9eke", 
+                    verbose = TRUE, force_request = T,
+                    label = FALSE, convert = FALSE)
+source(here("src/data-processing/clean_data_us.R"))
+```
+
+## Save Data for Analysis
+```{r "save data"}
+save(d_nl, file = here("data/intermediate/cleaned_data_nl.RData"))
+save(d_us, file = here("data/intermediate/cleaned_data_us.RData"))
+```
+
+## Visualization of Data
+
+### Dependent Variable by Issue
+```{r "Dependent Variable", echo=F, fig.width=15, fig.height=8}
+p1 <- d_nl %>%
+  group_by(stance,issue,specification, masking) %>% 
+  count() %>% 
+  mutate(stance = ifelse(stance==0, "Not Correctly identified stance",
+                         "Correctly identified stance"),
+         specification = ifelse(specification == "Specified", 
+                                "Condition: Specified Sentence", "Underspecified Sentence"),
+         masking = ifelse(masking == "Masked", "Actor Masked", "Party Revealed")) %>% 
+  ggplot(aes(y = issue, x = n, fill = stance)) +
+  geom_col() +
+  facet_grid(masking~specification) +
+  labs(x = "", y = "", 
+       title = "Dutch Data") +
+  #scale_x_continuous(labels = scales::percent) +
+  theme_ipsum() +
+  scale_fill_manual(values = fig_cols[c(3, 2)]) +
+  theme(legend.position = "bottom",
+        legend.title = element_blank())
+
+p2 <- d_us %>%
+  group_by(stance,issue,specification, masking) %>% 
+  count() %>% 
+  mutate(stance = ifelse(stance==0, "Not Correctly identified stance",
+                         "Correctly identified stance"),
+         specification = ifelse(specification == "Specified", 
+                                "Condition: Specified Sentence", "Underspecified Sentence"),
+         masking = ifelse(masking == "Masked", "Actor Masked", "Party Revealed")) %>% 
+  ggplot(aes(y = issue, x = n, fill = stance)) +
+  geom_col() +
+  facet_grid(masking~specification) +
+  labs(x = "", y = "", 
+       title = "US Data") +
+  #scale_x_continuous(labels = scales::percent) +
+  theme_ipsum() +
+  scale_fill_manual(values = fig_cols[c(3, 2)]) +
+  theme(legend.position = "bottom",
+        legend.title = element_blank())
+
+p1 + p2 + 
+  plot_layout(guides = "collect") & theme(legend.position = 'bottom')
+
+```
+
+### Covariates
+```{r "Independent Variables", echo=F, message=FALSE, warning=FALSE,fig.width=10, fig.height=10}
+rm(p1,p2)
+p <- d_nl %>% select(distance, PT7, PT6) %>% 
+  pivot_longer(cols = everything(),
+               values_to = "score") %>% 
+  group_by(name) %>% 
+  summarise(m = mean(score),
+            stdev = sd(score)) %>% 
+  mutate(name = recode(name,
+                       `distance` = "Ideological Distance \n(> = More Distance)",
+                       `PT6` = "Ideological Self Placement \n(0 = Left, 10 = Right)",
+                       `PT7` = "Political Knowledge \n(0 = Low, 6 = High)"),
+         country = "The Netherlands")
+
+p2 <- d_us %>% 
+  select(distance, PT7, PT7b, PT6) %>% 
+  pivot_longer(cols = everything(),
+               values_to = "score") %>% 
+  group_by(name) %>% 
+  summarise(m = mean(score),
+            stdev = sd(score)) %>% 
+  mutate(name = recode(name,
+                       `distance` = "Ideological Distance \n(> = More Distance)",
+                       `PT6` = "Ideological Self Placement \n(0 = Extremely Liberal, 6 = Extremely Conservative)",
+                       `PT7` = "Political Knowledge \n(0 = Low, 3 = High)",
+                       `PT7b` = "Bullshit Receptivity \n(0 = Low, 5 = High)"),
+         country = "United States") 
+
+p %>% 
+  add_case(p2) %>% 
+  ggplot(aes(y = name, x = m, 
+             xmin = (m - (1.96*stdev)),
+             xmax = (m + (1.96*stdev)),
+             color = country)) +
+    geom_point(position = position_dodge(.2)) +
+    geom_errorbar(width = 0, position = position_dodge(.2)) +
+    theme_ipsum() +
+    scale_colour_manual(values = fig_cols) +
+    labs(x = "Value", y = "") +
+  theme(legend.position = "bottom",
+        legend.title = element_blank())
+```
+
+### Correlations Matrix
+```{r "Correlations Matrix", echo=F, message=F, warning=F, fig.width=15, fig.height=15}
+d_nl %>%
+  drop_na() %>% 
+  select(`Age` = D1,
+         `Gender` = D2,
+         `Education` = D3,
+         `Region`  = D4,
+         `Income`  = D5,
+         `Job`  = D6,
+         `Vote Recall`  = PT1,
+         `Position: Immigration`  = PT2,
+         `Position: Climate`  = PT3,
+         `Position: Tax`  = PT4,
+         `Position: EU`  = PT5,
+         `Ideology`  = PT6,
+         `Political Knowledge` = PT7,
+         `Distance to Political Party` = distance,
+         `Stance` = stance) %>%
+  ggcorrmat(
+  type = "robust", # correlation method
+  cor.vars = c(everything()), # a range of variables can be selected
+  colors = c(fig_cols[1], fig_cols[4], fig_cols[8]),
+  title = "Correlalogram for Variables under Study",
+  subtitle = "Dutch Data"
+)
+
+d_us %>%
+  drop_na() %>% 
+  select(`Age` = D1,
+         `Gender` = D2,
+         `Education` = D3,
+         `Region`  = D4,
+         `Income`  = D5,
+         `Job`  = D6,
+         `PID`  = PT1,
+         `PID Strength` = PT1b,
+         `Position: Immigration`  = PT2,
+         `Position: Climate`  = PT3,
+         `Position: Tax`  = PT4,
+         `Position: EU`  = PT5,
+         `Ideology`  = PT6,
+         `Political Knowledge` = PT7,
+         `Bullshit Receptivity` = PT7b,
+         `Distance to Political Party` = distance,
+         `Stance` = stance) %>%
+  ggcorrmat(
+  type = "robust", # correlation method
+  cor.vars = c(everything()), # a range of variables can be selected
+  colors = c(fig_cols[1], fig_cols[4], fig_cols[8]),
+  title = "Correlalogram for Variables under Study",
+  subtitle = "US Data"
+)
+```
+
