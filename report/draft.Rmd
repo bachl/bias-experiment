@@ -146,18 +146,30 @@ We are interested in the effect of e.g. elite communication.
 To study this, we allow for heterogeneous treatment effects in experimental work.
 This indicates that we often do not assume that the treatment, often using text, has the same effect for different partisans.
 Yet, at the same time, we forget or ignore that knowledge when creating large data-sets for our machine learning models. 
-To test whether people with different ideological backgrounds as well as their politicall knowledge might experience that position differently, challenging our ground-truth assumption in data annotation, we propose the following hypotheses:
+
+
+
+[Myrthe over NLP]
+
+To test whether people with different ideological backgrounds as well as their political knowledge might experience that position differently, challenging our ground-truth assumption in data annotation, we propose the following hypotheses:
 
 > **Ideological Bias hypothesis** (_H1a_): The larger the ideological distance between respondent and the party, the less likely respondents annotate statements according to the party’s uttered position.
 
 > **Ideological Bias hypothesis** (_H1b_): The effect of H1a is stronger for sentences in which the party's position can be infered (i.e. underspecified sentences).
 
+[Myrthe over NLP]
+
+
+To test whether people with different ideological backgrounds as well as their political knowledge might experience that position differently, challenging our ground-truth assumption in data annotation, we propose the following hypotheses:
 
 > **Ideological Overinterpretation hypothesis** (_H2a_):  The larger the ideological distance between respondent and the party, the more likely respondents interpret underspecified sentences as stance.
 
 > **Political Knowledge Overinterpretation hypothesis** (_H2b_): The more political knowledge, the more likely people interpret underspecified sentences as stance. 
 
 If these biases exists, how can we alleviate them?
+
+[Myrthe over NLP]
+
 For the Austrian National Elections, @ennser2018impact already demonstrated that showing party labels impact annotators' assessment of the party position.
 So, one solution is masking:
 
