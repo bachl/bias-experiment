@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.4.28)  8 JUN 2023 14:05
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.4.28)  12 JUN 2023 08:35
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -816,130 +816,132 @@ LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 3
 89.
 (/usr/local/texlive/2022/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-) [2] [3]
-Overfull \hbox (49.9418pt too wide) in paragraph at lines 552--567
+) [2] [3] [4] [5]
+Overfull \hbox (49.9418pt too wide) in paragraph at lines 673--688
  [][] 
  []
 
-[4]
-LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 
-575.
-(/usr/local/texlive/2022/texmf-dist/tex/latex/lm/ts1lmtt.fd
-File: ts1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-) [5]
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[6]
-<figures/baseline-1.png, id=123, 770.88pt x 385.44pt>
+LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 
+696.
+(/usr/local/texlive/2022/texmf-dist/tex/latex/lm/ts1lmtt.fd
+File: ts1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+) [6] [7]
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[8]
+<figures/baseline-1.png, id=133, 770.88pt x 385.44pt>
 File: figures/baseline-1.png Graphic file (type png)
 <use figures/baseline-1.png>
-Package pdftex.def Info: figures/baseline-1.png  used on input line 725.
+Package pdftex.def Info: figures/baseline-1.png  used on input line 846.
 (pdftex.def)             Requested size: 446.26582pt x 223.1319pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[7]
-<figures/h1-3.png, id=135, 770.88pt x 770.88pt>
+<figures/h1-3.png, id=138, 770.88pt x 770.88pt>
 File: figures/h1-3.png Graphic file (type png)
 <use figures/h1-3.png>
-Package pdftex.def Info: figures/h1-3.png  used on input line 762.
+Package pdftex.def Info: figures/h1-3.png  used on input line 883.
 (pdftex.def)             Requested size: 446.26582pt x 446.26381pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<figures/h2-1.png, id=139, 770.88pt x 770.88pt>
+[9]
+<figures/h2-1.png, id=149, 770.88pt x 770.88pt>
 File: figures/h2-1.png Graphic file (type png)
 <use figures/h2-1.png>
-Package pdftex.def Info: figures/h2-1.png  used on input line 795.
+Package pdftex.def Info: figures/h2-1.png  used on input line 916.
 (pdftex.def)             Requested size: 446.26381pt x 487.8213pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[8 <./figures/baseline-1.png>]
-<figures/h3-1.png, id=149, 770.88pt x 770.88pt>
+<figures/h3-1.png, id=153, 770.88pt x 770.88pt>
 File: figures/h3-1.png Graphic file (type png)
 <use figures/h3-1.png>
-Package pdftex.def Info: figures/h3-1.png  used on input line 820.
+Package pdftex.def Info: figures/h3-1.png  used on input line 941.
 (pdftex.def)             Requested size: 446.26381pt x 487.8213pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<figures/issues-1.png, id=156, 770.88pt x 1541.76pt>
+[10 <./figures/baseline-1.png>]
+<figures/issues-1.png, id=169, 770.88pt x 1541.76pt>
 File: figures/issues-1.png Graphic file (type png)
 <use figures/issues-1.png>
-Package pdftex.def Info: figures/issues-1.png  used on input line 858.
+Package pdftex.def Info: figures/issues-1.png  used on input line 979.
 (pdftex.def)             Requested size: 446.26381pt x 552.86885pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<figures/exploration-3.png, id=161, 770.88pt x 674.52pt>
+<figures/exploration-3.png, id=174, 770.88pt x 674.52pt>
 File: figures/exploration-3.png Graphic file (type png)
 <use figures/exploration-3.png>
-Package pdftex.def Info: figures/exploration-3.png  used on input line 884.
+Package pdftex.def Info: figures/exploration-3.png  used on input line 1005.
 (pdftex.def)             Requested size: 446.26381pt x 487.82571pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<figures/exploration-4.png, id=162, 770.88pt x 674.52pt>
+<figures/exploration-4.png, id=175, 770.88pt x 674.52pt>
 File: figures/exploration-4.png Graphic file (type png)
 <use figures/exploration-4.png>
-Package pdftex.def Info: figures/exploration-4.png  used on input line 892.
+Package pdftex.def Info: figures/exploration-4.png  used on input line 1013.
 (pdftex.def)             Requested size: 446.26381pt x 487.82571pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<figures/exploration-1.png, id=169, 770.88pt x 674.52pt>
+<figures/exploration-1.png, id=182, 770.88pt x 674.52pt>
 File: figures/exploration-1.png Graphic file (type png)
 <use figures/exploration-1.png>
-Package pdftex.def Info: figures/exploration-1.png  used on input line 915.
+Package pdftex.def Info: figures/exploration-1.png  used on input line 1036.
 (pdftex.def)             Requested size: 446.26582pt x 390.48082pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<figures/exploration-2.png, id=170, 770.88pt x 674.52pt>
+<figures/exploration-2.png, id=183, 770.88pt x 674.52pt>
 File: figures/exploration-2.png Graphic file (type png)
 <use figures/exploration-2.png>
-Package pdftex.def Info: figures/exploration-2.png  used on input line 924.
+Package pdftex.def Info: figures/exploration-2.png  used on input line 1045.
 (pdftex.def)             Requested size: 446.26582pt x 390.48082pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 File: figures/exploration-3.png Graphic file (type png)
 <use figures/exploration-3.png>
-Package pdftex.def Info: figures/exploration-3.png  used on input line 933.
+Package pdftex.def Info: figures/exploration-3.png  used on input line 1054.
 (pdftex.def)             Requested size: 446.26582pt x 390.48082pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<figures/h2-3.png, id=171, 770.88pt x 770.88pt>
+<figures/h2-3.png, id=184, 770.88pt x 770.88pt>
 File: figures/h2-3.png Graphic file (type png)
 <use figures/h2-3.png>
-Package pdftex.def Info: figures/h2-3.png  used on input line 942.
+Package pdftex.def Info: figures/h2-3.png  used on input line 1063.
 (pdftex.def)             Requested size: 446.26582pt x 446.26381pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[9] [10 <./figures/h1-3.png>] [11 <./figures/h2-1.png>] [12 <./figures/h3-1.png
->] [13 <./figures/issues-1.png>] [14 <./figures/exploration-3.png>] [15 <./figu
-res/exploration-4.png>] [16 <./figures/exploration-1.png>] [17 <./figures/explo
-ration-2.png>] [18] [19 <./figures/h2-3.png>] [20
+[11] [12 <./figures/h1-3.png>] [13 <./figures/h2-1.png>] [14 <./figures/h3-1.pn
+g>] [15 <./figures/issues-1.png>] [16 <./figures/exploration-3.png>] [17 <./fig
+ures/exploration-4.png>] [18 <./figures/exploration-1.png>] [19 <./figures/expl
+oration-2.png>] [20] [21 <./figures/h2-3.png>] [22
 
 ]
-Overfull \hbox (5.28925pt too wide) in paragraph at lines 1007--1013
+Overfull \hbox (5.28925pt too wide) in paragraph at lines 1133--1139
 \T1/lmr/m/it/10.95 Amer-i-can Po-lit-i-cal Sci-ence Re-view \T1/lmr/m/n/10.95 1
 10 (2): 278--95. [][]$https : / / doi . org / 10 . 1017 / s0003055416000058$[][
 ]. 
  []
 
 
-Overfull \hbox (0.78574pt too wide) in paragraph at lines 1033--1038
+Overfull \hbox (0.78574pt too wide) in paragraph at lines 1159--1164
 \T1/lmr/m/n/10.95 cal Turk Valid for Re-search on Po-lit-i-cal Ide-ol-ogy?'' \T
 1/lmr/m/it/10.95 Re-search & Pol-i-tics \T1/lmr/m/n/10.95 2 (4): 20531680156220
 72.
  []
 
-[21] [22] [23] (./draft.aux)
+[23] [24] [25] (./draft.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
@@ -947,13 +949,13 @@ Package rerunfilecheck Info: File `draft.out' has not changed.
 (rerunfilecheck)             Checksum: 2EE7C4EEF82759162FB9BD147D5DD98A;1815.
  ) 
 Here is how much of TeX's memory you used:
- 20600 strings out of 478268
- 377374 string characters out of 5846347
- 651401 words of memory out of 5000000
- 38366 multiletter control sequences out of 15000+600000
- 543114 words of font info for 84 fonts, out of 8000000 for 9000
+ 20614 strings out of 478268
+ 377570 string characters out of 5846347
+ 649404 words of memory out of 5000000
+ 38367 multiletter control sequences out of 15000+600000
+ 543479 words of font info for 85 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 70i,11n,79p,549b,825s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 70i,11n,79p,549b,811s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
 pdfTeX warning (dest): name{attention-checks} has been referenced but does not 
 exist, replaced by a fixed one
@@ -974,10 +976,10 @@ r6.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr
 ve/2022/texmf-dist/fonts/type1/public/lm/lmri10.pfb></usr/local/texlive/2022/te
 xmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/local/texlive/2022/texmf-dist/f
 onts/type1/urw/helvetic/uhvb8a.pfb>
-Output written on draft.pdf (23 pages, 811960 bytes).
+Output written on draft.pdf (25 pages, 823313 bytes).
 PDF statistics:
- 425 PDF objects out of 1000 (max. 8388607)
- 346 compressed objects within 4 object streams
- 101 named destinations out of 1000 (max. 500000)
+ 463 PDF objects out of 1000 (max. 8388607)
+ 381 compressed objects within 4 object streams
+ 113 named destinations out of 1000 (max. 500000)
  147 words of extra memory for PDF output out of 10000 (max. 10000000)
 
