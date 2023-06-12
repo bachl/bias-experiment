@@ -41,14 +41,14 @@ title: "Whose Truth is it Anyway? An Experiment on Annotation Bias"
 author:
 - name: Mariken A.C.G. van der Velden*
 - affiliation: Dep. of Communciation Science, Vrije Universiteit Amsterdam
+- name: Myrthe Reuver
+- affiliation: Computational Linguistics & Text Mining Lab, Vrije Universiteit Amsterdam
 - name: Wouter van Atteveldt
 - affiliation: Dep. of Communciation Science, Vrije Universiteit Amsterdam
 - name: Antse Fokkens
 - affiliation: Computational Linguistics & Text Mining Lab, Vrije Universiteit Amsterdam
 - name: Felicia Loecherbach
 - affiliation: Center for Social Media & Politics, New York University
-- name: Myrthe Reuver
-- affiliation: Computational Linguistics & Text Mining Lab, Vrije Universiteit Amsterdam
 - name: Kasper Welbers
 - affiliation: Dep. of Communciation Science, Vrije Universiteit Amsterdam
 thanks: "* = Corresponding author, Replication files are available on the author's Github account (https://github.com/MarikenvdVelden/bias-experiment); Author contributions: a) designed the study: MACGvdV, WvA, AF, FL, MR, & KW; b) conducted the study: MACGvdV, FL & MR; c) data cleaning & analysis: MACGvdV; d) writing of the paper: MACGvdV"
