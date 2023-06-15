@@ -50,9 +50,9 @@ save(d_us, file = here("data/intermediate/cleaned_data_us.RData"))
 ## Visualization of Data
 
 ### Dependent Variable by Issue
-```{r "Dependent Variable", echo=F, fig.width=15, fig.height=8}
+```{r "Dependent Variable", echo=F, fig.width=15, fig.height=8, eval = F}
 p1 <- d_nl %>%
-  group_by(stance,issue,specification, masking) %>% 
+  group_by(stance_nlp,issue,specification, masking) %>% 
   count() %>% 
   mutate(stance = ifelse(stance==0, "Not Correctly identified stance",
                          "Correctly identified stance"),
@@ -95,7 +95,7 @@ p1 + p2 +
 ```
 
 ### Covariates
-```{r "Independent Variables", echo=F, message=FALSE, warning=FALSE,fig.width=10, fig.height=10}
+```{r "Independent Variables", echo=F, message=FALSE, warning=FALSE,fig.width=10, fig.height=10, eval = F}
 rm(p1,p2)
 p <- d_nl %>% select(distance, PT7, PT6) %>% 
   pivot_longer(cols = everything(),
@@ -139,7 +139,7 @@ p %>%
 ```
 
 ### Correlations Matrix
-```{r "Correlations Matrix", echo=F, message=F, warning=F, fig.width=15, fig.height=15}
+```{r "Correlations Matrix", echo=F, message=F, warning=F, fig.width=15, fig.height=15, eval = F}
 d_nl %>%
   drop_na() %>% 
   select(`Age` = D1,
