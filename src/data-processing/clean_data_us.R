@@ -220,7 +220,7 @@ d_us <- d_us %>%
                              "Stance", "No Stance"),
          interpret4 = ifelse(specified4 == "Underspecified" & S4 == 2, 
                              "Stance", interpret4)) %>% 
-  select(id, D1:D6, PT1:PT6, PT7, attention,
+  select(id, D1:D6, PT1:PT6, PT7, PT7b, attention,
          actor1:actor4,
          issue1:issue4,
          specified1:specified4, 
@@ -235,7 +235,7 @@ d_us <- d_us %>%
                values_to = "condition",
                names_to = "round") %>% 
   separate(condition, c("actor", "issue", "specification", "stance_nlp", "stance_ss", "interpretation"), "-") %>% 
-  select(id, D1:PT7, attention,
+  select(id, D1:PT7b, attention,
          round, actor, issue, specification, stance_nlp, stance_ss, interpretation) %>% 
   mutate(masking = ifelse(actor == "X", "Masked", "Party"),
          stance_nlp = ifelse(stance_nlp =="correct", 1 ,0),

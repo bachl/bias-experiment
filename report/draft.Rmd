@@ -206,20 +206,22 @@ To test our hypotheses, we will conduct a multilevel model, with respondents clu
 
 # Results
 
-To answer whether there is an ideological or knowledge-basd annotation bias, we have conducted a two-by-two experiment. Tables \ref{tab:profilenl} and \ref{tab:profileus} demonstrate the average profile of respondents who annotate correctly and incorrectly (where respondents who annotated some stances correctly and some incorrectly are weighted by proportion (in)correct). In terms of demographics, there is not much of a difference. Yet, people who are incorrectly identifying stances are more left-wing oriented compared to those who are correct -- i.e. an average score of 4 for those who are incorrect vs. an average score of 5 for those who are correct. For other positions on issues or political knowledge, we do not see a difference in averages between those who are correctly and incorrectly identifying stances.
+To answer whether there is an ideological or knowledge-basd annotation bias, we have conducted a two-by-two experiment. Tables \ref{tab:profilenl} and \ref{tab:profileus} demonstrate the average profile of respondents who annotate correctly and incorrectly (where respondents who annotated some stances correctly and some incorrectly are weighted by proportion (in)correct). In terms of demographics, there is not much of a difference. Yet, people who are incorrectly identifying stances are more left-wing oriented compared to those who are correct -- i.e. an average score of 4 for those who are incorrect vs. an average score of 5 for those who are correct. For other positions on issues or political knowledge, we do not see a difference in averages between those who are correctly and incorrectly identifying stances. This profile is quite similar for the lenient interpretation of what a stance is. 
 
-```{r "profilenl"}
+```{r "profilenl-strict"}
 load(here("data/intermediate/cleaned_data_nl.RData"))
 load(here("data/intermediate/cleaned_data_us.RData"))
 source(here("src/analysis/profile_resp.R"))
-kbl(e1, booktabs =T, caption = "\\label{tab:conditions}Profile Dutch Stance Annotators") %>%
+kbl(e1_nlp, booktabs =T, caption = "\\label{tab:profilenl}Profile Dutch Stance Annotators") %>%
   kable_styling(latex_options = c("striped", "hold_position"),
                 full_width = F, fixed_thead = T, position = "center") %>%
   column_spec(1, width = "7cm") %>%
   column_spec(2, width = "7cm")
 ```
+
+
 ```{r "profileus"}
-kbl(e1_us, booktabs =T, caption = "\\label{tab:conditions_us}Profile American Stance Annotators") %>%
+kbl(e1_us_nlp, booktabs =T, caption = "\\label{tab:conditions_us}Profile American Stance Annotators") %>%
   kable_styling(latex_options = c("striped", "hold_position"),
                 full_width = F, fixed_thead = T, position = "center") %>%
   column_spec(1, width = "7cm") %>%
@@ -236,52 +238,56 @@ knitr::include_graphics(here("report/figures", "baseline-1.png"))
 
 First, we test whether there is an ideological bias in interpreting stances (H1a), and if this bias increases for those that are further away from the ideological position of the political actor in the under-specified condition (H1b). Figure \ref{fig:results-h1} demonstrates on the left-hand panel the regression coefficients and on the right-hand panel the average marginal effects of the interaction between ideological distance and under-specified sentences. The upper-left panel of Figure \ref{fig:results-h1} demonstrates the coefficient of ideological distances for the likelihood of interpreting the stance correctly. There is a negligible positive effect -- a coefficient of `0.002` -- that is borderline significant. Substantially, this means that there is no effect of ideological distance for correctly interpreting the stance. Hence, no ideological bias found, thus no support for our H1a. Looking at the lower-left, and right-hand panel of Figure \ref{fig:results-h1}, we see a small but significant effect of the interaction between ideological distance and the under-specified condition. It is, however, going in the other direction than hypothesized. For those who are ideologically further away from the party, they are less likely to be wrong than those who are close too the party. Yet, the difference is about `3%` -- from a coefficient of `-0.38` to `-0.35`. We thus find no evidence for H1b either. This demonstrates that even in times of hightened polarization, ideological annotation bias is not a huge concern.
 
-```{r results-h1, out.width= "95%", fig.align = 'center', fig.cap = "\\label{fig:results-h1} Ideological Distance"}
-knitr::include_graphics(here("report/figures", "h1-3.png"))
-```
-
 Secondly, we hypothesized that there is a risk of over-interpretation from those that are ideologically distant to the political actor (H2a) as well as those who have high levels of political knowledge (H2b). We measure this with an interaction between the experimental condition of specification and the variable of interest. Following @brambor2006understanding, we visualize the average marginal effects for both interactions to enhance interpretation. Figure \ref{fig:results-h2} demonstrates the average marginal effects for both interaction effects: In the left-hand panel the results for H2a, and in the right-hand panel, the results for H2b. The left-hand panel of Figure \ref{fig:results-h2} shows that those who are more distant from the position of the political actor are more likely to over-interpret the sentence as a stance. The effect increases from about `80%` to those that are closest to the party to `91%` for those who are furthest away from the party. This supports our H2a. The right-hand panel of Figure \ref{fig:results-h2} shows that political knowledge does statistically significantly effect over-interpretation of a sentence as a stance. The substantial effect, however, is small: From the least knowledgeable respondents to the most knowledgeable ones, the likelihood of over-interpretation increases with `2%`. So, while we do find support for our H2b, we will in our recommendations section focus less on the political knowledge as a possible interfering feature, but focus on what to do with under-specified sentences when using crowd-coding.
 
-```{r results-h2, out.width = "95%", out.height = "75%", fig.align = 'center', fig.cap = "\\label{fig:results-h2} Results Level of Sentence Specification"}
-knitr::include_graphics(here("report/figures", "h2-1.png"))
+
+\begin{landscape}
+```{r results-h1, fig.align = 'center', fig.cap = "\\label{fig:results-h1} Ideological Distance", fig.pos="H", fig.show="hold",out.width = "49%", out.height="40%"}
+knitr::include_graphics(c(here("report/figures", "h1-1.png"), here("report/figures", "h1-2.png")))
 ```
+```{r results-h2, fig.align = 'center', fig.cap = "\\label{fig:results-h2} Results Level of Sentence Specification", fig.pos="H", fig.show="hold",out.width = "49%", out.height="40%"}
+knitr::include_graphics(c(here("report/figures", "h2-1.png"), here("report/figures", "h2-2.png")))
+```
+\end{landscape}
+
 
 Thirdly, we test whether masking of the political actor is a solution for potentially misinterpreting the stance. We hypothesized that masking should reduce the ideological bias (H3a) as well as the bias resulting from political knowledge (H3b). We test these hypotheses with an interaction between the condition masking and the variables of interest and Figure \ref{fig:results-h3} demonstrates the average marginal effects. The left-hand panel of Figure \ref{fig:results-h3} shows, against expectation, a slight increase: Those that are further away from the masked political actor are more likely to incorrectly interpret the stance. The decrease in slope is however negligible: From approximately `6%` to `7%` of the respondents being incorrect. The slope for political knowledge, on the right-hand panel of Figure \ref{fig:results-h3}, is so-possible even flatter. This means that masking of political actors does not help to correctly interpret a sentence as a stance -- i.e. no support for H3a and H3b.
 
-```{r results-h3, out.width = "95%",  out.height = "75%", fig.align = 'center', fig.cap = "\\label{fig:results-h3} Results Masking Solution"}
+```{r results-h3, fig.align = 'center', fig.cap = "\\label{fig:results-h3} Results Masking Solution", fig.pos="H", fig.show="hold",out.width = "59%", out.height="50%"}
 knitr::include_graphics(here("report/figures", "h3-1.png"))
 ```
+
 
 ## Exploratory Results
 
 To check the robustness of our findings, Figure \ref{fig:results-exp1} demonstrates the analyses for each issue separately. On the left-hand panel of Figure \ref{fig:results-exp1}, we show the results for correctly interpreting the stance. We see some variation between issues. For the issue *Tax* (lowest row), we see that almost everyone interprets the sentence correct -- an intercept of `0.96`. This increases statistically significantly still with about `1%` when masking the political actor, and decreases statistically significantly with `68%` when the sentence is under-specified. The regression results (in Online Appendix) show a small effect of ideological distance: the further away, the more likely to correctly interpret the stance -- i.e. against H1a. Respondents found it most difficult to correctly interpret the issue *Environment* (top row of Figure \ref{fig:results-exp1}), only `12%` has this correct initially, as indicated by the intercept. This increases statistically significantly still with about `8%` when masking the political actor, and decreases statistically significantly with `15%` when the sentence is under-specified. The other two issues -- *EU* and *Immigration*, in the middle rows of Figure \ref{fig:results-exp1} show a similar effect as the main base-line presented in Figure \ref{fig:results-base}. The same pattern holds for the other dependent variable -- overinterpretation of a stance -- in the right-hand panel of Figure \ref{fig:results-exp1}. Thus, while there are some differences in effect sizes between the issues, the overall findings are not driven by a single issue.
 
-```{r results-exploration1, out.height = "85%",out.width = "95%",, fig.align = 'center', fig.cap = "\\label{fig:results-exp1} Exploration: Issue Speficific Analyses"}
-knitr::include_graphics(here("report/figures", "issues-1.png"))
+```{r results-exploration1, out.height = "85%",out.width = "95%",, fig.align = 'center', fig.cap = "\\label{fig:results-exp1} Exploration: Issue Speficific Analyses", eval = F}
+knitr::include_graphics(c(here("report/figures", "issues-1.png")))
 ```
 
 In addition to issue-specific analyses, we also explore an interaction between treatments, visualized in Figure \ref{fig:results-exp2} for both dependent variables. Figure \ref{fig:results-exp2} shows that masking is of help when sentences are under-specified. In the left-hand panel of Figure \ref{fig:results-exp2}, it demonstrates that for under-specifief sentences, people are less likely to incorrectly identify a sentence as a stance when the actor is masked (coefficient of `-0.30`) than when an actor is revealed (coefficient of `-0.45`). That means there is a 15% increase in having it correct. The difference for over-interpreting is smaller between revealed and masked political actor -- shown in the right-hand panel of Figure \ref{fig:results-exp2} -- yet also statistically significant. Compared to `85%` over-interpreting the sentence as a stance, in the masking solution "only" `80%` over-interprets the sentence as a stance. In the recommendation section, we will reflect on the masking solution for under-specified sentences.
 
-```{r results-exploration2, out.width = "95%", out.height= "75%", fig.align = 'center', fig.cap = "\\label{fig:results-exp2} Exploration: Interaction with Treatments"}
+```{r results-exploration2, out.width = "95%", out.height= "75%", fig.align = 'center', fig.cap = "\\label{fig:results-exp2} Exploration: Interaction with Treatments", eval = F}
 knitr::include_graphics(here("report/figures", "exploration-3.png"))
 knitr::include_graphics(here("report/figures", "exploration-4.png"))
 ```
 
 Lastly, we explore three different ways of measuring ideological distance. First, we measured ideological bias by looking at whether the respondent is congruent or not with the issue position in the sentence, visualized in Figure \ref{fig:results-exp3}. Second, we measured ideological bias by looking at whether the person voted for the party displayed in the sentence, visualized in Figure \ref{fig:results-exp4}. And thirdly, we measured ideological bias by looking at the ideology of the respondents -- not in relation to the political actor revealed, visualized in Figure \ref{fig:results-exp5}. Figures \ref{fig:results-exp3}, \ref{fig:results-exp4}, and \ref{fig:results-exp5} show that our null-finding regarding ideological bias is not conditional upon the measure we used. In none of the analyses, we find evidence for ideological bias.
 
-```{r results-exploration3, out.width = "95%", fig.align = 'center', fig.cap = "\\label{fig:results-exp3} Exploration: Different Indicators of Ideological Distance (1)"}
+```{r results-exploration3, out.width = "95%", fig.align = 'center', fig.cap = "\\label{fig:results-exp3} Exploration: Different Indicators of Ideological Distance (1)", eval = F}
 knitr::include_graphics(here("report/figures", "exploration-1.png"))
 ```
 
-```{r results-exploration4, out.width = "95%", fig.align = 'center', fig.cap = "\\label{fig:results-exp4} Exploration: Different Indicators of Ideological Distance (2)"}
+```{r results-exploration4, out.width = "95%", fig.align = 'center', fig.cap = "\\label{fig:results-exp4} Exploration: Different Indicators of Ideological Distance (2)", eval = F}
 knitr::include_graphics(here("report/figures", "exploration-2.png"))
 ```
 
-```{r results-exploration5, out.width = "95%", fig.align = 'center', fig.cap = "\\label{fig:results-exp5} Exploration: Different Indicators of Ideological Distance (3)"}
+```{r results-exploration5, out.width = "95%", fig.align = 'center', fig.cap = "\\label{fig:results-exp5} Exploration: Different Indicators of Ideological Distance (3)", eval = F}
 knitr::include_graphics(here("report/figures", "exploration-3.png"))
 ```
 
-```{r results-h2_expl, out.width = "95%", fig.align = 'center', fig.cap = "\\label{fig:results-h2-expl} Results Level of Sentence Specification"}
+```{r results-h2_expl, out.width = "95%", fig.align = 'center', fig.cap = "\\label{fig:results-h2-expl} Results Level of Sentence Specification", eval = F}
 knitr::include_graphics(here("report/figures", "h2-3.png"))
 ```
 
