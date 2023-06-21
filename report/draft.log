@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.4.28)  21 JUN 2023 21:27
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.4.28)  21 JUN 2023 21:33
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -800,15 +800,15 @@ LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <11> not available
 
 {/usr/local/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 385.
+(Font)              <10.95> on input line 389.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 385.
+(Font)              <8> on input line 389.
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 3
-93.
+97.
 (/usr/local/texlive/2022/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 ) [2] [3] [4] [5]
-Overfull \hbox (49.9418pt too wide) in paragraph at lines 678--693
+Overfull \hbox (49.9418pt too wide) in paragraph at lines 682--697
  [][] 
  []
 
@@ -816,42 +816,42 @@ Overfull \hbox (49.9418pt too wide) in paragraph at lines 678--693
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 
-701.
+705.
 (/usr/local/texlive/2022/texmf-dist/tex/latex/lm/ts1lmtt.fd
 File: ts1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 ) [6] [7]
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[8]
-<figures/baseline-1.png, id=136, 770.88pt x 385.44pt>
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[8] [9]
+<figures/baseline-1.png, id=140, 770.88pt x 385.44pt>
 File: figures/baseline-1.png Graphic file (type png)
 <use figures/baseline-1.png>
-Package pdftex.def Info: figures/baseline-1.png  used on input line 875.
+Package pdftex.def Info: figures/baseline-1.png  used on input line 879.
 (pdftex.def)             Requested size: 446.26582pt x 223.1319pt.
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[9] [10 <./figures/baseline-1.png>]
+[10 <./figures/baseline-1.png>]
 <figures/h1-1.png, id=154, 770.88pt x 770.88pt>
 File: figures/h1-1.png Graphic file (type png)
 <use figures/h1-1.png>
-Package pdftex.def Info: figures/h1-1.png  used on input line 918.
+Package pdftex.def Info: figures/h1-1.png  used on input line 922.
 (pdftex.def)             Requested size: 318.70944pt x 187.89684pt.
 <figures/h1-2.png, id=155, 770.88pt x 770.88pt>
 File: figures/h1-2.png Graphic file (type png)
 <use figures/h1-2.png>
-Package pdftex.def Info: figures/h1-2.png  used on input line 918.
+Package pdftex.def Info: figures/h1-2.png  used on input line 922.
 (pdftex.def)             Requested size: 318.70944pt x 187.89684pt.
 <figures/h2-1.png, id=156, 770.88pt x 770.88pt>
 File: figures/h2-1.png Graphic file (type png)
 <use figures/h2-1.png>
-Package pdftex.def Info: figures/h2-1.png  used on input line 926.
+Package pdftex.def Info: figures/h2-1.png  used on input line 930.
 (pdftex.def)             Requested size: 318.70944pt x 187.89684pt.
 <figures/h2-2.png, id=157, 770.88pt x 770.88pt>
 File: figures/h2-2.png Graphic file (type png)
 <use figures/h2-2.png>
-Package pdftex.def Info: figures/h2-2.png  used on input line 926.
+Package pdftex.def Info: figures/h2-2.png  used on input line 930.
 (pdftex.def)             Requested size: 318.70944pt x 187.89684pt.
 [11
 
@@ -860,7 +860,7 @@ Package pdftex.def Info: figures/h2-2.png  used on input line 926.
 <figures/h3-1.png, id=172, 770.88pt x 770.88pt>
 File: figures/h3-1.png Graphic file (type png)
 <use figures/h3-1.png>
-Package pdftex.def Info: figures/h3-1.png  used on input line 978.
+Package pdftex.def Info: figures/h3-1.png  used on input line 982.
 (pdftex.def)             Requested size: 277.15195pt x 325.2142pt.
 [12
 
@@ -868,17 +868,17 @@ Package pdftex.def Info: figures/h3-1.png  used on input line 978.
 <figures/issues-1.png, id=179, 770.88pt x 1541.76pt>
 File: figures/issues-1.png Graphic file (type png)
 <use figures/issues-1.png>
-Package pdftex.def Info: figures/issues-1.png  used on input line 1012.
+Package pdftex.def Info: figures/issues-1.png  used on input line 1016.
 (pdftex.def)             Requested size: 446.26381pt x 552.86885pt.
 [13 <./figures/h3-1.png>] [14 <./figures/issues-1.png>] [15]
-Overfull \hbox (5.28925pt too wide) in paragraph at lines 1113--1119
+Overfull \hbox (5.28925pt too wide) in paragraph at lines 1117--1123
 \T1/lmr/m/it/10.95 Amer-i-can Po-lit-i-cal Sci-ence Re-view \T1/lmr/m/n/10.95 1
 10 (2): 278--95. [][]$https : / / doi . org / 10 . 1017 / s0003055416000058$[][
 ]. 
  []
 
 
-Overfull \hbox (0.78574pt too wide) in paragraph at lines 1139--1144
+Overfull \hbox (0.78574pt too wide) in paragraph at lines 1143--1148
 \T1/lmr/m/n/10.95 cal Turk Valid for Re-search on Po-lit-i-cal Ide-ol-ogy?'' \T
 1/lmr/m/it/10.95 Re-search & Pol-i-tics \T1/lmr/m/n/10.95 2 (4): 20531680156220
 72.
@@ -894,11 +894,11 @@ Package rerunfilecheck Info: File `draft.out' has not changed.
 Here is how much of TeX's memory you used:
  20564 strings out of 478268
  376256 string characters out of 5846347
- 652607 words of memory out of 5000000
+ 650607 words of memory out of 5000000
  38332 multiletter control sequences out of 15000+600000
  543479 words of font info for 85 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 70i,11n,79p,549b,809s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 70i,11n,79p,549b,781s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
 pdfTeX warning (dest): name{attention-checks} has been referenced but does not 
 exist, replaced by a fixed one
@@ -919,7 +919,7 @@ r6.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr
 ve/2022/texmf-dist/fonts/type1/public/lm/lmri10.pfb></usr/local/texlive/2022/te
 xmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/local/texlive/2022/texmf-dist/f
 onts/type1/urw/helvetic/uhvb8a.pfb>
-Output written on draft.pdf (18 pages, 683264 bytes).
+Output written on draft.pdf (18 pages, 684310 bytes).
 PDF statistics:
  407 PDF objects out of 1000 (max. 8388607)
  338 compressed objects within 4 object streams
