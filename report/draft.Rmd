@@ -150,31 +150,35 @@ For the Austrian National Elections, @ennser2018impact already demonstrated that
 
 ## Data
 
-We will conduct this survey experiment in the Netherlands in May 2022. The sample, recruited through [KiesKompas](https://www.kieskompas.nl/en/), consists of 3,000 participants (based on the power analysis presented in our [online compendium](LINK)) of 18 years and older. Kieskompas works with non-random opt-in respondents. Therefore, we measure many demographic background variables, and balance checks have been conducted to demonstrate whether certain categories are over represented in a certain experimental group. The study has been approved by the [Research Ethics Review Committee](https://fsw.vu.nl/nl/onderzoek/research-ethics-review/index.aspx) of the *Vrije Universiteit Amsterdam* (see the approval [here](https://github.com/MarikenvdVelden/bias-experiment/blob/master/docs/2022-3-30-59.pdf)). To ensure good quality of our data, one attention check (discussed in more detail in [Section 3.3](#attention-checks)) is included [@berinsky2014separating].
+We have conducted the survey experiments in the Netherlands in May 2022 and in the United States in January 2023. 
+Both samples, recruited through [KiesKompas](https://www.kieskompas.nl/en/) and [Prolific](https://www.prolific.co/) for respectively the Dutch and American case, consists of 3,000 participants (based on the power analysis presented in our [online compendium](LINK)) of 18 years and older. 
+Both survey companies works with non-random opt-in respondents. 
+Therefore, we measured many demographic background variables, and balance checks have been conducted to demonstrate whether certain categories are over represented in a certain experimental group. 
+Our study has been approved by the [Research Ethics Review Committee](https://fsw.vu.nl/nl/onderzoek/research-ethics-review/index.aspx) of the *Vrije Universiteit Amsterdam* (see the approval [here](https://github.com/MarikenvdVelden/bias-experiment/blob/master/docs/2022-3-30-59.pdf)). To ensure good quality of our data, one attention check (discussed in more detail in [Section 3.3](#attention-checks)) is included [@berinsky2014separating].
 
 ## Measurement
 
-***Experimental Conditions.*** Respondents are randomly assigned to either view a political party as an actor, or a masked condition, where they see `X` as an actor; simultaneously, respondents see either a fully specified sentence or a underspecified sentence, in which one needs additional information to interpret the positon on an actor. Table \ref{tab:conditions} gives an overview of the variations in treatment in the survey as well as their English translations.
+***Experimental Conditions.*** Respondents are randomly assigned to either view a political party as an actor, or a masked condition, where they see `X` as an actor; simultaneously, respondents see either a fully specified sentence or a underspecified sentence, in which one needs additional information to interpret the position on an actor. Table \ref{tab:conditions} gives an overview of the variations in treatment in the surveys.
 
 ```{r conditions, topcaption=TRUE}
-d <- tibble(Condition = c(rep("Specified", 4),
+d <- tibble(`Condition` = c(rep("Specified", 4),
                           rep("Underspecified", 4)), 
-            `Wording ENG` = c("[PVV/X] says immigration should be made harder.",
-                              "[GreenLeft/X] says nitrogen emissions need to be reduced.",
-                              "[Labour Party/X] says tax rate should go up for highest earners.",
-                              "[Forum for Democracy/X] says that membership in the European Union has been especially bad for the Netherlands so far.",
-                              "[PVV/X] says many immigrants are coming this way.",
-                              "[GreenLeft/X] says nitrogen policy must be different.",
-                              "[Labour Party/X] says tax system must be changed.",
-                              "[Forum for Democracy/X] says the Netherlands should have a different role in the European Union."),
-            `Wording NL` = c("[PVV/X] zegt dat immigratie moeilijker gemaakt moet worden.",
-                             "[GroenLinks/X] zegt dat stikstofuitstoot meer tegengegaan moet worden.",
-                             "[PvdA/X] zegt dat het belastingtarief voor de hoogste inkomens omhoog moet.",
-                             "[Forum voor Democratie/X] zegt dat het lidmaatschap van de Europese Unie tot nu toe vooral slecht geweest voor Nederland is.",
-                             "[PVV/X] zegt dat veel immigranten deze kant op komen.",
-                             "[GroenLinks/X] zegt dat het stikstofbeleid anders moet.",
-                             "[PvdA/X] zegt dat het belastingstelsel moet worden aangepast.",
-                             "[Forum voor Democratie/X] zegt dat Nederland een andere rol in de Europese Unie moet hebben."))
+            `US Experiment` = c("[Republicans/X] say immigration should be made more difficult.",
+                              "[Democrats/X] say we need to put a tax on carbon emissions",
+                              "[Democrats/X] say we should implement a wealth tax for the richest Americans.",
+                              "[Republicans/X] say the U.S. needs to consider military build-up in the Pacific Ocean",
+                              "[Republicans/ X] say many immigrants are crossing our borders.",
+                              "[Democrats/X] say carbon emissions policy should be implemented differently.",
+                              "[Democrats/X] say the tax system should be implemented differently.",
+                              "[Republicans/ X] say there should be a different military presence in the Pacific Ocean."),
+            `NL Experiment` = c("[PVV/X] says immigration should be made harder.",
+                             "[GreenLeft/X] says nitrogen emissions need to be reduced.",
+                             "[Labour Party/X] says tax rate should go up for highest earners.",
+                             "[Forum for Democracy/X] says that membership in the European Union has been especially bad for the Netherlands so far.",
+                             "[PVV/X] says many immigrants are coming this way.",
+                             "[GreenLeft/X] says nitrogen policy must be different.",
+                             "[Labour Party/X] says tax system must be changed.",
+                             "[Forum for Democracy/X] says the Netherlands should have a different role in the European Union."))
 
 kbl(d, booktabs =T, caption = "\\label{tab:conditions}Survey Questions - Experimental Conditions") %>%
   kable_styling(latex_options = c("striped", "hold_position"),
@@ -184,9 +188,9 @@ kbl(d, booktabs =T, caption = "\\label{tab:conditions}Survey Questions - Experim
   column_spec(3, width = "7cm")
 ```
 
-***Dependent Variable.*** We rely on whether or not a party's (implied) stance is coded according to the party's position (H1 and H3) as well as whether or not the statement is coded as a stance at all (H3). For each issue, we ask the respondent `what is according to the sentence above the position of [ACTOR]?`, with the answer categories: `in favor`, `against`, `no stance`, `don't know`.
+***Dependent Variable.*** We rely on whether or not a party's (implied) stance is coded according to the party's position (H1 and H3) as well as whether or not the statement is coded as a stance at all (H3). For each issue, we ask the respondent `what is according to the sentence above the position of [ACTOR]?`, with the answer categories: `in favor`, `against`, `no stance`, `don't know`. We use both a very strict interpretation of stance -- specification of change and direction -- and a lenient interpretation -- specification of change. Using the strict interpretation, respondents are correct if they say `no stance` for the underspecified sentences and `against`, `in favor`, `in favor`, and `against` to the specified sentences one to four. Using a more lenient interpretation, respondents could say either `in favor` or `against` as well for underspecified sentence two to four.
 
-***Moderating Covariates.*** *Ideological position* is measured using an 11-point scale ranging from left (`0`) to right (`10`). - *Political knowledge* is measured with six items from the DPES.
+***Moderating Covariates.*** *Ideological position* is measured using an 11-point scale ranging from left (`0`) to right (`10`). *Political knowledge* is measured with six items from the Dutch Parliamentary Election Studies for the Dutch sample, and the three items from the American National Election Studies.[^]:The questionaire can be found in OA **XX**.
 
 ***Controle Variables.*** In our analysis, we control for demographic information (gender, age, education, income, religion, job) as well as political background variables (trust in politics, ideological position on economic left-right scale and cultural progressive-conservative scale, and evaluations and prospects of the economy). Tables A.5 till A.17 in the OA demonstrate the descriptive information per country.
 
@@ -228,7 +232,15 @@ kbl(e1_us_nlp, booktabs =T, caption = "\\label{tab:conditions_us}Profile America
   column_spec(2, width = "7cm")
 ```
 
-Looking at the effect of the experimental conditions on the two dependent variables -- 1) correctly identifying a stance; and 2) over-interpreting a stance -- Figure \ref{fig:results-base} visualizes the baseline. The left-hand panel demonstrates the effect of the two experimental conditions for correctly identifying the stance. On average, approximately half of the respondents where correct -- as indicated by the intercept. When we mask the political actor -- i.e. instead of mentioning the party, we put "X" -- we see that this improves correctly interpreting the stance significantly. However, an effect of `0.06` (i.e. `6%`) is not a big improvement. We do see that the level of specification of a sentence has a significant effect. If a sentence is not fully specified, it has a substantive negative effect on the likelihood to correctly interpret the sentence. A coefficient of `-0.38` indicates that compared to a fully specified sentence, `38%` of the respondents are more likely to be incorrect when the sentence is under-specified -- that is when the sentence does not state a clear position, but mentions the issue. For the left-hand panel, we look at a different dependend variable, so instead of seeing if respondents where correct or not, we look at whether they interpreted the sentence as a stance or not. On average, almost nobody overinterprets a stance -- as indicated by an intercept of `-0.01`. However, if people see an X compared to a political actor, they are statistically significantly more likely to interpret the sentence as a stance. Yet, a coefficient of `0.02` (i.e. `2%`) is a very small effect. For the condition of specification level, however, we see that compared to a fully specified sentence, people seeing an under-specified sentence are much more likely to interpret the sentence as a stance: an increase of `0.83`. This indicates that people do not excel in this task without any instruction. In the pre-registered section, we demonstrate the tests of the hypotheses, and afterwards, we visualize some explorations of the data to show the robustness of our findings.
+Looking at the effect of the experimental conditions on the four dependent variables -- 1) correctly identifying a stance; and 2) over-interpreting a stance for both a strict and a lenient interpretation of stance -- Figure \ref{fig:results-base} visualizes the baseline. 
+The left-hand panel demonstrates the effect of the two experimental conditions for correctly identifying the stance in the Dutch case. The right-hand panel does so for the American case. On average, many respondents in both cases (respectively `85%` in the Dutch case and `65%` in the American case) correctly interpreted the stance using either the lenient or strict interpretation (respectively in blue and red) -- as indicated by the intercept. When we mask the political actor -- i.e. instead of mentioning the party, we put "X" -- we see that this does on average not improves correctly interpreting the stance significantly in neither the Dutch or the American case. 
+Additionally, we do see that the level of specification of a sentence has a significant effect. 
+If a sentence is not fully specified, it has a substantive negative effect on the likelihood to correctly interpret the stance in both the lenient and strict interpretation of a stance.
+These effects are substantial in both the American and Dutch case, with coefficients varying between `-0.2` and `-0.5`.
+This indicates that compared to a fully specified sentence, between `20%` and `50%` of the respondents are more likely to be incorrect when the sentence is under-specified -- that is when the sentence does not state a clear position, but mentions the issue. 
+Looking at the other dependent variable, whether they interpreted the sentence as a stance or not, we see that almost nobody overinterprets a stance in the strict interpretation in either the Dutch or American case. Yet, they do overinterpret a stance in the lenient interpretation.
+Moreover, if people see an X compared to a political actor, they are statistically significantly more likely to interpret the sentence as a stance in its strict interpretation. Yet, a coefficient of `0.02` (i.e. `2%`) is a very small effect. For the condition of specification level, however, we see that compared to a fully specified sentence, people seeing an under-specified sentence are much more likely to interpret the sentence as a stance in the strict interpretation: an increase of `0.83`. This indicates that people do not excel in this task without any instruction. Using the lenient interpretation, however, people seem less likely to annotate the sentence as a stance.
+In the pre-registered section, we demonstrate the tests of the hypotheses, and afterwards, we discuss some explorations of the data to show the robustness of our findings, the visualizations thereof are displayed in OA **XX**.
 
 ```{r results-baseline, out.width = "95%", fig.align = 'center', fig.cap = "\\label{fig:results-base} Baseline Results of Experimental Conditions"}
 knitr::include_graphics(here("report/figures", "baseline-1.png"))
@@ -236,10 +248,16 @@ knitr::include_graphics(here("report/figures", "baseline-1.png"))
 
 ## Pre-registered Results
 
-First, we test whether there is an ideological bias in interpreting stances (H1a), and if this bias increases for those that are further away from the ideological position of the political actor in the under-specified condition (H1b). Figure \ref{fig:results-h1} demonstrates on the left-hand panel the regression coefficients and on the right-hand panel the average marginal effects of the interaction between ideological distance and under-specified sentences. The upper-left panel of Figure \ref{fig:results-h1} demonstrates the coefficient of ideological distances for the likelihood of interpreting the stance correctly. There is a negligible positive effect -- a coefficient of `0.002` -- that is borderline significant. Substantially, this means that there is no effect of ideological distance for correctly interpreting the stance. Hence, no ideological bias found, thus no support for our H1a. Looking at the lower-left, and right-hand panel of Figure \ref{fig:results-h1}, we see a small but significant effect of the interaction between ideological distance and the under-specified condition. It is, however, going in the other direction than hypothesized. For those who are ideologically further away from the party, they are less likely to be wrong than those who are close too the party. Yet, the difference is about `3%` -- from a coefficient of `-0.38` to `-0.35`. We thus find no evidence for H1b either. This demonstrates that even in times of hightened polarization, ideological annotation bias is not a huge concern.
-
-Secondly, we hypothesized that there is a risk of over-interpretation from those that are ideologically distant to the political actor (H2a) as well as those who have high levels of political knowledge (H2b). We measure this with an interaction between the experimental condition of specification and the variable of interest. Following @brambor2006understanding, we visualize the average marginal effects for both interactions to enhance interpretation. Figure \ref{fig:results-h2} demonstrates the average marginal effects for both interaction effects: In the left-hand panel the results for H2a, and in the right-hand panel, the results for H2b. The left-hand panel of Figure \ref{fig:results-h2} shows that those who are more distant from the position of the political actor are more likely to over-interpret the sentence as a stance. The effect increases from about `80%` to those that are closest to the party to `91%` for those who are furthest away from the party. This supports our H2a. The right-hand panel of Figure \ref{fig:results-h2} shows that political knowledge does statistically significantly effect over-interpretation of a sentence as a stance. The substantial effect, however, is small: From the least knowledgeable respondents to the most knowledgeable ones, the likelihood of over-interpretation increases with `2%`. So, while we do find support for our H2b, we will in our recommendations section focus less on the political knowledge as a possible interfering feature, but focus on what to do with under-specified sentences when using crowd-coding.
-
+First, we test whether there is an ideological bias in interpreting stances (H1a), and if this bias increases for those that are further away from the ideological position of the political actor in the under-specified condition (H1b). Figure \ref{fig:results-h1} demonstrates on the left-hand panel the regression coefficients and on the right-hand panel the average marginal effects of the interaction between ideological distance and under-specified sentences. 
+The upper-left panel of Figure \ref{fig:results-h1} demonstrates the coefficient of ideological distances for the likelihood of interpreting the stance correctly. There is a negligible positive effect -- a coefficient of `0.002` -- that is borderline significant. 
+Substantially, this means that there is no effect of ideological distance for correctly interpreting the stance in either the American or Dutch case. Hence, no ideological bias found, thus no support for our H1a. 
+Looking at the lower-left, and right-hand panel of Figure \ref{fig:results-h1}, we see a small but significant effect of the interaction between ideological distance and the under-specified condition for both interpretations in the American case, and only for the strict interpretation of a stance in the Dutch case.
+These effects are, however, going in the other direction than hypothesized. 
+For those who are ideologically further away from the party, they are less likely to be wrong than those who are close too the party, as shown in the right-hand panel of Figure \ref{fig:results-h1}. 
+For the Dutch case, using the strict interpretation, the difference is about `20%` -- from a coefficient of `-0.6` to `-0.4`.
+In the American case, the slope is even steeper, with a difference of about `40%`.
+We thus find evidence for H1b.
+This demonstrates that even in times of heightened polarization, ideological annotation bias can be a concern.
 
 \begin{landscape}
 ```{r results-h1, fig.align = 'center', fig.cap = "\\label{fig:results-h1} Ideological Distance", fig.pos="H", fig.show="hold",out.width = "49%", out.height="40%"}
@@ -250,8 +268,22 @@ knitr::include_graphics(c(here("report/figures", "h2-1.png"), here("report/figur
 ```
 \end{landscape}
 
+Secondly, we hypothesized that there is a risk of over-interpretation from those that are ideologically distant to the political actor (H2a) as well as those who have high levels of political knowledge (H2b). 
+We measure this with an interaction between the experimental condition of specification and the variable of interest. 
+Following @brambor2006understanding, we visualize the average marginal effects for both interactions to enhance interpretation in the right-hand panel of Figure \ref{fig:results-h2}. 
+Figure \ref{fig:results-h2} demonstrates the average marginal effects for both interaction effects: In the upper-panel the results for H2a, and in the bottom-panel, the results for H2b.
+In both countries, we see that the different interpretations of stance have opposite effects: A strict interpretation increases the chance of overinterpreting, but this is not exacerbated by ideological distance or political knowledge.
+Using a more lenient interpretation, we see that this decreasess the chance of overinterpreting.
+While this is not further diminished by political knowledge, ideological disctance does further diminish the change in the American case -- i.e. against expectation H2b.
+In the Dutch case, however, the further you are from the party the more likely you are to overinterpret the sentence as a stance.
+So, while we do find some support for our H2a, we will reflect on the interpretation of a stance in combination with the context, as this effects how crowds interpret underspecified sentences.
 
-Thirdly, we test whether masking of the political actor is a solution for potentially misinterpreting the stance. We hypothesized that masking should reduce the ideological bias (H3a) as well as the bias resulting from political knowledge (H3b). We test these hypotheses with an interaction between the condition masking and the variables of interest and Figure \ref{fig:results-h3} demonstrates the average marginal effects. The left-hand panel of Figure \ref{fig:results-h3} shows, against expectation, a slight increase: Those that are further away from the masked political actor are more likely to incorrectly interpret the stance. The decrease in slope is however negligible: From approximately `6%` to `7%` of the respondents being incorrect. The slope for political knowledge, on the right-hand panel of Figure \ref{fig:results-h3}, is so-possible even flatter. This means that masking of political actors does not help to correctly interpret a sentence as a stance -- i.e. no support for H3a and H3b.
+Thirdly, we test whether masking of the political actor is a solution for potentially misinterpreting the stance. We hypothesized that masking should reduce the ideological bias (H3a) as well as the bias resulting from political knowledge (H3b). 
+We test these hypotheses with an interaction between the condition masking and the variables of interest and Figure \ref{fig:results-h3} demonstrates the regression coefficients. The upper-left panel of Figure \ref{fig:results-h3} shows, against expectation, a slight increase in the Dutch case: Those that are further away from the masked political actor are more likely to incorrectly interpret the stance. The decrease in slope is however negligible: From approximately `0.1%` to `0.2%` of the respondents being incorrect. 
+There is no effect found in the American case.
+The same goes for the interaction between masking and political knowledge, on the bottom-panel of Figure \ref{fig:results-h3}.
+There is no significant effect found in the US, but a very small negative effect in the Dutch case.
+This means that masking of political actors does not help to correctly interpret a sentence as a stance -- i.e. no support for H3a and H3b.
 
 ```{r results-h3, fig.align = 'center', fig.cap = "\\label{fig:results-h3} Results Masking Solution", fig.pos="H", fig.show="hold",out.width = "59%", out.height="50%"}
 knitr::include_graphics(here("report/figures", "h3-1.png"))
@@ -260,36 +292,24 @@ knitr::include_graphics(here("report/figures", "h3-1.png"))
 
 ## Exploratory Results
 
-To check the robustness of our findings, Figure \ref{fig:results-exp1} demonstrates the analyses for each issue separately. On the left-hand panel of Figure \ref{fig:results-exp1}, we show the results for correctly interpreting the stance. We see some variation between issues. For the issue *Tax* (lowest row), we see that almost everyone interprets the sentence correct -- an intercept of `0.96`. This increases statistically significantly still with about `1%` when masking the political actor, and decreases statistically significantly with `68%` when the sentence is under-specified. The regression results (in Online Appendix) show a small effect of ideological distance: the further away, the more likely to correctly interpret the stance -- i.e. against H1a. Respondents found it most difficult to correctly interpret the issue *Environment* (top row of Figure \ref{fig:results-exp1}), only `12%` has this correct initially, as indicated by the intercept. This increases statistically significantly still with about `8%` when masking the political actor, and decreases statistically significantly with `15%` when the sentence is under-specified. The other two issues -- *EU* and *Immigration*, in the middle rows of Figure \ref{fig:results-exp1} show a similar effect as the main base-line presented in Figure \ref{fig:results-base}. The same pattern holds for the other dependent variable -- overinterpretation of a stance -- in the right-hand panel of Figure \ref{fig:results-exp1}. Thus, while there are some differences in effect sizes between the issues, the overall findings are not driven by a single issue.
+To check the robustness of our findings, Figure \ref{fig:results-exp1} demonstrates the analyses for each issue separately. The different colors visualize the different dependent variables.
+We do not see much variation between issues *Tax*, *EU/Foreign Policy*, and *Environment*. For those issues, we see that almost everyone interprets the sentence correct (in blue and red).
+We also see that for a lenient interpretation of stances, people are quite likely to over interpret a position as a stance.
+Being correct about the stance does not when masking the political actor in both cases.
+Yet, the chance of being correct decreases statistically significantly when the sentence is underspecified.
+The same holds for overinterpreting for the lenient interpretation, but the opposite is true for the strict interpretation; there overinterpretation is more likely with underspecified sentences. 
+Looking at *Immigration*, we see a different pattern. We see that masking does not increase the likelihood of being correct, but does increase the likelihood of overinterpretation regardless of how one defines a stance.
+Underspecified sentence are less likely to be correctly identified and more likely to be overinterpreted regardless of the definition of a stance.
+So, while there are some differences in effect sizes between the issues, the overall findings are not driven by a single issue.
 
-```{r results-exploration1, out.height = "85%",out.width = "95%",, fig.align = 'center', fig.cap = "\\label{fig:results-exp1} Exploration: Issue Speficific Analyses", eval = F}
+```{r results-exploration1, out.height = "85%",out.width = "95%",, fig.align = 'center', fig.cap = "\\label{fig:results-exp1} Exploration: Issue Speficific Analyses", fig.pos="H", fig.show="hold"}
 knitr::include_graphics(c(here("report/figures", "issues-1.png")))
 ```
+In addition to issue-specific analyses, we also explore an interaction between treatments, visualized in Figure **OA.XX** for both dependent variables. This shoows that masking is of help when sentences are under-specified. In the left-hand panel of Figure **OA.XX**, it demonstrates that for under-specifief sentences, people are less likely to incorrectly identify a sentence as a stance when the actor is masked (coefficient of `-0.30`) than when an actor is revealed (coefficient of `-0.45`). That means there is a 15% increase in having it correct. The difference for over-interpreting is smaller between revealed and masked political actor -- shown in the right-hand panel of Figure **OA.XX** -- yet also statistically significant. Compared to `85%` over-interpreting the sentence as a stance, in the masking solution "only" `80%` over-interprets the sentence as a stance. In the recommendation section, we will reflect on the masking solution for under-specified sentences.
 
-In addition to issue-specific analyses, we also explore an interaction between treatments, visualized in Figure \ref{fig:results-exp2} for both dependent variables. Figure \ref{fig:results-exp2} shows that masking is of help when sentences are under-specified. In the left-hand panel of Figure \ref{fig:results-exp2}, it demonstrates that for under-specifief sentences, people are less likely to incorrectly identify a sentence as a stance when the actor is masked (coefficient of `-0.30`) than when an actor is revealed (coefficient of `-0.45`). That means there is a 15% increase in having it correct. The difference for over-interpreting is smaller between revealed and masked political actor -- shown in the right-hand panel of Figure \ref{fig:results-exp2} -- yet also statistically significant. Compared to `85%` over-interpreting the sentence as a stance, in the masking solution "only" `80%` over-interprets the sentence as a stance. In the recommendation section, we will reflect on the masking solution for under-specified sentences.
-
-```{r results-exploration2, out.width = "95%", out.height= "75%", fig.align = 'center', fig.cap = "\\label{fig:results-exp2} Exploration: Interaction with Treatments", eval = F}
-knitr::include_graphics(here("report/figures", "exploration-3.png"))
-knitr::include_graphics(here("report/figures", "exploration-4.png"))
-```
-
-Lastly, we explore three different ways of measuring ideological distance. First, we measured ideological bias by looking at whether the respondent is congruent or not with the issue position in the sentence, visualized in Figure \ref{fig:results-exp3}. Second, we measured ideological bias by looking at whether the person voted for the party displayed in the sentence, visualized in Figure \ref{fig:results-exp4}. And thirdly, we measured ideological bias by looking at the ideology of the respondents -- not in relation to the political actor revealed, visualized in Figure \ref{fig:results-exp5}. Figures \ref{fig:results-exp3}, \ref{fig:results-exp4}, and \ref{fig:results-exp5} show that our null-finding regarding ideological bias is not conditional upon the measure we used. In none of the analyses, we find evidence for ideological bias.
-
-```{r results-exploration3, out.width = "95%", fig.align = 'center', fig.cap = "\\label{fig:results-exp3} Exploration: Different Indicators of Ideological Distance (1)", eval = F}
-knitr::include_graphics(here("report/figures", "exploration-1.png"))
-```
-
-```{r results-exploration4, out.width = "95%", fig.align = 'center', fig.cap = "\\label{fig:results-exp4} Exploration: Different Indicators of Ideological Distance (2)", eval = F}
-knitr::include_graphics(here("report/figures", "exploration-2.png"))
-```
-
-```{r results-exploration5, out.width = "95%", fig.align = 'center', fig.cap = "\\label{fig:results-exp5} Exploration: Different Indicators of Ideological Distance (3)", eval = F}
-knitr::include_graphics(here("report/figures", "exploration-3.png"))
-```
-
-```{r results-h2_expl, out.width = "95%", fig.align = 'center', fig.cap = "\\label{fig:results-h2-expl} Results Level of Sentence Specification", eval = F}
-knitr::include_graphics(here("report/figures", "h2-3.png"))
-```
+Lastly, we explore three different ways of measuring ideological distance and an alternative for political knowledge in the American case. First, we measured ideological bias by looking at whether the respondent is congruent or not with the issue position in the sentence, visualized in Figure **OA.XX** . Second, we measured ideological bias by looking at whether the person voted for the party displayed in the sentence, visualized in Figure **OA.XX**. And thirdly, we measured ideological bias by looking at the ideology of the respondents -- not in relation to the political actor revealed, visualized in Figure **OA.XX**. 
+These figures show that our null-finding regarding ideological bias is not conditional upon the measure we used. In none of the analyses, we find evidence for ideological bias.
+Also for the alternative measurement of political knowledge in the US, we find the same results as reported in the main analyses. 
 
 # Discussion
 
