@@ -124,7 +124,7 @@ To do so, we have fielded two high-powered pre-registered experiments (see [here
 In the experiments, we vary the level of specification with which a political actor takes a stance -- a declarative sentence versus a sentence where with some knowledge on politics, the stance might be inferred -- as well as whether the political actor is shown or masked with putting `[ACTOR]` instead of the political party.
 We do this for four different political issues: *Environment*, *Immigration*, *Tax Policy*, and *EU* (for the Dutch case) or *Foreign Policy* (for the American case).
 This country selection does not only allow us to showcase the scope conditions of disagreement due to different levels of political heterogeneity, but also differentiates between languages.
-English is not only the most dominant language for computational text analysis in the social science [@baden2022three; Dolinsky et al. 2023], crowd-coders do not need to be native speakers, given the dominance of English in our daily lives.
+English is not only the most dominant language for computational text analysis in the social science [@baden2022three; @dolinsky2023threegaps], crowd-coders do not need to be native speakers, given the dominance of English in our daily lives.
 This is different for Dutch, it is a language spoken by a smaller community, typically native speakers, yet still an often-enough researched case in computational text analysis in the social science [@baden2022three; Dolinsky et al. 2023].
 
 [^1]: The data and research compendium is published on the [main author's github page](https://github.com/MarikenvdVelden/bias-experiment) -- annonymized for the review process.
