@@ -64,6 +64,9 @@ doublespacing: TRUE
 endnote: no
 pandocparas: TRUE
 sansitup: FALSE
+editor_options: 
+  markdown: 
+    wrap: sentence
 ---
 
 ```{r setup, include=FALSE}
@@ -85,64 +88,131 @@ source(here::here("src/lib/functions.R"))
 
 # Introduction
 
-Information is key to inform the behavior of citizens, and thereby for the social scientists studying them. Classical theories of political communication, such as agenda setting or framing [e.g. @vanaelst2016political; @lecheler2019news], formulate that political information drives opinion formation and participation in politics -- from voting to protests [for overviews hereof across countries, see @pfetsch2013comparing]. The democratization of data and advent of computational social science has paved the way for new possibilities to gather and analyze textual data [for a recent overview, see @vanatteveldt2022computational]. In particular, advances in Natural Language Processing (NLP) have made it possible to automatically analyze large quantities of data using machine learning [e.g., see @bender2016linguistic; @wei2023overview]. 
-To determine the validity of such large scale, computational analyses, we rely on "gold standard" data, created by human annotators. 
-If follows that the validity of these analyses hinges on the quality of these golden standards.
+Information is key to inform the behavior of citizens, and thereby for the social scientists studying them.
+Classical theories of political communication, such as agenda setting or framing [e.g. @vanaelst2016political; @lecheler2019news], formulate that political information drives opinion formation and participation in politics -- from voting to protests [for overviews hereof across countries, see @pfetsch2013comparing].
+The democratization of data and advent of computational social science has paved the way for new possibilities to gather and analyze textual data [for a recent overview, see @vanatteveldt2022computational].
+In particular, advances in Natural Language Processing (NLP) have made it possible to automatically analyze large quantities of data using machine learning [e.g., see @bender2016linguistic; @wei2023overview].
+To determine the validity of such large scale, computational analyses, we rely on "gold standard" data, created by human annotators.
+It follows that the validity of these analyses hinges on the quality of these golden standards.
 If a gold standard contains biases, i.e., systematic errors, it can foster bias in any downstream analysis.
 
 Most data collection efforts to create gold standards assume that there is only one correct interpretation for every input example, and that disagreement between the annotators is something that needs to be dealt with at all costs [@aroyo2015truth].
-A recent study [@van2021validity] demonstrates that using crowd-coding platforms is a good way to collect such golden standards without too much disagreement. These platforms have also been used for experiments, and the quality of the respondents has been a center of attention [@coppock2019generalizing; @clifford2015samples; @huff2015these; @berinsky2014separating]. While it has been argued that this data is of similar quality to data from a random sample of the population [@coppock2019generalizing], others have demonstrated that these online platforms are populated by people that are "unlike" the general public, being younger and holding more liberal values [@clifford2015samples; @huff2015these]. If the latter is true, this might cause a problem for the coding of political texts: @ennser2018impact report that coders of political texts incorporate prior beliefs about parties' issue stances into their coding decisions. The authors find that party labels cue coders to a stance. For example, coders are more likely to report a left-wing party to be pro-immigration and a populist right-wing party to be against based on the exact same sentence. *Is this actually bias or a diversity of view points? And how big of a problem does this bias/diversity of view points generate for scholars relying on golden standard data?*
+A recent study [@van2021validity] demonstrates that using crowd-coding platforms is a good way to collect such golden standards without too much disagreement.
+These platforms have also been used for experiments, and the quality of the respondents has been a center of attention [@coppock2019generalizing; @clifford2015samples; @huff2015these; @berinsky2014separating].
+While it has been argued that this data is of similar quality to data from a random sample of the population [@coppock2019generalizing], others have demonstrated that these online platforms are populated by people that are "unlike" the general public, being younger and holding more liberal values [@clifford2015samples; @huff2015these].
+If the latter is true, this might cause a problem for the coding of political texts: @ennser2018impact report that coders of political texts incorporate prior beliefs about parties' issue stances into their coding decisions.
+The authors find that party labels cue coders to a stance.
+For example, coders are more likely to report a left-wing party to be pro-immigration and a populist right-wing party to be against based on the exact same sentence.
+*Is this actually bias or a diversity of view points? And how big of a problem does this bias/diversity of view points generate for scholars relying on golden standard data?* This question also taps into newer developments related to data annotations: Increasingly, Large Language Models such as ChatGPT are being used by researchers [@gilardi2023chatgpt] as well as annotators themselves [@veselovsky2023artificial] to "simulate" human respondents for annotation tasks.
+These models draw among other things from the gold standard data sets that have been created by researchers, perpetuating the specific biases that are present in them and not allowing for any further disagreement or diversity of viewpoints.
 
-[**As motivation why important:  This is not solved by ChatGPT but perpetuated! (Every dataset is a worldview)!!! Look at Artificial Artificial Intellegence paper in SLACK**]
+There is a long history of text annotation in studies analyzing political text.
+While this yields lots of experiences as to how to train coders so that we get reliable hand-coded data, the procedure is expensive, protracted, and sometimes does not even get us the quality of data we need [@weber18].
+While the crowd offers a solution to some of these issues [@van2021validity], the main underlying assumption that there is one correct interpretation for every input example remains untouched.
+However, especially for more complex coding tasks different research fields have different interpretations of what counts as *correct* solution depending on the main goal of annotation: Do we want to create a clean benchmark data set that follows strict linguistic rules or one that reflects how statements are being interpreted by "real" readers that do not necessarily follow theoretical definitions on which elements are needed for a specified stance?
+Trends of polarization have shown that people do interpret information according to their ideological position.
+*Does this mean that some are right and others are wrong? Or is there an ideological difference in the ground truth?* These questions present a fundamental challenge to the main way of working when collecting gold standard data, as we operate from the baseline assumption that disagreement among the annotators should be avoided or reduced.
+Typically, when specific cases continuously cause disagreement, more instructions are added to limit interpretations [for recent innovations to improve annotation, see for example: @barbera2021automated; @struthers2020bridging; @winter2020online; @debell2013harder; @benoit2016crowd, @ying2022topics].
+However, work in computational linguistics has shown that increased annotation instructions do not increase quality [@parmar2022don].
+This leaves us between a rock and a hard place.
+Is there a potential bias in annotators that we should account for?
 
-There is a long history of text annotation in studies analyzing political text. While this yields lots of experiences as to how to train coders so that we get reliable hand-coded data, the procedure is expensive, protracted, and sometimes does not even get us the quality of data we need [@weber18]. While the crowd offers a solution to some of these issues [@van2021validity], the main underlying assumption that there is one correct interpretation for every input example remains untouched. At the same time, trends of polarization have shown that people do interpret information according to their ideological position. *Does this mean that some are right and others are wrong? Or is there an ideological difference in the ground truth?* These questions present a fundamental challenge to the main way of working when collecting gold standard data, as we operate from the baseline assumption that disagreement among the annotators should be avoided or reduced. Typically, when specific cases continuously cause disagreement, more instructions are added to limit interpretations [for recent innovations to improve annotation, see for example: @barbera2021automated; @struthers2020bridging; @winter2020online; @debell2013harder; @benoit2016crowd, @ying2022topics]. However, work in computational linguistics has shown that increased annotation instructions do not increase quality [@parmar2022don]. This leaves us between a rock and a hard place. Is there a potential bias in annotators that we should account for?
-
-In this paper, we build upon the NLP literature on disagreement -- or bias -- in annotation [e.g., see @shen2021sounds; @geva2019we; @sommerauer2020penguin; @plank2014learning] and so-called perspectivism [@basile2021toward; @havens2022beyond] -- i.e. the adoption of methods that integrate the opinions and perspectives of the human subjects involved in the knowledge representation step of the machine learning processes [@basile2021toward]. This literature puts forward that disagreement can occur because of differences in ideological position or political knowledge [@shen2021sounds; @alkiek2022classification; @joseph2021mis]. This allows us to test the extent to which disagreement takes place, for what type of stances, as well as gives us directions on how to deal with the diversity in conceptions and the political heterogeneity that nowadays potentially occurs in our sample of annotators. To do so, we have fielded two high-powered pre-registered experiments (see [here](link) and [here](link)) in the Netherlands -- a low-level polarized country -- and in the U.S. -- a high-level polarized country testing the effect of ideological distance between the annotator and the political actor in the text (H1), the effect of overinterpretation based on political knowledge or ideological engagement (H2), and a offered solution of masking the political actor to mitigate the effects of ideology and knowledge (H3).[^1] In the experiments, we vary the level of specification with which a political actor takes a stance -- a declarative sentence versus a sentence where with some knowledge on politics, the stance might be inferred -- as well as whether the political actor is shown or masked with putting `[ACTOR]` instead of the political party. We do this for four different political issues: *Environment*, *Immigration*, *Tax Policy*, and *EU* (for the Dutch case) or *Foreign Policy* (for the American case). This country selection does not only allow us to showcase the scope conditions of disagreement due to different levels of political heterogeneity, but also differentiates between languages. English is not only the most dominant language for computational text analysis in the social science [@baden2022three; Dolinsky et al. 2023], crowd-coders do not need to be native speakers, given the dominance of English in our daily lives. This is different for Dutch, it is a language spoken by a smaller community, typically native speakers, yet still an often-enough researched case in computational text analysis in the social science [@baden2022three; Dolinsky et al. 2023].
+In this paper, we build upon the NLP literature on disagreement -- or bias -- in annotation [e.g., see @shen2021sounds; @geva2019we; @sommerauer2020penguin; @plank2014learning] and so-called perspectivism [@basile2021toward; @havens2022beyond] -- i.e. the adoption of methods that integrate the opinions and perspectives of the human subjects involved in the knowledge representation step of the machine learning processes [@basile2021toward].
+This literature puts forward that disagreement can occur because of differences in ideological position or political knowledge [@shen2021sounds; @alkiek2022classification; @joseph2021mis].
+This allows us to test the extent to which disagreement takes place, for what type of stances, as well as gives us directions on how to deal with the diversity in conceptions and the political heterogeneity that nowadays potentially occurs in our sample of annotators.
+To do so, we have fielded two high-powered pre-registered experiments (see [here](link) and [here](link)) in the Netherlands -- a low-level polarized country -- and in the U.S. -- a high-level polarized country testing the effect of ideological distance between the annotator and the political actor in the text (H1), the effect of overinterpretation based on political knowledge or ideological engagement (H2), and an offered solution of masking the political actor to mitigate the effects of ideology and knowledge (H3).[^1]
+In the experiments, we vary the level of specification with which a political actor takes a stance -- a declarative sentence versus a sentence where with some knowledge on politics, the stance might be inferred -- as well as whether the political actor is shown or masked with putting `[ACTOR]` instead of the political party.
+We do this for four different political issues: *Environment*, *Immigration*, *Tax Policy*, and *EU* (for the Dutch case) or *Foreign Policy* (for the American case).
+This country selection does not only allow us to showcase the scope conditions of disagreement due to different levels of political heterogeneity, but also differentiates between languages.
+English is not only the most dominant language for computational text analysis in the social science [@baden2022three; Dolinsky et al. 2023], crowd-coders do not need to be native speakers, given the dominance of English in our daily lives.
+This is different for Dutch, it is a language spoken by a smaller community, typically native speakers, yet still an often-enough researched case in computational text analysis in the social science [@baden2022three; Dolinsky et al. 2023].
 
 [^1]: The data and research compendium is published on the [main author's github page](https://github.com/MarikenvdVelden/bias-experiment) -- annonymized for the review process.
 
-Our results demonstrate that overall sentence where with some knowledge on politics the stance might be inferred are really difficult for the crowd to annotate -- people overinterpret the position using their own knowledge of the world. This is problematic as these sentence are very common in political text -- like legislative debates or speeches -- as well as media reports. Moreover, our results also demonstrate that for these disagreements in the crowd to occur, the level of polarization needs to be high. We do find support for our hypotheses in the American context, but not in the Dutch context -- except for the situation where masking overcomes political knowledge, we do find support for that in the Dutch case, but not in the American one. Our findings thus underline the importance of taking disagreement seriously for the creation of gold standard text -- the bread-and-butter of all machine learning endaveours. We should look beyond the majority vote and modeling it in the data, because if an algorithm is trained on biased data from disagreeing annotators, it will reproduce and often exacerbate that bias when it is applied to new data [e.g., see @prost2019debiasing]. To be able to model these characteristic of annotators, we should survey the characteristics of annotators when using the crowd (see Webb-Williams et al. 2023 for a similar argument, yet different annotator characteristics).
+Our results demonstrate that overall sentences where with some knowledge on politics the stance might be inferred are really difficult for the crowd to annotate -- people overinterpret the position using their own knowledge of the world.
+This is problematic as these sentences are very common in political text -- like legislative debates or speeches -- as well as media reports.
+Moreover, our results also demonstrate that for these disagreements in the crowd to occur, the level of polarization needs to be high.
+We do find support for our hypotheses in the American context, but not in the Dutch context -- except for the situation where masking overcomes political knowledge.
+In this case, we do find support in the Dutch experiment, but not in the American one.
+Our findings thus underline the importance of taking disagreement seriously for the creation of gold standard text -- the bread-and-butter of all machine learning endeavours.
+We should look beyond the majority vote and model it in the data, because if an algorithm is trained on biased data from disagreeing annotators, it will reproduce and often exacerbate that bias when it is applied to new data [e.g., see @prost2019debiasing].
+To be able to model these characteristic of annotators, we should survey the characteristics of annotators when using the crowd (see Webb-Williams et al. 2023 for a similar argument, yet different annotator characteristics).
 
 # Whose Truth is it Anyway? Disagreement & Perspectivism in Creating Gold Standard Data
 
-Generating large data-sets has become one of the main drivers of progress in natural language understanding. In studies of political communication, the most familiar annotation tasks involve identifying basic concepts. This often involve noting the topic of the text, the position of the actor or the tone of the text. A recent study [@van2021validity] demonstrates that using crowd-coding platforms is a good way to collect such large data-sets. However, having only a few workers annotate the majority of text of interest has raised concerns about data diversity and models' ability to generalize beyond the crowd-workers: In a series of experiments, @geva2019we show that often models do not generalize well to annotations from annotators that did not contribute to the training set, suggesting that annotator bias should be monitored during data-set creation. One such potential bias, especially in times of increasing polarization [@iyengar2019origins; @gidron2019toward; @boxell2022cross], is based on ideological position of the annotator. Given that annotators on crows-coding platforms tend to be younger and hold more liberal values than the general public [@clifford2015samples; @huff2015these], this could potentially hamper the data diversity and generalizability of the model. An additional reason to monitor the annotators ideological position as a potential source of annotator bias is that a recent study in NLP showed that experiential factors influence the consistency of how political ideologies are perceived [@shen2021sounds]. Their finding challenges the "ground-truth" assumption we as researcher make that a position for example is either left-leaning or right-wing leaning. People with different ideological backgrounds might experience that position differently. 
+Generating large data-sets has become one of the main drivers of progress in natural language understanding.
+In studies of political communication, the most familiar annotation tasks involve identifying basic concepts.
+This includes noting the topic of the text, the position of the actor or the tone of the text.
+A recent study [@van2021validity] demonstrates that using crowd-coding platforms is a good way to collect such large data-sets.
+However, having only a few workers annotate the majority of text of interest has raised concerns about data diversity and models' ability to generalize beyond the crowd-workers: In a series of experiments, @geva2019we show that often models do not generalize well to annotations from annotators that did not contribute to the training set, suggesting that annotator bias should be monitored during data-set creation.
+One such potential bias, especially in times of increasing polarization [@iyengar2019origins; @gidron2019toward; @boxell2022cross], is based on ideological position of the annotator.
+Given that annotators on crowd-coding platforms tend to be younger and hold more liberal values than the general public [@clifford2015samples; @huff2015these], this could potentially hamper the data diversity and generalizability of the model.
+An additional reason to monitor the annotators' ideological position as a potential source of annotator bias is that a recent study in NLP showed that experiential factors influence the consistency of how political ideologies are perceived [@shen2021sounds].
+Their finding challenges the "ground-truth" assumption we as researcher make that a position for example is either left-leaning or right-wing leaning.
+People with different ideological backgrounds might experience that position differently.
 This challenges our way of data collection.
-We are interested in the effect of e.g. elite communication. To study this, we allow for heterogeneous treatment effects in experimental work. This indicates that we often do not assume that the treatment, often using text, has the same effect for different partisans. Yet, at the same time, we forget or ignore that knowledge when creating large data-sets for our machine learning models.
+We are interested in the effect of e.g. elite communication.
+To study this, we allow for heterogeneous treatment effects in experimental work.
+This indicates that we often do not assume that the treatment, often using text, has the same effect for different partisans.
+Yet, at the same time, we forget or ignore that knowledge when creating large data-sets for our machine learning models.
 
-The field of Natural Language Processing often works on automatically classifying texts on labels of concepts such as stance, sentiment, and political orientation. These models are trained on data created by human annotators. Often, this process has a final step where disagreements and differences in annotations are leveled by aggregating, averaging, or in other ways coming to a consensus on one label for one example, which is then seen as "ground truth" [@aroyo2015]. 
-Differences from this ground truth label are seen as errors that need to be removed or sorted out. 
-Models then learn to predict labels for new examples based on this ground truth. However, since several years there is some discussion on how realistic it is to have one label, especially for subjective or complex concepts and/or texts with multiple interpretations. @aroyo2015 describes succinctly how the predominant annotation procedures for classification models run into myths such as "disagreement is bad" and "one annotation is enough". @plank2014learning adds to this that underlying ambiguity and linguistic complexity should be considered for disagreement in annotations: not all linguistic examples are created equal. Disagreement even occurs in seemingly objective tasks such as Part of Speech tagging [@fornaciari2021, @plank2014learning].
+The field of Natural Language Processing often works on automatically classifying texts on labels of concepts such as stance, sentiment, and political orientation.
+These models are trained on data created by human annotators.
+Often, this process has a final step where disagreements and differences in annotations are leveled by aggregating, averaging, or in other ways coming to a consensus on one label for one example, which is then seen as "ground truth" [@aroyo2015].
+Differences from this ground truth label are seen as errors that need to be removed or sorted out.
+Models then learn to predict labels for new examples based on this ground truth.
+However, since several years there is some discussion on how realistic it is to have one label, especially for subjective or complex concepts and/or texts with multiple interpretations.
+@aroyo2015 describes succinctly how the predominant annotation procedures for classification models run into myths such as "disagreement is bad" and "one annotation is enough".
+@plank2014learning adds to this that underlying ambiguity and linguistic complexity should be considered for disagreement in annotations: not all linguistic examples are created equal.
+Disagreement even occurs in seemingly objective tasks such as Part of Speech tagging [@fornaciari2021, @plank2014learning].
 
-Another aspect to consider is that disagreement can be informative for the concept under measure - sometimes agreement can be used to validate hypotheses about how universal the perceptions of such concepts are [@sommerauer2020penguin]. 
+Another aspect to consider is that disagreement can be informative for the concept under measure - sometimes agreement can be used to validate hypotheses about how universal the perceptions of such concepts are [@sommerauer2020penguin].
 Additional doubts on smoothing out disagreement in annotation have focussed on the lack of diversity when only annotating with one label or annotator, leading to a homogeneity especially in subjective and social tasks [@geva2019we] such as hatespeech detection or political affiliation classification.
-The question then is: _Whose perspective is being recorded in these datasets, and then later in the models trained on these datasets?_ 
-Framing arbitrary representations in data as \"bias\" misses the political character of datasets: There is no neutral data and no apolitical standpoint from where we can call out bias. Datasets are always \"a worldview\" [26] and, as such, data always remains biased.\" (Miceli et al., 2022, p. 5).
-This is key to social scientist in general, and those studying political text in particular, since several tasks of interest are intrinsically societal, with answers that differ based on the make-up of the worldview of annotators. 
-The answer of the annotators in turn influence how machine learning examples classify new models. 
-For instance, hate speech detection and abuse detection is one NLP task where the race and gender of annotators influences annotators and model performance[@gordon2022, @Larimore, @waseem2016]. 
-Language is inherently connected to society and culture: @shenDarling analyze sentiment analysis, and find that human annotators lead to certain perspectives on sentiment being recorded, and that notably that African American English dialects are often misunderstood by such models.
+The question then is: *Whose perspective is being recorded in these datasets, and then later in the models trained on these datasets?* Framing arbitrary representations in data as "bias" misses the political character of datasets: There is no neutral data and no apolitical standpoint from where we can call out bias.
+Datasets are always "a worldview" [26] and, as such, data always remains biased." (Miceli et al., 2022, p. 5). This is key to social scientist in general, and those studying political text in particular, since several tasks of interest are intrinsically societal, with answers that differ based on the make-up of the worldview of annotators. The answer of the annotators in turn influence how machine learning examples classify new models. For instance, hate speech detection and abuse detection is one NLP task where the race and gender of annotators influences annotators and model performance[@gordon2022, @Larimore, @waseem2016]. Language is inherently connected to society and culture: @shenDarling analyze sentiment analysis, and find that human annotators lead to certain perspectives on sentiment being recorded, and that notably that African American English dialects are often misunderstood by such models.
 
-Most recently, new annotation paradigms have gone one step further by asking whether we  modelling the task, or the annotator [@geva2019we]?
-@pavlick2019 find that for the logical coherence task Natural Language Inference, annotators have several valid interpretations that are not reflected in one ground truth label. They call for new training paradigms that can reflect "the full range of possible human inferences"[@pavlick2019, p. 688]. Recent approaches in NLP have sought to explicitly incorporate disagreement and diversity in training data annotations. [@röttger2021] introduces the idea of an explicitly subjective annotation paradigm existing in addition to one focussed on one label and "ground truth". Such a subjective annotation paradigm can be used for purposes where the goal is finding diverse perspectives on the task or concepts, and for models to model more accurately how humans interpret a task or text. Additionally, "perspectivism" [@basile2021toward] is a paradigm and research agenda where different perspectives are explicitly incorporated in the training data, and used by models to provide more human-like classifications. Another paradigm is "jury learning" [@gordon2022], in which machine learning models do not learn to replicate one specific ground truth, but are trained with different annotator juries to reflect the judgement of different populations. In both approaches, demographic and other individual aspects of the annotator are explicitly mentioned and highlighted as having an influence on classification performance, but is used as an asset rather than as an error.
+Most recently, new annotation paradigms have gone one step further by asking whether we are modelling the task, or the annotator [@geva2019we].
+@pavlick2019 find that for the logical coherence task Natural Language Inference, annotators have several valid interpretations that are not reflected in one ground truth label.
+They call for new training paradigms that can reflect "the full range of possible human inferences"[@pavlick2019, p. 688].
+Recent approaches in NLP have sought to explicitly incorporate disagreement and diversity in training data annotations.
+[@röttger2021] introduces the idea of an explicitly subjective annotation paradigm existing in addition to one focussed on one label and "ground truth".
+Such a subjective annotation paradigm can be used for purposes where the goal is finding diverse perspectives on the task or concepts, and for models to model more accurately how humans interpret a task or text.
+Additionally, "perspectivism" [@basile2021toward] is a paradigm and research agenda where different perspectives are explicitly incorporated in the training data, and used by models to provide more human-like classifications.
+Another paradigm is "jury learning" [@gordon2022], in which machine learning models do not learn to replicate one specific ground truth, but are trained with different annotator juries to reflect the judgement of different populations.
+In both approaches, demographic and other individual aspects of the annotator are explicitly mentioned and highlighted as having an influence on classification performance, but is used as an asset rather than as an error.
 
-@troiano2021[p.2] also note how for a complex concept such as the "emotion" of a text, the annotator can make several assumptions during the annotation process on what is wanted, that are all valid and may or may not be useful in different contexts: "It is possible to assess one\'s own emotion after reading the text, to reconstruct the affective state of the writers who produced it, to guess the reaction that they intended to elicit in the readers, and so on.\" @shen2021sounds find that political ideology is not an inherent concept in many texts, but rather dependent on who is asked to annotate and their perceptions and background. Extralinguistic factors, such as annotator's own political ideology and also knowledge, influenced annotation and in turn model performance. @thornjakobsen2022 specifically analyze a task related to stance detection, argumentative sentence detection, on these extralinguistic factors, and find an effect of gender and political leaning on annotations and also model performance. However, to our knowledge this phenomenon has not yet been tested in a controlled experimental setting with manipulations in the texts.
+@troiano2021 [p.2] also note how for a complex concept such as the "emotion" of a text, the annotator can make several assumptions during the annotation process on what is wanted, that are all valid and may or may not be useful in different contexts: "It is possible to assess one's own emotion after reading the text, to reconstruct the affective state of the writers who produced it, to guess the reaction that they intended to elicit in the readers, and so on." @shen2021sounds find that political ideology is not an inherent concept in many texts, but rather dependent on who is asked to annotate and their perceptions and background.
+Extralinguistic factors, such as annotator's own political ideology and also knowledge, influenced annotation and in turn model performance.
+@thornjakobsen2022 specifically analyze a task related to stance detection, argumentative sentence detection, on these extralinguistic factors, and find an effect of gender and political leaning on annotations and also model performance.
+However, to our knowledge this phenomenon has not yet been tested in a controlled experimental setting with manipulations in the texts.
 
 To test whether people with different ideological backgrounds as well as their political knowledge might experience that position differently, challenging our ground-truth assumption in data annotation, we propose the following hypotheses:
 
 > **Ideological Bias hypothesis** (*H1a*): The larger the ideological distance between respondent and the party, the less likely respondents annotate statements according to the party's uttered position.
 
-> **Ideological Bias hypothesis** (*H1b*): The effect of H1a is stronger for sentences in which the party's position can be infered (i.e. underspecified sentences).
+> **Ideological Bias hypothesis** (*H1b*): The effect of H1a is stronger for sentences in which the party's position can be inferred (i.e. underspecified sentences).
 
-As noted by @plank2014, some linguistic examples are ambiguous, and open to multiple interpretations even for seemingly objective tasks such as part of speech tagging, where annotators have to distinguish parts of speech such as nouns and verbs. A complex concept such as political ideology is much more likely to lead to multiple interpretations. We call such sentences with more possible interpretations and less explicit standpoints "underspecified". A lack of explicitness in the annotated text is one of the main causes of the disagreements in earlier literature. @thornjakobsen2022 deduce that annotator bias comes from a process known as the affect heuristic [@slovic2007affect ]: making a decision based on the emotional response related to your own personal attitude towards the discussed topic, especially when the text is relatively ambiguous.
-To test whether people with different ideological backgrounds as well as their political knowledge might experience that position differently, challenging our ground-truth assumption in data annotation, we propose the following hypotheses:
+As noted by @plank2014, some linguistic examples are ambiguous, and open to multiple interpretations even for seemingly objective tasks such as part of speech tagging, where annotators have to distinguish parts of speech such as nouns and verbs.
+A complex concept such as political ideology is much more likely to lead to multiple interpretations.
+We call such sentences with more possible interpretations and less explicit standpoints "underspecified".
+A lack of explicitness in the annotated text is one of the main causes of the disagreements in earlier literature.
+@thornjakobsen2022 deduce that annotator bias comes from a process known as the affect heuristic [@slovic2007affect ]: making a decision based on the emotional response related to your own personal attitude towards the discussed topic, especially when the text is relatively ambiguous.
+In the tradition of more strict interpretations of what constitutes as a stance especially in (computational) linguistics, sentences that are underspecified should always be annotated as "not a stance".
+However, this might not be the desired annotation for other research purposes: When for example the main goal is to understand how readers are affected by statements shown in e.g., a newspaper article, a more lenient definition of stance that allows annotators to infer the direction of a political stance from context and prior knowledge even though a statement is strictly speaking underspecified might be more useful.
+In everyday life, people will not follow strict linguistic definitions, for understanding media effects we might thus be more interested in whether stances, giving context information, are "correctly overinterpreted".
+To test whether people with different ideological backgrounds as well as their political knowledge might experience underidentified position differently, challenging our ground-truth assumption in data annotation, we propose the following hypotheses:
 
 > **Ideological Overinterpretation hypothesis** (*H2a*): The larger the ideological distance between respondent and the party, the more likely respondents interpret underspecified sentences as stance.
 
 > **Political Knowledge Overinterpretation hypothesis** (*H2b*): The more political knowledge, the more likely people interpret underspecified sentences as stance.
 
-_If these biases exists, how can we alleviate them?_
-There have been several previous approaches to solve biased annotations, especially where it concerns political or societal aspects. @geva2019we introduce an approach where training set annotators are separated from annotators annotating datasets that evaluate the models, to ensure the evaluation is not simply accurate at replicating the original annotators, but can generalize to new annotators' judgements. However, these approaches are not aimed at reducing biases during the training set annotation procedure. Other approaches are aimed at leveraging multiple perspectives - but this is not useful when one wants one label to learn from.
-For the Austrian National Elections, @ennser2018impact already demonstrated that showing party labels impact annotators' assessment of the party position. So, one solution is masking:
+We will test these hypotheses both with a strict and a lenient interpretation of stance to illustrate whether decisions made in the research process on what constitutes a stance influence the results.
+In a next step, we ask: *If these biases exists, how can we alleviate them?* There have been several previous approaches to solve biased annotations, especially where it concerns political or societal aspects.
+@geva2019we introduce an approach where training set annotators are separated from annotators annotating data sets that evaluate the models, to ensure the evaluation is not simply accurate at replicating the original annotators, but can generalize to new annotators' judgements.
+However, these approaches are not aimed at reducing biases during the training set annotation procedure.
+Other approaches are aimed at leveraging multiple perspectives - but this is not useful when one wants one label to learn from.
+For the Austrian National Elections, @ennser2018impact already demonstrated that showing party labels impact annotators' assessment of the party position.
+So, one solution is masking:
 
 > **Masking Solution hypothesis** (*H3a*): Masking reduces the effect of respondents' ideological position for coding stances according to the party's position.
 
@@ -152,15 +222,17 @@ For the Austrian National Elections, @ennser2018impact already demonstrated that
 
 ## Data
 
-We have conducted the survey experiments in the Netherlands in May 2022 and in the United States in January 2023. 
-Both samples, recruited through [KiesKompas](https://www.kieskompas.nl/en/) and [Prolific](https://www.prolific.co/) for respectively the Dutch and American case, consists of 3,000 participants (based on the power analysis presented in our [online compendium](LINK)) of 18 years and older. 
-Both survey companies works with non-random opt-in respondents. 
-Therefore, we measured many demographic background variables, and balance checks have been conducted to demonstrate whether certain categories are over represented in a certain experimental group. 
-Our study has been approved by the [Research Ethics Review Committee](https://fsw.vu.nl/nl/onderzoek/research-ethics-review/index.aspx) of the *Vrije Universiteit Amsterdam* (see the approval [here](https://github.com/MarikenvdVelden/bias-experiment/blob/master/docs/2022-3-30-59.pdf)). To ensure good quality of our data, one attention check (discussed in more detail in [Section 3.3](#attention-checks)) is included [@berinsky2014separating].
+We have conducted the survey experiments in the Netherlands in May 2022 and in the United States in January 2023.
+Both samples, recruited through [KiesKompas](https://www.kieskompas.nl/en/) and [Prolific](https://www.prolific.co/) for respectively the Dutch and American case, consist of 3,000 participants (based on the power analysis presented in our [online compendium](LINK)) of 18 years and older.
+Both survey companies works with non-random opt-in respondents.
+Therefore, we measured many demographic background variables, and balance checks have been conducted to demonstrate whether certain categories are over represented in a certain experimental group.
+Our study has been approved by the [Research Ethics Review Committee](https://fsw.vu.nl/nl/onderzoek/research-ethics-review/index.aspx) of the *Vrije Universiteit Amsterdam* (see the approval [here](https://github.com/MarikenvdVelden/bias-experiment/blob/master/docs/2022-3-30-59.pdf)).
+To ensure good quality of our data, one attention check (discussed in more detail in [Section 3.3](#attention-checks)) is included [@berinsky2014separating].
 
 ## Measurement
 
-***Experimental Conditions.*** Respondents are randomly assigned to either view a political party as an actor, or a masked condition, where they see `X` as an actor; simultaneously, respondents see either a fully specified sentence or a underspecified sentence, in which one needs additional information to interpret the position on an actor. Table \ref{tab:conditions} gives an overview of the variations in treatment in the surveys.
+***Experimental Conditions.*** Respondents are randomly assigned to either view a political party as an actor, or a masked condition, where they see `X` as an actor; simultaneously, respondents see either a fully specified sentence or a underspecified sentence, in which one needs additional information to interpret the position on an actor.
+Table \ref{tab:conditions} gives an overview of the variations in treatment in the surveys.
 
 ```{r conditions, topcaption=TRUE}
 d <- tibble(`Condition` = c(rep("Specified", 4),
@@ -190,15 +262,26 @@ kbl(d, booktabs =T, caption = "\\label{tab:conditions}Survey Questions - Experim
   column_spec(3, width = "7cm")
 ```
 
-***Dependent Variable.*** We rely on whether or not a party's (implied) stance is coded according to the party's position (H1 and H3) as well as whether or not the statement is coded as a stance at all (H3). For each issue, we ask the respondent `what is according to the sentence above the position of [ACTOR]?`, with the answer categories: `in favor`, `against`, `no stance`, `don't know`. We use both a very strict interpretation of stance -- specification of change and direction -- and a lenient interpretation -- specification of change. Using the strict interpretation, respondents are correct if they say `no stance` for the underspecified sentences and `against`, `in favor`, `in favor`, and `against` to the specified sentences one to four. Using a more lenient interpretation, respondents could say either `in favor` or `against` as well for underspecified sentence two to four.
+***Dependent Variable.*** We rely on whether or not a party's (implied) stance is coded according to the party's position (H1 and H3) as well as whether or not the statement is coded as a stance at all (H3).
+For each issue, we ask the respondent `what is according to the sentence above the position of [ACTOR]?`, with the answer categories: `in favor`, `against`, `no stance`, `don't know`.
+We use both a very strict interpretation of stance -- specification of change and direction -- and a lenient interpretation -- specification of change.
+Using the strict interpretation, respondents are correct if they say `no stance` for the underspecified sentences and `against`, `in favor`, `in favor`, and `against` to the specified sentences one to four.
+Using a more lenient interpretation, respondents could say either `in favor` or `against` as well for underspecified sentence two to four.
 
-***Moderating Covariates.*** *Ideological position* is measured using an 11-point scale ranging from left (`0`) to right (`10`). *Political knowledge* is measured with six items from the Dutch Parliamentary Election Studies for the Dutch sample, and the three items from the American National Election Studies.[^]:The questionaire can be found in OA **XX**.
+***Moderating Covariates.*** *Ideological position* is measured using an 11-point scale ranging from left (`0`) to right (`10`).
+*Political knowledge* is measured with six items from the Dutch Parliamentary Election Studies for the Dutch sample, and the three items from the American National Election Studies.[\^]:The questionnaire can be found in OA **XX**.
 
-***Controle Variables.*** In our analysis, we control for demographic information (gender, age, education, income, religion, job) as well as political background variables (trust in politics, ideological position on economic left-right scale and cultural progressive-conservative scale, and evaluations and prospects of the economy). Tables A.5 till A.17 in the OA demonstrate the descriptive information per country.
+***Control Variables.*** In our analysis, we control for demographic information (gender, age, education, income, religion, job) as well as political background variables (trust in politics, ideological position on economic left-right scale and cultural progressive-conservative scale, and evaluations and prospects of the economy).
+Tables A.5 till A.17 in the OA demonstrate the descriptive information per country.
 
 ## Method
 
-To test our hypotheses, we will conduct a multilevel model, with respondents clustered in issues, see Equation \ref{eq:pooled1}. Using the pooled data we will estimate a within groups fixed effects model. We have conducted a balance test based on demographics (age, gender, education, geographical region, level of urbanness,employment, and income), vote choice in the 2021 parliamentary elections, ideological self-placement, political knowledge, and positions on the issues, using the `cobalt` R package [@greifer2021]. This balance test indicated that none of the variables are unbalanced over the experimental groups, and therefore, as pre-registered, will not be added to the regression formula. $Y\hat{Y}_{r, i, t}$ in Equation \ref{eq:pooled1} denotes the evaluation of a stance by respondent $r$, during issue $i$ and at experimental round $t$ -- ranging from round 1 to round 4. The standard errors are clustered at the individual level.
+To test our hypotheses, we will conduct a multilevel model, with respondents clustered in issues, see Equation \ref{eq:pooled1}.
+Using the pooled data we will estimate a within groups fixed effects model.
+We have conducted a balance test based on demographics (age, gender, education, geographical region, level of urbanness,employment, and income), vote choice in the 2021 parliamentary elections, ideological self-placement, political knowledge, and positions on the issues, using the `cobalt` R package [@greifer2021].
+This balance test indicated that none of the variables are unbalanced over the experimental groups, and therefore, as pre-registered, will not be added to the regression formula.
+$Y\hat{Y}_{r, i, t}$ in Equation \ref{eq:pooled1} denotes the evaluation of a stance by respondent $r$, during issue $i$ and at experimental round $t$ -- ranging from round 1 to round 4.
+The standard errors are clustered at the individual level.
 
 ```{=tex}
 \begin{multline}\label{eq:pooled1}
@@ -209,10 +292,14 @@ To test our hypotheses, we will conduct a multilevel model, with respondents clu
     \alpha_{i} + \gamma_{t} + \varepsilon_{r, i, t}
 \end{multline}
 ```
-
 # Results
 
-To answer whether there is an ideological or knowledge-basd annotation bias, we have conducted a two-by-two experiment. Tables \ref{tab:profilenl} and \ref{tab:profileus} demonstrate the average profile of respondents who annotate correctly and incorrectly (where respondents who annotated some stances correctly and some incorrectly are weighted by proportion (in)correct). In terms of demographics, there is not much of a difference. Yet, people who are incorrectly identifying stances are more left-wing oriented compared to those who are correct -- i.e. an average score of 4 for those who are incorrect vs. an average score of 5 for those who are correct. For other positions on issues or political knowledge, we do not see a difference in averages between those who are correctly and incorrectly identifying stances. This profile is quite similar for the lenient interpretation of what a stance is. 
+To answer whether there is an ideological or knowledge-based annotation bias, we have conducted a two-by-two experiment.
+Tables \ref{tab:profilenl} and \ref{tab:profileus} demonstrate the average profile of respondents who annotate correctly and incorrectly (where respondents who annotated some stances correctly and some incorrectly are weighted by proportion (in)correct).
+In terms of demographics, there is not much of a difference.
+Yet, people who are incorrectly identifying stances are more left-wing oriented compared to those who are correct -- i.e. an average score of 4 for those who are incorrect vs. an average score of 5 for those who are correct.
+For other positions on issues or political knowledge, we do not see a difference in averages between those who are correctly and incorrectly identifying stances.
+This profile is quite similar for the lenient interpretation of what a stance is.
 
 ```{r "profilenl-strict"}
 load(here("data/intermediate/cleaned_data_nl.RData"))
@@ -225,7 +312,6 @@ kbl(e1_nlp, booktabs =T, caption = "\\label{tab:profilenl}Profile Dutch Stance A
   column_spec(2, width = "7cm")
 ```
 
-
 ```{r "profileus"}
 kbl(e1_us_nlp, booktabs =T, caption = "\\label{tab:conditions_us}Profile American Stance Annotators") %>%
   kable_styling(latex_options = c("striped", "hold_position"),
@@ -234,14 +320,22 @@ kbl(e1_us_nlp, booktabs =T, caption = "\\label{tab:conditions_us}Profile America
   column_spec(2, width = "7cm")
 ```
 
-Looking at the effect of the experimental conditions on the four dependent variables -- 1) correctly identifying a stance; and 2) over-interpreting a stance for both a strict and a lenient interpretation of stance -- Figure \ref{fig:results-base} visualizes the baseline. 
-The left-hand panel demonstrates the effect of the two experimental conditions for correctly identifying the stance in the Dutch case. The right-hand panel does so for the American case. On average, many respondents in both cases (respectively `85%` in the Dutch case and `65%` in the American case) correctly interpreted the stance using either the lenient or strict interpretation (respectively in blue and red) -- as indicated by the intercept. When we mask the political actor -- i.e. instead of mentioning the party, we put "X" -- we see that this does on average not improves correctly interpreting the stance significantly in neither the Dutch or the American case. 
-Additionally, we do see that the level of specification of a sentence has a significant effect. 
+Looking at the effect of the experimental conditions on the four dependent variables -- 1) correctly identifying a stance; and 2) over-interpreting a stance for both a strict and a lenient interpretation of stance -- Figure \ref{fig:results-base} visualizes the baseline.
+The left-hand panel demonstrates the effect of the two experimental conditions for correctly identifying the stance in the Dutch case.
+The right-hand panel does so for the American case.
+On average, many respondents in both cases (respectively `85%` in the Dutch case and `65%` in the American case) correctly interpreted the stance using either the lenient or strict interpretation (respectively in blue and red) -- as indicated by the intercept.
+When we mask the political actor -- i.e. instead of mentioning the party, we put "X" -- we see that this does on average not improve correctly interpreting the stance significantly in neither the Dutch or the American case.
+Additionally, we do see that the level of specification of a sentence has a significant effect.
 If a sentence is not fully specified, it has a substantive negative effect on the likelihood to correctly interpret the stance in both the lenient and strict interpretation of a stance.
 These effects are substantial in both the American and Dutch case, with coefficients varying between `-0.2` and `-0.5`.
-This indicates that compared to a fully specified sentence, between `20%` and `50%` of the respondents are more likely to be incorrect when the sentence is under-specified -- that is when the sentence does not state a clear position, but mentions the issue. 
-Looking at the other dependent variable, whether they interpreted the sentence as a stance or not, we see that almost nobody overinterprets a stance in the strict interpretation in either the Dutch or American case. Yet, they do overinterpret a stance in the lenient interpretation.
-Moreover, if people see an X compared to a political actor, they are statistically significantly more likely to interpret the sentence as a stance in its strict interpretation. Yet, a coefficient of `0.02` (i.e. `2%`) is a very small effect. For the condition of specification level, however, we see that compared to a fully specified sentence, people seeing an under-specified sentence are much more likely to interpret the sentence as a stance in the strict interpretation: an increase of `0.83`. This indicates that people do not excel in this task without any instruction. Using the lenient interpretation, however, people seem less likely to annotate the sentence as a stance.
+This indicates that compared to a fully specified sentence, between `20%` and `50%` of the respondents are more likely to be incorrect when the sentence is under-specified -- that is when the sentence does not state a clear position, but mentions the issue.
+Looking at the other dependent variable, whether they interpreted the sentence as a stance or not, we see that almost nobody overinterprets a stance in the strict interpretation in either the Dutch or American case.
+Yet, they do overinterpret a stance in the lenient interpretation.
+Moreover, if people see an X compared to a political actor, they are statistically significantly more likely to interpret the sentence as a stance in its strict interpretation.
+Yet, a coefficient of `0.02` (i.e. `2%`) is a very small effect.
+For the condition of specification level, however, we see that compared to a fully specified sentence, people seeing an under-specified sentence are much more likely to interpret the sentence as a stance in the strict interpretation: an increase of `0.83`.
+This indicates that people do not excel in this task without any instruction.
+Using the lenient interpretation, however, people seem less likely to annotate the sentence as a stance.
 In the pre-registered section, we demonstrate the tests of the hypotheses, and afterwards, we discuss some explorations of the data to show the robustness of our findings, the visualizations thereof are displayed in OA **XX**.
 
 ```{r results-baseline, out.width = "95%", fig.align = 'center', fig.cap = "\\label{fig:results-base} Baseline Results of Experimental Conditions"}
@@ -250,17 +344,21 @@ knitr::include_graphics(here("report/figures", "baseline-1.png"))
 
 ## Pre-registered Results
 
-First, we test whether there is an ideological bias in interpreting stances (H1a), and if this bias increases for those that are further away from the ideological position of the political actor in the under-specified condition (H1b). Figure \ref{fig:results-h1} demonstrates on the left-hand panel the regression coefficients and on the right-hand panel the average marginal effects of the interaction between ideological distance and under-specified sentences. 
-The upper-left panel of Figure \ref{fig:results-h1} demonstrates the coefficient of ideological distances for the likelihood of interpreting the stance correctly. There is a negligible positive effect -- a coefficient of `0.002` -- that is borderline significant. 
-Substantially, this means that there is no effect of ideological distance for correctly interpreting the stance in either the American or Dutch case. Hence, no ideological bias found, thus no support for our H1a. 
+First, we test whether there is an ideological bias in interpreting stances (H1a), and if this bias increases for those that are further away from the ideological position of the political actor in the under-specified condition (H1b).
+Figure \ref{fig:results-h1} demonstrates on the left-hand panel the regression coefficients and on the right-hand panel the average marginal effects of the interaction between ideological distance and under-specified sentences.
+The upper-left panel of Figure \ref{fig:results-h1} demonstrates the coefficient of ideological distances for the likelihood of interpreting the stance correctly.
+There is a negligible positive effect -- a coefficient of `0.002` -- that is borderline significant.
+Substantially, this means that there is no effect of ideological distance for correctly interpreting the stance in either the American or Dutch case.
+Hence, no ideological bias found, thus no support for our H1a.
 Looking at the lower-left, and right-hand panel of Figure \ref{fig:results-h1}, we see a small but significant effect of the interaction between ideological distance and the under-specified condition for both interpretations in the American case, and only for the strict interpretation of a stance in the Dutch case.
-These effects are, however, going in the other direction than hypothesized. 
-For those who are ideologically further away from the party, they are less likely to be wrong than those who are close too the party, as shown in the right-hand panel of Figure \ref{fig:results-h1}. 
+These effects are, however, going in the other direction than hypothesized.
+For those who are ideologically further away from the party, they are less likely to be wrong than those who are close too the party, as shown in the right-hand panel of Figure \ref{fig:results-h1}.
 For the Dutch case, using the strict interpretation, the difference is about `20%` -- from a coefficient of `-0.6` to `-0.4`.
 In the American case, the slope is even steeper, with a difference of about `40%`.
 We thus find evidence for H1b.
 This demonstrates that even in times of heightened polarization, ideological annotation bias can be a concern.
 
+````{=tex}
 \begin{landscape}
 ```{r results-h1, fig.align = 'center', fig.cap = "\\label{fig:results-h1} Ideological Distance", fig.pos="H", fig.show="hold",out.width = "49%", out.height="40%"}
 knitr::include_graphics(c(here("report/figures", "h1-1.png"), here("report/figures", "h1-2.png")))
@@ -269,19 +367,23 @@ knitr::include_graphics(c(here("report/figures", "h1-1.png"), here("report/figur
 knitr::include_graphics(c(here("report/figures", "h2-1.png"), here("report/figures", "h2-2.png")))
 ```
 \end{landscape}
+````
 
-Secondly, we hypothesized that there is a risk of over-interpretation from those that are ideologically distant to the political actor (H2a) as well as those who have high levels of political knowledge (H2b). 
-We measure this with an interaction between the experimental condition of specification and the variable of interest. 
-Following @brambor2006understanding, we visualize the average marginal effects for both interactions to enhance interpretation in the right-hand panel of Figure \ref{fig:results-h2}. 
+Secondly, we hypothesized that there is a risk of over-interpretation from those that are ideologically distant to the political actor (H2a) as well as those who have high levels of political knowledge (H2b).
+We measure this with an interaction between the experimental condition of specification and the variable of interest.
+Following @brambor2006understanding, we visualize the average marginal effects for both interactions to enhance interpretation in the right-hand panel of Figure \ref{fig:results-h2}.
 Figure \ref{fig:results-h2} demonstrates the average marginal effects for both interaction effects: In the upper-panel the results for H2a, and in the bottom-panel, the results for H2b.
 In both countries, we see that the different interpretations of stance have opposite effects: A strict interpretation increases the chance of overinterpreting, but this is not exacerbated by ideological distance or political knowledge.
-Using a more lenient interpretation, we see that this decreasess the chance of overinterpreting.
-While this is not further diminished by political knowledge, ideological disctance does further diminish the change in the American case -- i.e. against expectation H2b.
+Using a more lenient interpretation, we see that this decreases the chance of overinterpreting.
+While this is not further diminished by political knowledge, ideological distance does further diminish the change in the American case -- i.e. against expectation H2b.
 In the Dutch case, however, the further you are from the party the more likely you are to overinterpret the sentence as a stance.
 So, while we do find some support for our H2a, we will reflect on the interpretation of a stance in combination with the context, as this effects how crowds interpret underspecified sentences.
 
-Thirdly, we test whether masking of the political actor is a solution for potentially misinterpreting the stance. We hypothesized that masking should reduce the ideological bias (H3a) as well as the bias resulting from political knowledge (H3b). 
-We test these hypotheses with an interaction between the condition masking and the variables of interest and Figure \ref{fig:results-h3} demonstrates the regression coefficients. The upper-left panel of Figure \ref{fig:results-h3} shows, against expectation, a slight increase in the Dutch case: Those that are further away from the masked political actor are more likely to incorrectly interpret the stance. The decrease in slope is however negligible: From approximately `0.1%` to `0.2%` of the respondents being incorrect. 
+Thirdly, we test whether masking of the political actor is a solution for potentially misinterpreting the stance.
+We hypothesized that masking should reduce the ideological bias (H3a) as well as the bias resulting from political knowledge (H3b).
+We test these hypotheses with an interaction between the condition masking and the variables of interest and Figure \ref{fig:results-h3} demonstrates the regression coefficients.
+The upper-left panel of Figure \ref{fig:results-h3} shows, against expectation, a slight increase in the Dutch case: Those that are further away from the masked political actor are more likely to incorrectly interpret the stance.
+The decrease in slope is however negligible: From approximately `0.1%` to `0.2%` of the respondents being incorrect.
 There is no effect found in the American case.
 The same goes for the interaction between masking and political knowledge, on the bottom-panel of Figure \ref{fig:results-h3}.
 There is no significant effect found in the US, but a very small negative effect in the Dutch case.
@@ -291,27 +393,38 @@ This means that masking of political actors does not help to correctly interpret
 knitr::include_graphics(here("report/figures", "h3-1.png"))
 ```
 
-
 ## Exploratory Results
 
-To check the robustness of our findings, Figure \ref{fig:results-exp1} demonstrates the analyses for each issue separately. The different colors visualize the different dependent variables.
-We do not see much variation between issues *Tax*, *EU/Foreign Policy*, and *Environment*. For those issues, we see that almost everyone interprets the sentence correct (in blue and red).
+To check the robustness of our findings, Figure \ref{fig:results-exp1} demonstrates the analyses for each issue separately.
+The different colors visualize the different dependent variables.
+We do not see much variation between issues *Tax*, *EU/Foreign Policy*, and *Environment*.
+For those issues, we see that almost everyone interprets the sentence correct (in blue and red).
 We also see that for a lenient interpretation of stances, people are quite likely to over interpret a position as a stance.
-Being correct about the stance does not when masking the political actor in both cases.
+**Being correct about the stance does not when masking the political actor in both cases**.
 Yet, the chance of being correct decreases statistically significantly when the sentence is underspecified.
-The same holds for overinterpreting for the lenient interpretation, but the opposite is true for the strict interpretation; there overinterpretation is more likely with underspecified sentences. 
-Looking at *Immigration*, we see a different pattern. We see that masking does not increase the likelihood of being correct, but does increase the likelihood of overinterpretation regardless of how one defines a stance.
-Underspecified sentence are less likely to be correctly identified and more likely to be overinterpreted regardless of the definition of a stance.
+The same holds for overinterpreting for the lenient interpretation, but the opposite is true for the strict interpretation; there overinterpretation is more likely with underspecified sentences.
+Looking at *Immigration*, we see a different pattern.
+We see that masking does not increase the likelihood of being correct, but does increase the likelihood of overinterpretation regardless of how one defines a stance.
+Underspecified sentences are less likely to be correctly identified and more likely to be overinterpreted regardless of the definition of a stance.
 So, while there are some differences in effect sizes between the issues, the overall findings are not driven by a single issue.
 
 ```{r results-exploration1, out.height = "85%",out.width = "95%",, fig.align = 'center', fig.cap = "\\label{fig:results-exp1} Exploration: Issue Speficific Analyses", fig.pos="H", fig.show="hold"}
 knitr::include_graphics(c(here("report/figures", "issues-1.png")))
 ```
-In addition to issue-specific analyses, we also explore an interaction between treatments, visualized in Figure **OA.XX** for both dependent variables. This shoows that masking is of help when sentences are under-specified. In the left-hand panel of Figure **OA.XX**, it demonstrates that for under-specifief sentences, people are less likely to incorrectly identify a sentence as a stance when the actor is masked (coefficient of `-0.30`) than when an actor is revealed (coefficient of `-0.45`). That means there is a 15% increase in having it correct. The difference for over-interpreting is smaller between revealed and masked political actor -- shown in the right-hand panel of Figure **OA.XX** -- yet also statistically significant. Compared to `85%` over-interpreting the sentence as a stance, in the masking solution "only" `80%` over-interprets the sentence as a stance. In the recommendation section, we will reflect on the masking solution for under-specified sentences.
 
-Lastly, we explore three different ways of measuring ideological distance and an alternative for political knowledge in the American case. First, we measured ideological bias by looking at whether the respondent is congruent or not with the issue position in the sentence, visualized in Figure **OA.XX** . Second, we measured ideological bias by looking at whether the person voted for the party displayed in the sentence, visualized in Figure **OA.XX**. And thirdly, we measured ideological bias by looking at the ideology of the respondents -- not in relation to the political actor revealed, visualized in Figure **OA.XX**. 
-These figures show that our null-finding regarding ideological bias is not conditional upon the measure we used. In none of the analyses, we find evidence for ideological bias.
-Also for the alternative measurement of political knowledge in the US, we find the same results as reported in the main analyses. 
+In addition to issue-specific analyses, we also explore an interaction between treatments, visualized in Figure **OA.XX** for both dependent variables.
+This shows that masking is of help when sentences are under-specified.
+In the left-hand panel of Figure **OA.XX**, it demonstrates that for under-specified sentences, people are less likely to incorrectly identify a sentence as a stance when the actor is masked (coefficient of `-0.30`) than when an actor is revealed (coefficient of `-0.45`).
+That means there is a 15% increase in having it correct.
+The difference for over-interpreting is smaller between revealed and masked political actor -- shown in the right-hand panel of Figure **OA.XX** -- yet also statistically significant.
+Compared to `85%` over-interpreting the sentence as a stance, in the masking solution "only" `80%` over-interprets the sentence as a stance.
+In the recommendation section, we will reflect on the masking solution for under-specified sentences.
+
+Lastly, we explore three different ways of measuring ideological distance and an alternative for political knowledge in the American case.
+First, we measured ideological bias by looking at whether the respondent is congruent or not with the issue position in the sentence, visualized in Figure **OA.XX** .
+Second, we measured ideological bias by looking at whether the person voted for the party displayed in the sentence, visualized in Figure **OA.XX**. And thirdly, we measured ideological bias by looking at the ideology of the respondents -- not in relation to the political actor revealed, visualized in Figure **OA.XX**. These figures show that our null-finding regarding ideological bias is not conditional upon the measure we used.
+In none of the analyses, we find evidence for ideological bias.
+Also for the alternative measurement of political knowledge in the US, we find the same results as reported in the main analyses.
 
 # Discussion
 
