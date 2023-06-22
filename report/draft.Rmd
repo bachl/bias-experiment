@@ -169,7 +169,7 @@ Disagreement even occurs in seemingly objective tasks such as Part of Speech tag
 Another aspect to consider is that disagreement can be informative for the concept under measure - sometimes agreement can be used to validate hypotheses about how universal the perceptions of such concepts are [@sommerauer2020penguin].
 Additional doubts on smoothing out disagreement in annotation have focussed on the lack of diversity when only annotating with one label or annotator, leading to a homogeneity especially in subjective and social tasks [@geva2019we] such as hatespeech detection or political affiliation classification.
 The question then is: *Whose perspective is being recorded in these datasets, and then later in the models trained on these datasets?* Framing arbitrary representations in data as "bias" misses the political character of datasets: There is no neutral data and no apolitical standpoint from where we can call out bias.
-Datasets are always "a worldview" [26] and, as such, data always remains biased." (Miceli et al., 2022, p. 5). This is key to social scientist in general, and those studying political text in particular, since several tasks of interest are intrinsically societal, with answers that differ based on the make-up of the worldview of annotators. The answer of the annotators in turn influence how machine learning examples classify new models. For instance, hate speech detection and abuse detection is one NLP task where the race and gender of annotators influences annotators and model performance[@gordon2022, @Larimore, @waseem2016]. Language is inherently connected to society and culture: @shenDarling analyze sentiment analysis, and find that human annotators lead to certain perspectives on sentiment being recorded, and that notably that African American English dialects are often misunderstood by such models.
+Datasets are always "a worldview" [26] and, as such, data always remains biased." (Miceli et al., 2022, p. 5). This is key to social scientist in general, and those studying political text in particular, since several tasks of interest are intrinsically societal, with answers that differ based on the make-up of the worldview of annotators. The answer of the annotators in turn influence how machine learning examples classify new models. For instance, hate speech detection and abuse detection is one NLP task where the race and gender of annotators influences annotators and model performance[@gordon2022, @larimore2021reconsidering, @waseem2016]. Language is inherently connected to society and culture: @shenDarling analyze sentiment analysis, and find that human annotators lead to certain perspectives on sentiment being recorded, and that notably that African American English dialects are often misunderstood by such models.
 
 Most recently, new annotation paradigms have gone one step further by asking whether we are modelling the task, or the annotator [@geva2019we].
 @pavlick2019 find that for the logical coherence task Natural Language Inference, annotators have several valid interpretations that are not reflected in one ground truth label.
@@ -358,16 +358,6 @@ In the American case, the slope is even steeper, with a difference of about `40%
 We thus find evidence for H1b.
 This demonstrates that even in times of heightened polarization, ideological annotation bias can be a concern.
 
-````{=tex}
-\begin{landscape}
-```{r results-h1, fig.align = 'center', fig.cap = "\\label{fig:results-h1} Ideological Distance", fig.pos="H", fig.show="hold",out.width = "49%", out.height="40%"}
-knitr::include_graphics(c(here("report/figures", "h1-1.png"), here("report/figures", "h1-2.png")))
-```
-```{r results-h2, fig.align = 'center', fig.cap = "\\label{fig:results-h2} Results Level of Sentence Specification", fig.pos="H", fig.show="hold",out.width = "49%", out.height="40%"}
-knitr::include_graphics(c(here("report/figures", "h2-1.png"), here("report/figures", "h2-2.png")))
-```
-\end{landscape}
-````
 
 Secondly, we hypothesized that there is a risk of over-interpretation from those that are ideologically distant to the political actor (H2a) as well as those who have high levels of political knowledge (H2b).
 We measure this with an interaction between the experimental condition of specification and the variable of interest.
@@ -378,6 +368,17 @@ Using a more lenient interpretation, we see that this decreases the chance of ov
 While this is not further diminished by political knowledge, ideological distance does further diminish the change in the American case -- i.e. against expectation H2b.
 In the Dutch case, however, the further you are from the party the more likely you are to overinterpret the sentence as a stance.
 So, while we do find some support for our H2a, we will reflect on the interpretation of a stance in combination with the context, as this effects how crowds interpret underspecified sentences.
+
+````{=tex}
+\begin{landscape}
+```{r results-h1, fig.align = 'center', fig.cap = "\\label{fig:results-h1} Ideological Distance", fig.pos="H", fig.show="hold",out.width = "49%", out.height="40%"}
+knitr::include_graphics(c(here("report/figures", "h1-1.png"), here("report/figures", "h1-2.png")))
+```
+```{r results-h2, fig.align = 'center', fig.cap = "\\label{fig:results-h2} Results Level of Sentence Specification", fig.pos="H", fig.show="hold",out.width = "49%", out.height="40%"}
+knitr::include_graphics(c(here("report/figures", "h2-1.png"), here("report/figures", "h2-2.png")))
+```
+\end{landscape}
+````
 
 Thirdly, we test whether masking of the political actor is a solution for potentially misinterpreting the stance.
 We hypothesized that masking should reduce the ideological bias (H3a) as well as the bias resulting from political knowledge (H3b).
