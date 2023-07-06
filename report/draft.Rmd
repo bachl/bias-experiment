@@ -186,17 +186,19 @@ Extralinguistic factors, such as annotator's own political ideology and also kno
 @thornjakobsen2022 specifically analyze a task related to stance detection, argumentative sentence detection, on these extralinguistic factors, and find an effect of gender and political leaning on annotations and also model performance.
 However, to our knowledge this phenomenon has not yet been tested in a controlled experimental setting with manipulations in the texts.
 
-To test whether people with different ideological backgrounds as well as their political knowledge might experience that position differently, challenging our ground-truth assumption in data annotation, we propose the following hypotheses:
+To test whether people with different ideological backgrounds as well as their political knowledge might experience that position differently, challenging our ground-truth assumption in data annotation, we propose the following hypothesis:
 
 > **Ideological Bias hypothesis** (*H1a*): The larger the ideological distance between respondent and the party, the less likely respondents annotate statements according to the party's uttered position.
-
-> **Ideological Bias hypothesis** (*H1b*): The effect of H1a is stronger for sentences in which the party's position can be inferred (i.e. underspecified sentences).
 
 As noted by @plank2014, some linguistic examples are ambiguous, and open to multiple interpretations even for seemingly objective tasks such as part of speech tagging, where annotators have to distinguish parts of speech such as nouns and verbs.
 A complex concept such as political ideology is much more likely to lead to multiple interpretations.
 We call such sentences with more possible interpretations and less explicit standpoints "underspecified".
 A lack of explicitness in the annotated text is one of the main causes of the disagreements in earlier literature.
 @thornjakobsen2022 deduce that annotator bias comes from a process known as the affect heuristic [@slovic2007affect ]: making a decision based on the emotional response related to your own personal attitude towards the discussed topic, especially when the text is relatively ambiguous.
+We therefore expect that the strength of H1a is conditional on this ambiguity:
+
+> **Ideological Bias hypothesis** (*H1b*): The effect of H1a is stronger for underspecified sentences.
+
 In the tradition of more strict interpretations of what constitutes as a stance especially in (computational) linguistics, sentences that are underspecified should always be annotated as "not a stance".
 However, this might not be the desired annotation for other research purposes: When for example the main goal is to understand how readers are affected by statements shown in e.g., a newspaper article, a more lenient definition of stance that allows annotators to infer the direction of a political stance from context and prior knowledge even though a statement is strictly speaking underspecified might be more useful.
 In everyday life, people will not follow strict linguistic definitions, for understanding media effects we might thus be more interested in whether stances, giving context information, are "correctly overinterpreted".
@@ -429,7 +431,47 @@ Also for the alternative measurement of political knowledge in the US, we find t
 
 # Discussion
 
-TBA
+(in progress)
+
+In this paper we set out to critically examine annotation bias in the classification of political stances. 
+In recent years there have been groundbreaking advances in the field of natural language processing that make it increasingly possible to automatically classify stances in texts on a large scale, which holds great potential for communication research.
+However, research in the field of communication and political science gives reason for concern that the human annotated gold standard data that is used to train and validate these stance classification models suffers from systematic biases.
+This appears especially likely in crowd-coded data, where disagreement is mostly resolved with majority voting rather then calibrating coders through more explicit coding rules.
+We show in two pre-registered crowd-coding experiments that ideological differences can systematically affect coding decisions, and reflect on how the field of communication should deal with this form of annotation bias. 
+
+First, we tested whether ideological bias affects the interpretation of a party's stance by analyzing whether a person's ideological distance from a party affects how they classify their stance. 
+Although we did not find a main effect of ideological distance (H1a), we did find evidence that the effect of ideological distance is greater for underspecified sentences.
+That is, for sentences with clear political stances on an issue (e.g., immigration should be made more difficult) we did not find an effect, but if the sentence refers to the issue without making a clear stance (e.g., many immigrants are crossing our borders) we do see a clear effect of ideological distance.
+
+Second, we looked at differences in terms of overinterpretation, which we define as coding stance in an underspecified sentence (i.e. in which the stance is not explicitly made clear).
+In other words, when coders inferred the stance of the party on the issue based on prior knowledge or beliefs about the party.
+We expected that overinterpretation is more likely if the ideological distance of the coder to the party is greater (H2a) and if the coder has more political knowledge (H2b). 
+Overall, our findings did not support these hypotheses.
+With the more lenient interpretation of overinterpretation, we did find support for H2a for the Dutch context, but we found an opposite effect for the US. 
+While this does not support the hypothesis in terms of the direction of the biase, it does imply that ideological distance can affect how stance is processed.
+
+Finally, we investigated whether annotation biases due to ideological distance from the party (H3a) and political knowledge (H3b) could be alleviated by masking the political party.
+Here we again found no convincing evidence. 
+
+Although most of our hypotheses were not supported, we believe that the confirmation of H1b could pose important implications for stance analysis. 
+something something
+
+(the following is just some notes)
+
+## implications:
+- improving stance detection models also requires improving human annotations
+- if the perception of political stance is contingent on ideological differences, then it can be inherently problematic to conceptualize the political stance, as expressed in a text, as a ground truth. 
+
+There are two general solutions for dealing with this bias.
+The first and more classic solution would be to aim to improve intercoder reliability. 
+This could be achieved both through stricter training and by design of the coding task.
+If prior knowledge or beliefs about a political actor affects interpretation, the actor could be masked.
+
+The second solution is to conceptualize political stance as having an inherently subjective quality, and measure it accordingly. 
+This aligns more with the literature on perspectivism (refs), which still appears under-lighted in the field of communication. 
+Perspectivism seems particularly relevant for media effect research, where political stances in texts are measured to make inferences about the audience. Our results show that XXX. As such, to make accurate inferences about how a citizen perceived political stance, and consequently how this might have affected behavior such as voting or participating in protests, it might be necessary to take personal characteristics 
+Note that this does not necessarily imply that intercoder reliability is no longer important.
+Rather, by 
 
 ## Recommendations
 
