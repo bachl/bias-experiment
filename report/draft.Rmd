@@ -53,7 +53,11 @@ author:
 - affiliation: Dep. of Communciation Science, Vrije Universiteit Amsterdam
 thanks: "* = Corresponding author, Replication files are available on the author's Github account (https://github.com/MarikenvdVelden/bias-experiment); Author contributions: a) designed the study: MACGvdV, WvA, AF, FL, MR, & KW; b) conducted the study: MACGvdV, FL & MR; c) data cleaning & analysis: MACGvdV; d) writing of the paper: MACGvdV"
 anonymous: FALSE
-abstract: "Information is key to inform the behavior of citizens, and thereby for the social scientists studying them. The democratization of data has lead to numerous possibilities to gather and analyze textual data. These enourmous amounts of data are typically handled by machine learning techniques to classify into meaningful variables. The performance of these models is evaluated based on a gold standard, created by human annotators. Having a high level of agreement between these annotators is key, but some suggest personal characteristics of annotators, like political ideology or knowledge, interfere. We show in two pre-registered experiments that XXX. Thereby [contribution]."
+abstract: "Information is key to inform the behavior of citizens, and thereby for the social scientists studying them. 
+#This first sentence is a bit strange: information to inform behavior? I am not sure what it means, so also not sure how to rephrase..
+The democratization of data has lead to numerous possibilities for gathering and analyzing textual data. These enourmous amounts of data are typically handled by machine learning techniques to classify into meaningful variables. The performance of these models is evaluated based on a gold standard, created by human annotators. Having a high level of agreement between these annotators is key, but some
+#some what?
+suggest personal characteristics of annotators, like political ideology or knowledge, interfere. We show in two pre-registered experiments that XXX. Thereby [contribution]."
 keywords: "Experiment, Annotation Bias, Ideology, Measurinig Political Position, Text-as-Data, Political Knowledge"
 geometry: margin=1in
 mainfont: cochineal
@@ -88,22 +92,24 @@ source(here::here("src/lib/functions.R"))
 
 # Introduction
 
-Information is key to inform the behavior of citizens, and thereby for the social scientists studying them.
+Information is key to inform the behavior of citizens, and thereby for the social scientists studying them. 
+#See comment on abstract...
 Classical theories of political communication, such as agenda setting or framing [e.g. @vanaelst2016political; @lecheler2019news], formulate that political information drives opinion formation and participation in politics -- from voting to protests [for overviews hereof across countries, see @pfetsch2013comparing].
-The democratization of data and advent of computational social science has paved the way for new possibilities to gather and analyze textual data [for a recent overview, see @vanatteveldt2022computational].
-In particular, advances in Natural Language Processing (NLP) have made it possible to automatically analyze large quantities of data using machine learning [e.g., see @bender2016linguistic; @wei2023overview].
-To determine the validity of such large scale, computational analyses, we rely on "gold standard" data, created by human annotators.
+The democratization of data and advent of computational social science has paved the way for new possibilities of gathering and analyzing textual data [for a recent overview, see @vanatteveldt2022computational]. 
+#possibility to is ungrammatical
+In particular, advances in Natural Language Processing (NLP) have made it possible to automatically analyze large quantities of data using machine learning [e.g., see [ADD REF, Bender does not make sense here] @wei2023overview].
+To determine the validity of such large scale computational analyses, we rely on "gold standard" data, created by human annotators.
 It follows that the validity of these analyses hinges on the quality of these golden standards.
 If a gold standard contains biases, i.e., systematic errors, it can foster bias in any downstream analysis.
 
 Most data collection efforts to create gold standards assume that there is only one correct interpretation for every input example, and that disagreement between the annotators is something that needs to be dealt with at all costs [@aroyo2015truth].
-A recent study [@van2021validity] demonstrates that using crowd-coding platforms is a good way to collect such golden standards without too much disagreement.
+A recent study     demonstrates that using crowd-coding platforms is a good way to collect such golden standards without too much disagreement.
 These platforms have also been used for experiments, and the quality of the respondents has been a center of attention [@coppock2019generalizing; @clifford2015samples; @huff2015these; @berinsky2014separating].
 While it has been argued that this data is of similar quality to data from a random sample of the population [@coppock2019generalizing], others have demonstrated that these online platforms are populated by people that are "unlike" the general public, being younger and holding more liberal values [@clifford2015samples; @huff2015these].
 If the latter is true, this might cause a problem for the coding of political texts: @ennser2018impact report that coders of political texts incorporate prior beliefs about parties' issue stances into their coding decisions.
 The authors find that party labels cue coders to a stance.
 For example, coders are more likely to report a left-wing party to be pro-immigration and a populist right-wing party to be against based on the exact same sentence.
-*Is this actually bias or a diversity of view points? And how big of a problem does this bias/diversity of view points generate for scholars relying on golden standard data?* This question also taps into newer developments related to data annotations: Increasingly, Large Language Models such as ChatGPT are being used by researchers [@gilardi2023chatgpt] as well as annotators themselves [@veselovsky2023artificial] to "simulate" human respondents for annotation tasks.
+*Is this actually bias or a diversity of view points? And how big of a problem does this bias/diversity of view points generate for researchers relying on golden standard data?* This question also taps into newer developments related to data annotations: Increasingly, Large Language Models such as ChatGPT are being used by researchers [@gilardi2023chatgpt] as well as annotators themselves [@veselovsky2023artificial] to "simulate" human respondents for annotation tasks.
 These models draw among other things from the gold standard data sets that have been created by researchers, perpetuating the specific biases that are present in them and not allowing for any further disagreement or diversity of viewpoints.
 
 There is a long history of text annotation in studies analyzing political text.
@@ -117,15 +123,15 @@ However, work in computational linguistics has shown that increased annotation i
 This leaves us between a rock and a hard place.
 Is there a potential bias in annotators that we should account for?
 
-In this paper, we build upon the NLP literature on disagreement -- or bias -- in annotation [e.g., see @shen2021sounds; @geva2019we; @sommerauer2020penguin; @plank2014learning] and so-called perspectivism [@basile2021toward; @havens2022beyond] -- i.e. the adoption of methods that integrate the opinions and perspectives of the human subjects involved in the knowledge representation step of the machine learning processes [@basile2021toward].
+In this paper, we build upon the NLP literature on disagreement -- or bias -- in annotation [e.g., see @shen2021sounds; @geva2019we; @sommerauer2020penguin; @plank2014learning] and so-called perspectivism [@basile2021toward; @havens2022beyond] -- i.e.\ the adoption of methods that integrate the opinions and perspectives of the human subjects involved in the knowledge representation step of the machine learning processes [@basile2021toward].
 This literature puts forward that disagreement can occur because of differences in ideological position or political knowledge [@shen2021sounds; @alkiek2022classification; @joseph2021mis].
 This allows us to test the extent to which disagreement takes place, for what type of stances, as well as gives us directions on how to deal with the diversity in conceptions and the political heterogeneity that nowadays potentially occurs in our sample of annotators.
 To do so, we have fielded two high-powered pre-registered experiments (see [here](link) and [here](link)) in the Netherlands -- a low-level polarized country -- and in the U.S. -- a high-level polarized country testing the effect of ideological distance between the annotator and the political actor in the text (H1), the effect of overinterpretation based on political knowledge or ideological engagement (H2), and an offered solution of masking the political actor to mitigate the effects of ideology and knowledge (H3).[^1]
 In the experiments, we vary the level of specification with which a political actor takes a stance -- a declarative sentence versus a sentence where with some knowledge on politics, the stance might be inferred -- as well as whether the political actor is shown or masked with putting `[ACTOR]` instead of the political party.
 We do this for four different political issues: *Environment*, *Immigration*, *Tax Policy*, and *EU* (for the Dutch case) or *Foreign Policy* (for the American case).
 This country selection does not only allow us to showcase the scope conditions of disagreement due to different levels of political heterogeneity, but also differentiates between languages.
-English is not only the most dominant language for computational text analysis in the social science [@baden2022three; @dolinsky2023threegaps], crowd-coders do not need to be native speakers, given the dominance of English in our daily lives.
-This is different for Dutch, it is a language spoken by a smaller community, typically native speakers, yet still an often-enough researched case in computational text analysis in the social science [@baden2022three; Dolinsky et al. 2023].
+English is not only the most dominant language for computational text analysis in the social science [@baden2022three; @dolinsky2023threegaps], crowd-coders do not need to be first language speakers, given the dominance of English in our daily lives.
+This is different for Dutch, it is a language spoken by a smaller community, typically first language speakers, yet still an often-enough researched case in computational text analysis in the social science [@baden2022three; Dolinsky et al. 2023].
 
 [^1]: The data and research compendium is published on the [main author's github page](https://github.com/MarikenvdVelden/bias-experiment) -- annonymized for the review process.
 
@@ -151,7 +157,7 @@ An additional reason to monitor the annotators' ideological position as a potent
 Their finding challenges the "ground-truth" assumption we as researcher make that a position for example is either left-leaning or right-wing leaning.
 People with different ideological backgrounds might experience that position differently.
 This challenges our way of data collection.
-We are interested in the effect of e.g. elite communication.
+We are interested in the effect of e.g.\ elite communication.
 To study this, we allow for heterogeneous treatment effects in experimental work.
 This indicates that we often do not assume that the treatment, often using text, has the same effect for different partisans.
 Yet, at the same time, we forget or ignore that knowledge when creating large data-sets for our machine learning models.
@@ -166,16 +172,16 @@ However, since several years there is some discussion on how realistic it is to 
 @plank2014learning adds to this that underlying ambiguity and linguistic complexity should be considered for disagreement in annotations: not all linguistic examples are created equal.
 Disagreement even occurs in seemingly objective tasks such as Part of Speech tagging [@fornaciari2021, @plank2014learning].
 
-Another aspect to consider is that disagreement can be informative for the concept under measure - sometimes agreement can be used to validate hypotheses about how universal the perceptions of such concepts are [@sommerauer2020penguin].
+Another aspect to consider is that disagreement can be informative for the concept under measure - sometimes agreement can be used to validate hypotheses about how universal the perceptions of such concepts are [@sommerauer2020would].
 Additional doubts on smoothing out disagreement in annotation have focussed on the lack of diversity when only annotating with one label or annotator, leading to a homogeneity especially in subjective and social tasks [@geva2019we] such as hatespeech detection or political affiliation classification.
 The question then is: *Whose perspective is being recorded in these datasets, and then later in the models trained on these datasets?* Framing arbitrary representations in data as "bias" misses the political character of datasets: There is no neutral data and no apolitical standpoint from where we can call out bias.
-Datasets are always "a worldview" [26] and, as such, data always remains biased." (Miceli et al., 2022, p. 5). This is key to social scientist in general, and those studying political text in particular, since several tasks of interest are intrinsically societal, with answers that differ based on the make-up of the worldview of annotators. The answer of the annotators in turn influence how machine learning examples classify new models. For instance, hate speech detection and abuse detection is one NLP task where the race and gender of annotators influences annotators and model performance[@gordon2022, @larimore2021reconsidering, @waseem2016]. Language is inherently connected to society and culture: @shenDarling analyze sentiment analysis, and find that human annotators lead to certain perspectives on sentiment being recorded, and that notably that African American English dialects are often misunderstood by such models.
+Datasets are always "a worldview" [26] and, as such, data always remains biased." (Miceli et al., 2022, p. 5). This is key to social scientist in general, and those studying political text in particular, since several tasks of interest are intrinsically societal, with answers that differ based on the make-up of the worldview of annotators. The answer of the annotators in turn influence how machine learning examples classify new models. For instance, hate speech detection and abuse detection is one NLP task where the race and gender of annotators influences annotators and model performance [@gordon2022, @larimore2021reconsidering, @waseem2016]. Language is inherently connected to society and culture: @shenDarling analyze sentiment analysis, and find that human annotators lead to certain perspectives on sentiment being recorded, and that notably that African American English dialects are often misunderstood by such models.
 
 Most recently, new annotation paradigms have gone one step further by asking whether we are modelling the task, or the annotator [@geva2019we].
 @pavlick2019 find that for the logical coherence task Natural Language Inference, annotators have several valid interpretations that are not reflected in one ground truth label.
 They call for new training paradigms that can reflect "the full range of possible human inferences"[@pavlick2019, p. 688].
 Recent approaches in NLP have sought to explicitly incorporate disagreement and diversity in training data annotations.
-[@röttger2021] introduces the idea of an explicitly subjective annotation paradigm existing in addition to one focussed on one label and "ground truth".
+@röttger2021 introduce the idea of an explicitly subjective annotation paradigm existing in addition to one focussed on one label and "ground truth".
 Such a subjective annotation paradigm can be used for purposes where the goal is finding diverse perspectives on the task or concepts, and for models to model more accurately how humans interpret a task or text.
 Additionally, "perspectivism" [@basile2021toward] is a paradigm and research agenda where different perspectives are explicitly incorporated in the training data, and used by models to provide more human-like classifications.
 Another paradigm is "jury learning" [@gordon2022], in which machine learning models do not learn to replicate one specific ground truth, but are trained with different annotator juries to reflect the judgement of different populations.
@@ -280,7 +286,7 @@ Tables A.5 till A.17 in the OA demonstrate the descriptive information per count
 
 To test our hypotheses, we will conduct a multilevel model, with respondents clustered in issues, see Equation \ref{eq:pooled1}.
 Using the pooled data we will estimate a within groups fixed effects model.
-We have conducted a balance test based on demographics (age, gender, education, geographical region, level of urbanness,employment, and income), vote choice in the 2021 parliamentary elections, ideological self-placement, political knowledge, and positions on the issues, using the `cobalt` R package [@greifer2021].
+We have conducted a balance test based on demographics (age, gender, education, geographical region, level of urbanness, employment, and income), vote choice in the 2021 parliamentary elections, ideological self-placement, political knowledge, and positions on the issues, using the `cobalt` R package [@greifer2021].
 This balance test indicated that none of the variables are unbalanced over the experimental groups, and therefore, as pre-registered, will not be added to the regression formula.
 $Y\hat{Y}_{r, i, t}$ in Equation \ref{eq:pooled1} denotes the evaluation of a stance by respondent $r$, during issue $i$ and at experimental round $t$ -- ranging from round 1 to round 4.
 The standard errors are clustered at the individual level.
