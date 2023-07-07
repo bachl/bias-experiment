@@ -118,7 +118,7 @@ While the crowd offers a solution to some of these issues [@van2021validity], th
 However, especially for more complex coding tasks different research fields have different interpretations of what counts as *correct* solution depending on the main goal of annotation: Do we want to create a clean benchmark data set that follows strict linguistic rules or one that reflects how statements are being interpreted by "real" readers that do not necessarily follow theoretical definitions on which elements are needed for a specified stance?
 Trends of polarization have shown that people do interpret information according to their ideological position.
 *Does this mean that some are right and others are wrong? Or is there an ideological difference in the ground truth?* These questions present a fundamental challenge to the main way of working when collecting gold standard data, as we operate from the baseline assumption that disagreement among the annotators should be avoided or reduced.
-Typically, when specific cases continuously cause disagreement, more instructions are added to limit interpretations [for recent innovations to improve annotation, see for example: @barbera2021automated; @struthers2020bridging; @winter2020online; @debell2013harder; @benoit2016crowd, @ying2022topics].
+Typically, when specific cases continuously cause disagreement, more instructions are added to limit interpretations (for recent innovations to improve annotation, see for example: @barbera2021automated; @struthers2020bridging; @winter2020online; @debell2013harder; @benoit2016crowd, @ying2022topics).
 However, work in computational linguistics has shown that increased annotation instructions do not increase quality [@parmar2022don].
 This leaves us between a rock and a hard place.
 Is there a potential bias in annotators that we should account for?
@@ -437,47 +437,47 @@ Also for the alternative measurement of political knowledge in the US, we find t
 
 # Discussion
 
-(in progress)
-
 In this paper we set out to critically examine annotation bias in the classification of political stances. 
 In recent years there have been groundbreaking advances in the field of natural language processing that make it increasingly possible to automatically classify stances in texts on a large scale, which holds great potential for communication research.
 However, research in the field of communication and political science gives reason for concern that the human annotated gold standard data that is used to train and validate these stance classification models suffers from systematic biases.
 This appears especially likely in crowd-coded data, where disagreement is mostly resolved with majority voting rather then calibrating coders through more explicit coding rules.
 We show in two pre-registered crowd-coding experiments that ideological differences can systematically affect coding decisions, and reflect on how the field of communication should deal with this form of annotation bias. 
 
-First, we tested whether ideological bias affects the interpretation of a party's stance by analyzing whether a person's ideological distance from a party affects how they classify their stance. 
+First, we tested whether ideological bias affects the interpretation of a party's stance by analyzing whether a person's ideological distance to a party affects how they classify the party's stance. 
 Although we did not find a main effect of ideological distance (H1a), we did find evidence that the effect of ideological distance is greater for underspecified sentences.
-That is, for sentences with clear political stances on an issue (e.g., immigration should be made more difficult) we did not find an effect, but if the sentence refers to the issue without making a clear stance (e.g., many immigrants are crossing our borders) we do see a clear effect of ideological distance.
-
+This implies that ideological distance can indeed influence how annotators infer stance, but only if the sentence leaves enough room for interpretation.
 Second, we looked at differences in terms of overinterpretation, which we define as coding stance in an underspecified sentence (i.e. in which the stance is not explicitly made clear).
-In other words, when coders inferred the stance of the party on the issue based on prior knowledge or beliefs about the party.
+In other words, when annotators inferred the stance of the party on the issue based on prior knowledge or beliefs about the party.
 We expected that overinterpretation is more likely if the ideological distance of the coder to the party is greater (H2a) and if the coder has more political knowledge (H2b). 
 Overall, our findings did not support these hypotheses.
 With the more lenient interpretation of overinterpretation, we did find support for H2a for the Dutch context, but we found an opposite effect for the US. 
-While this does not support the hypothesis in terms of the direction of the biase, it does imply that ideological distance can affect how stance is processed.
-
+While this does not support the hypothesis in terms of the direction of the bias, it does imply that ideological distance can affect how stance is processed.
 Finally, we investigated whether annotation biases due to ideological distance from the party (H3a) and political knowledge (H3b) could be alleviated by masking the political party.
 Here we again found no convincing evidence. 
 
-Although most of our hypotheses were not supported, we believe that the confirmation of H1b could pose important implications for stance analysis. 
-something something
+Although most of our hypotheses were not supported, our findings for H1a and H2b in particular pose important implications.
+For sentences with clear political stances on an issue (e.g., immigration should be made more difficult) annotators generally agreed on the stance that is expressed.
+But if the sentence refers to the issue without making a clear stance (e.g., many immigrants are crossing our borders) we do see a clear effect of ideological distance.
+This indicates that for annotation bias to occur, there has to be sufficient room for different interpretations. 
+If the stance is clearly specified, then there is more of a ground truth, and the opinions and perspectives of the annotator therefore matter less.
+It is when the stance is underspecified that perspectivism [@basile2021toward; @havens2022beyond] comes into play.
+When a party talks about a political issue without taking an explicit stance, annotators need to fill in the gaps and make their own inferences about the party's stance on this issue.
+Our results imply that political ideology is indeed a relevant dimension in shaping how an annotator perceives political stances. 
 
-(the following is just some notes)
+This means that to improve stance detection models, we need to critically evaluate how we create our gold standards.
+In the best case scenario, ignoring personal differences on dimensions such as political ideology only adds noise to the data.
+However, this is only the case if a sufficiently large sample of annotators is randomly drawn from the population.
+In reality, gold standards are often the product of a handful of expert coders, that typically study or work at universities.
+Even if a good amount of crowd coders is used, it cannot blindly be assumed that this provides a diverse and balanced reflection of political ideologies in society, as we also observed in our samples (Table 2). 
+Our results indicate that an annotation team that is skewed towards one end of the political spectrum could indeed result in a biased gold standard.
 
-## implications:
-- improving stance detection models also requires improving human annotations
-- if the perception of political stance is contingent on ideological differences, then it can be inherently problematic to conceptualize the political stance, as expressed in a text, as a ground truth. 
-
-There are two general solutions for dealing with this bias.
-The first and more classic solution would be to aim to improve intercoder reliability. 
-This could be achieved both through stricter training and by design of the coding task.
-If prior knowledge or beliefs about a political actor affects interpretation, the actor could be masked.
-
-The second solution is to conceptualize political stance as having an inherently subjective quality, and measure it accordingly. 
-This aligns more with the literature on perspectivism (refs), which still appears under-lighted in the field of communication. 
-Perspectivism seems particularly relevant for media effect research, where political stances in texts are measured to make inferences about the audience. Our results show that XXX. As such, to make accurate inferences about how a citizen perceived political stance, and consequently how this might have affected behavior such as voting or participating in protests, it might be necessary to take personal characteristics 
-Note that this does not necessarily imply that intercoder reliability is no longer important.
-Rather, by 
+Furthermore, if the perception of political stance is contingent on ideological differences, then it can be inherently problematic to conceptualize political stance, as expressed in a text, as a ground truth. 
+Depending on the goal of a study, it might be more appropriate to conceptualize political stance as having an inherently subjective quality, and strive to measure this subjective space.
+As a general guideline, we propose making a distinction between content analysis research that makes inferences about the author of a text, and research that makes inferences about the audience.
+For example, a study that compares political stances between news outlets to analyze political bias in the news does require a consistent and reliable measurement of political stances.
+This could indeed require a ground-truth definition of political stance, that is drilled into annotators through well-defined and specific instructions and extensive training.
+But if the study involves making inferences about how the audience interprets political stances, for example in media effects research, then a ground-truth definition of political stance is problematic. 
+To make accurate inferences about how a citizen subjectively perceived political content, and consequently how this might have affected behavior such as voting, we need to learn more about how shared personal characteristics relate to shared modes of perspective.
 
 ## Recommendations
 
