@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2023.6.14)  6 JUL 2023 16:21
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2023.6.14)  7 JUL 2023 17:20
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -796,20 +796,20 @@ LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <11> not available
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 399.
+(Font)              <10.95> on input line 406.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 399.
+(Font)              <8> on input line 406.
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 4
-07.
+14.
 (/usr/share/texmf/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) [2] [3] [4] [5] [6]
-Overfull \hbox (49.9418pt too wide) in paragraph at lines 709--724
+Overfull \hbox (49.9418pt too wide) in paragraph at lines 716--731
  [][] 
  []
 
 LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 
-732.
+739.
 (/usr/share/texmf/tex/latex/lm/ts1lmtt.fd
 File: ts1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) [7]
@@ -820,58 +820,58 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [8] [9]
-<figures/baseline-1.png, id=142, 770.88pt x 385.44pt>
+<figures/baseline-1.png, id=138, 770.88pt x 385.44pt>
 File: figures/baseline-1.png Graphic file (type png)
 <use figures/baseline-1.png>
-Package pdftex.def Info: figures/baseline-1.png  used on input line 906.
+Package pdftex.def Info: figures/baseline-1.png  used on input line 913.
 (pdftex.def)             Requested size: 446.26582pt x 223.1319pt.
 [10 <./figures/baseline-1.png>] [11]
-<figures/h1-1.png, id=163, 770.88pt x 770.88pt>
+<figures/h1-1.png, id=159, 770.88pt x 770.88pt>
 File: figures/h1-1.png Graphic file (type png)
 <use figures/h1-1.png>
-Package pdftex.def Info: figures/h1-1.png  used on input line 972.
+Package pdftex.def Info: figures/h1-1.png  used on input line 979.
 (pdftex.def)             Requested size: 318.70944pt x 187.89684pt.
-<figures/h1-2.png, id=164, 770.88pt x 770.88pt>
+<figures/h1-2.png, id=160, 770.88pt x 770.88pt>
 File: figures/h1-2.png Graphic file (type png)
 <use figures/h1-2.png>
-Package pdftex.def Info: figures/h1-2.png  used on input line 972.
+Package pdftex.def Info: figures/h1-2.png  used on input line 979.
 (pdftex.def)             Requested size: 318.70944pt x 187.89684pt.
-<figures/h2-1.png, id=165, 770.88pt x 770.88pt>
+<figures/h2-1.png, id=161, 770.88pt x 770.88pt>
 File: figures/h2-1.png Graphic file (type png)
 <use figures/h2-1.png>
-Package pdftex.def Info: figures/h2-1.png  used on input line 980.
+Package pdftex.def Info: figures/h2-1.png  used on input line 987.
 (pdftex.def)             Requested size: 318.70944pt x 187.89684pt.
-<figures/h2-2.png, id=166, 770.88pt x 770.88pt>
+<figures/h2-2.png, id=162, 770.88pt x 770.88pt>
 File: figures/h2-2.png Graphic file (type png)
 <use figures/h2-2.png>
-Package pdftex.def Info: figures/h2-2.png  used on input line 980.
+Package pdftex.def Info: figures/h2-2.png  used on input line 987.
 (pdftex.def)             Requested size: 318.70944pt x 187.89684pt.
 [12
 
  <./figures/h1-1.png> <./figures/h1-2.png> <./figures/h2-1.png> <./figures/h2-2
 .png>]
-<figures/h3-1.png, id=178, 770.88pt x 770.88pt>
+<figures/h3-1.png, id=174, 770.88pt x 770.88pt>
 File: figures/h3-1.png Graphic file (type png)
 <use figures/h3-1.png>
-Package pdftex.def Info: figures/h3-1.png  used on input line 1009.
+Package pdftex.def Info: figures/h3-1.png  used on input line 1016.
 (pdftex.def)             Requested size: 277.15195pt x 325.2142pt.
 [13
 
  <./figures/h3-1.png>]
-<figures/issues-1.png, id=189, 770.88pt x 1541.76pt>
+<figures/issues-1.png, id=185, 770.88pt x 1541.76pt>
 File: figures/issues-1.png Graphic file (type png)
 <use figures/issues-1.png>
-Package pdftex.def Info: figures/issues-1.png  used on input line 1043.
+Package pdftex.def Info: figures/issues-1.png  used on input line 1050.
 (pdftex.def)             Requested size: 446.26381pt x 552.86885pt.
 [14] [15 <./figures/issues-1.png>] [16] [17]
-Overfull \hbox (5.28925pt too wide) in paragraph at lines 1229--1235
+Overfull \hbox (5.28925pt too wide) in paragraph at lines 1228--1234
 \T1/lmr/m/it/10.95 Amer-i-can Po-lit-i-cal Sci-ence Re-view \T1/lmr/m/n/10.95 1
 10 (2): 278--95. [][]$https : / / doi . org / 10 . 1017 / s0003055416000058$[][
 ]. 
  []
 
 
-Overfull \hbox (0.78574pt too wide) in paragraph at lines 1255--1260
+Overfull \hbox (0.78574pt too wide) in paragraph at lines 1260--1265
 \T1/lmr/m/n/10.95 cal Turk Valid for Re-search on Po-lit-i-cal Ide-ol-ogy?'' \T
 1/lmr/m/it/10.95 Re-search & Pol-i-tics \T1/lmr/m/n/10.95 2 (4): 20531680156220
 72.
@@ -882,21 +882,21 @@ Overfull \hbox (0.78574pt too wide) in paragraph at lines 1255--1260
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `draft.out' has not changed.
-(rerunfilecheck)             Checksum: 819E19EF0DACAA87802D8F6185CC7B01;1940.
+(rerunfilecheck)             Checksum: 781A31E4AB9CC30CBAE7F3B97E2E54E0;1815.
  ) 
 Here is how much of TeX's memory you used:
- 20546 strings out of 480171
- 373843 string characters out of 5894489
- 646956 words of memory out of 5000000
- 38046 multiletter control sequences out of 15000+600000
- 543479 words of font info for 85 fonts, out of 8000000 for 9000
+ 20540 strings out of 480171
+ 373770 string characters out of 5894489
+ 646915 words of memory out of 5000000
+ 38043 multiletter control sequences out of 15000+600000
+ 543114 words of font info for 84 fonts, out of 8000000 for 9000
  59 hyphenation exceptions out of 8191
  70i,11n,79p,549b,780s stack positions out of 5000i,500n,10000p,200000b,80000s
 pdfTeX warning (dest): name{attention-checks} has been referenced but does no
 t exist, replaced by a fixed one
 
-{/usr/share/texmf/fonts/enc/dvips/lm/lm-ts1.enc}{/usr/share/texmf/fonts/enc/dvi
-ps/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/
+{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvip
+s/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ts1.enc}{/usr/share/
 texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvi
 ps/base/8r.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx10.pfb></usr/share/t
 exmf/fonts/type1/public/lm/lmbxi10.pfb></usr/share/texmf/fonts/type1/public/lm/
@@ -907,10 +907,10 @@ pe1/public/lm/lmr6.pfb></usr/share/texmf/fonts/type1/public/lm/lmr8.pfb></usr/s
 hare/texmf/fonts/type1/public/lm/lmr9.pfb></usr/share/texmf/fonts/type1/public/
 lm/lmri10.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt10.pfb></usr/share/te
 xlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb>
-Output written on draft.pdf (21 pages, 690863 bytes).
+Output written on draft.pdf (21 pages, 692319 bytes).
 PDF statistics:
- 435 PDF objects out of 1000 (max. 8388607)
- 363 compressed objects within 4 object streams
- 110 named destinations out of 1000 (max. 500000)
- 140 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 412 PDF objects out of 1000 (max. 8388607)
+ 341 compressed objects within 4 object streams
+ 108 named destinations out of 1000 (max. 500000)
+ 132 words of extra memory for PDF output out of 10000 (max. 10000000)
 
