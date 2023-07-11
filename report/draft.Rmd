@@ -37,9 +37,9 @@ header-includes:
    - \usepackage{amsthm}
    - \newtheorem{hypo}{Hypothesis}
 biblio-style: apsr
-title: "Whose Truth is it Anyway? An Experiment on Annotation Bias"
+title: "Whose Truth is it Anyway? An Experiment on Annotation Bias in Times of Factual Opinion Polarization"
 author:
-- name: Mariken A.C.G. van der Velden*
+- name: Mariken A.C.G. van der Velden
 - affiliation: Dep. of Communciation Science, Vrije Universiteit Amsterdam
 - name: Myrthe Reuver
 - affiliation: Computational Linguistics & Text Mining Lab, Vrije Universiteit Amsterdam
@@ -51,7 +51,7 @@ author:
 - affiliation: Center for Social Media & Politics, New York University
 - name: Kasper Welbers
 - affiliation: Dep. of Communciation Science, Vrije Universiteit Amsterdam
-thanks: "* = Corresponding author, Replication files are available on the author's Github account (https://github.com/MarikenvdVelden/bias-experiment); Author contributions: a) designed the study: MACGvdV, WvA, AF, FL, MR, & KW; b) conducted the study: MACGvdV, FL & MR; c) data cleaning & analysis: MACGvdV; d) writing of the paper: MACGvdV"
+thanks: "Corresponding author: MACGvdV, Replication files are available on the author's Github account (https://github.com/MarikenvdVelden/bias-experiment); Author contributions: a) designed the study: MACGvdV, MR, WvA, AF, FL, & KW; b) conducted the study: MACGvdV, FL & MR; c) data cleaning & analysis: MACGvdV; d) writing of the paper: MACGvdV, MR, WvA, AF, FL, & KW"
 anonymous: FALSE
 abstract: "The behavior of citizens and the study of them by social scientists rely heavily on key information. The democratization of data has lead to numerous possibilities for gathering and analyzing textual data. These enourmous amounts of data are typically handled by machine learning techniques to classify into meaningful variables. The performance of these models is evaluated based on a gold standard, created by human annotators. Having a high level of agreement between these annotators is key, but recent research suggests personal characteristics of annotators, like political ideology or knowledge, interfere. We show in two pre-registered experiments that XXX. Thereby [contribution]."
 keywords: "Experiment, Annotation Bias, Ideology, Measurinig Political Position, Text-as-Data, Political Knowledge"
@@ -392,7 +392,7 @@ The same goes for the interaction between masking and political knowledge, on th
 There is no significant effect found in the US, but a very small negative effect in the Dutch case.
 This means that masking of political actors does not help to correctly interpret a sentence as a stance -- i.e. no support for H3a and H3b.
 
-```{r results-h3, fig.align = 'center', fig.cap = "\\label{fig:results-h3} Results Masking Solution", fig.pos="H", fig.show="hold",out.width = "59%", out.height="50%"}
+```{r results-h3, fig.align = 'center', fig.cap = "\\label{fig:results-h3} Results Masking Solution", fig.pos="H", fig.show="hold",out.width = "80%", out.height="80%"}
 knitr::include_graphics(here("report/figures", "h3-1.png"))
 ```
 
@@ -411,10 +411,6 @@ We see that masking does not increase the likelihood of being correct, but does 
 Underspecified sentences are less likely to be correctly identified and more likely to be overinterpreted regardless of the definition of a stance.
 So, while there are some differences in effect sizes between the issues, the overall findings are not driven by a single issue.
 
-```{r results-exploration1, out.height = "85%",out.width = "95%",, fig.align = 'center', fig.cap = "\\label{fig:results-exp1} Exploration: Issue Speficific Analyses", fig.pos="H", fig.show="hold"}
-knitr::include_graphics(c(here("report/figures", "issues-1.png")))
-```
-
 In addition to issue-specific analyses, we also explore an interaction between treatments, visualized in Figure **OA.XX** for both dependent variables.
 This shows that masking is of help when sentences are under-specified.
 In the left-hand panel of Figure **OA.XX**, it demonstrates that for under-specified sentences, people are less likely to incorrectly identify a sentence as a stance when the actor is masked (coefficient of `-0.30`) than when an actor is revealed (coefficient of `-0.45`).
@@ -428,6 +424,12 @@ First, we measured ideological bias by looking at whether the respondent is cong
 Second, we measured ideological bias by looking at whether the person voted for the party displayed in the sentence, visualized in Figure **OA.XX**. And thirdly, we measured ideological bias by looking at the ideology of the respondents -- not in relation to the political actor revealed, visualized in Figure **OA.XX**. These figures show that our null-finding regarding ideological bias is not conditional upon the measure we used.
 In none of the analyses, we find evidence for ideological bias.
 Also for the alternative measurement of political knowledge in the US, we find the same results as reported in the main analyses.
+
+```{r results-exploration1, out.height = "85%",out.width = "95%",, fig.align = 'center', fig.cap = "\\label{fig:results-exp1} Exploration: Issue Speficific Analyses", fig.pos="H", fig.show="hold"}
+knitr::include_graphics(c(here("report/figures", "issues-1.png")))
+```
+
+
 
 # Discussion
 
