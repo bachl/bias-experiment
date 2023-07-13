@@ -236,7 +236,7 @@ Both samples, recruited through [KiesKompas](https://www.kieskompas.nl/en/) and 
 Both survey companies works with non-random opt-in respondents.
 Therefore, we measured many demographic background variables, and balance checks have been conducted to demonstrate whether certain categories are over represented in a certain experimental group.
 Our study has been approved by the [Research Ethics Review Committee](https://fsw.vu.nl/nl/onderzoek/research-ethics-review/index.aspx) of the *Vrije Universiteit Amsterdam* (see the approval [here](https://github.com/MarikenvdVelden/bias-experiment/blob/master/docs/2022-3-30-59.pdf)).
-To ensure good quality of our data, one attention check (discussed in more detail in [Section 3.3](#attention-checks)) is included [@berinsky2014separating].
+To ensure good quality of our data, one attention check (discussed in more detail in **OA XX** is included [@berinsky2014separating].
 
 ## Measurement
 
