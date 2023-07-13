@@ -54,7 +54,7 @@ author:
 - affiliation: Dep. of Communciation Science, Vrije Universiteit Amsterdam
 thanks: "Corresponding author: MACGvdV, Replication files are available on the author's Github account (https://github.com/MarikenvdVelden/bias-experiment); Author contributions: a) designed the study: MACGvdV, MR, WvA, AF, FL, & KW; b) conducted the study: MACGvdV, FL & MR; c) data cleaning & analysis: MACGvdV; d) writing of the paper: MACGvdV, MR, WvA, AF, FL, & KW"
 anonymous: TRUE
-abstract: "The behavior of citizens and the study of them by social scientists rely heavily on key information. Human annotation represents a crucial instrument in the toolkit of the social sciences. To address concerns regarding the validity and reliability of annotation tasks, we establish strict standards. Due to the democratization of data and the advances in NLP more data can be analyzed or classified, these standards are more important than ever: An algorithm trained on biased data will reproduce and often exacerbate bias. Our tools to create valid and reliable annotation data does currently not allow for dealing with different perspectives of annotators. In two pre-registered experiments in the United States and the Netherlands, we show that personal characteristics of annotators, like political ideology or knowledge, interfere with annotators judgement of political stances. Our results show that to improve annotated data for automated text analyses, and for stance detection models in particular, we need to critically evaluate how we create our gold standards."
+abstract: "The behavior of citizens and the study of them by social scientists rely heavily on key information. Human annotation represents a crucial instrument in the toolkit of the social sciences. To address concerns regarding the validity and reliability of annotation tasks, we establish strict standards. Due to the democratization of data and the advances in NLP more data can be analyzed or classified, these standards are more important than ever: An algorithm trained on biased data will reproduce and often exacerbate bias. Our tools to create valid and reliable annotation data currently do not allow for dealing with different perspectives of annotators. In two pre-registered experiments in the United States and the Netherlands, we show that personal characteristics of annotators, like political ideology or knowledge, interfere with annotators' judgement of political stances. Our results show that to improve annotated data for automated text analyses, and for stance detection models in particular, we need to critically evaluate how we create our gold standards."
 keywords: "Experiment, Annotation Bias, Ideology, Measurinig Political Position, Text-as-Data, Political Knowledge"
 geometry: margin=1in
 mainfont: cochineal
@@ -87,6 +87,9 @@ source(here::here("src/lib/functions.R"))
 ```
 
 \doublespacing
+
+<!--Word count: `r as.integer(sub("(\\d+).+$", "\\1", system(sprintf("wc -w %s", knitr::current_input()), intern = TRUE))) - 20`-->
+
 # Introduction
 The behavior of citizens and the study of them by social scientists rely heavily on key information.
 Classical theories of political communication, such as agenda setting or framing [e.g. @vanaelst2016political; @lecheler2019news], formulate that political information drives opinion formation and participation in politics -- from voting to protests [for overviews hereof across countries, see @pfetsch2013comparing].
