@@ -91,6 +91,10 @@ source(here::here("src/lib/functions.R"))
 # Introduction
 
 The behavior of citizens and the study of them by social scientists rely heavily on key information.
+<!--Word count: `r as.integer(sub("(\\d+).+$", "\\1", system(sprintf("wc -w %s", knitr::current_input()), intern = TRUE))) - 20`-->
+
+# Introduction
+The behavior of citizens and the study thereof by social scientists both rely heavily on key information.
 Classical theories of political communication, such as agenda setting or framing [e.g. @vanaelst2016political; @lecheler2019news], formulate that political information drives opinion formation and participation in politics -- from voting to protests [for overviews hereof across countries, see @pfetsch2013comparing].
 The democratization of data and advent of computational social science has paved the way for new possibilities of gathering and analyzing textual data [for a recent overview, see @vanatteveldt2022computational].
 In particular, advances in Natural Language Processing (NLP) have made it possible to automatically analyze large quantities of data using machine learning [e.g., see @grimmer2022text; @wei2023overview].
@@ -100,6 +104,7 @@ If a gold standard contains biases, i.e., systematic errors, it can foster bias 
 
 Most data collection efforts to create gold standards assume that there is only one correct interpretation for every input example, and that disagreement between the annotators is something that needs to be dealt with at all costs [@aroyo2015truth].
 A recent study by @van2021validity demonstrates that using crowd-coding platforms is a good way to collect such gold standards without too much disagreement.
+A recent study by @van2021validity demonstrates that using crowd-coding platforms is a good way to collect such golden standards without too much disagreement.
 These platforms have also been used for experiments, and the quality of the respondents has been a center of attention [@coppock2019generalizing; @clifford2015samples; @huff2015these; @berinsky2014separating].
 While it has been argued that this data is of similar quality to data from a random sample of the population [@coppock2019generalizing], others have demonstrated that these online platforms are populated by people that are "unlike" the general public, being younger and holding more liberal values [@clifford2015samples; @huff2015these].
 If the latter is true, this might cause a problem for the coding of political texts: @ennser2018impact report that coders of political texts incorporate prior beliefs about parties' issue stances into their coding decisions.
@@ -232,11 +237,11 @@ Both samples, recruited through [KiesKompas](https://www.kieskompas.nl/en/) and 
 Both survey companies works with non-random opt-in respondents.
 Therefore, we measured many demographic background variables, and balance checks have been conducted to demonstrate whether certain categories are over represented in a certain experimental group.
 Our study has been approved by the [Research Ethics Review Committee](https://fsw.vu.nl/nl/onderzoek/research-ethics-review/index.aspx) of the *Vrije Universiteit Amsterdam* (see the approval [here](https://github.com/MarikenvdVelden/bias-experiment/blob/master/docs/2022-3-30-59.pdf)).
-To ensure good quality of our data, one attention check (discussed in more detail in [Section 3.3](#attention-checks)) is included [@berinsky2014separating].
+To ensure good quality of our data, one attention check (discussed in more detail in **OA XX** is included [@berinsky2014separating].
 
 ## Measurement
 
-***Experimental Conditions.*** Respondents are randomly assigned to either view a political party as an actor, or a masked condition, where they see `X` as an actor; simultaneously, respondents see either a fully specified sentence or a underspecified sentence, in which one needs additional information to interpret the position on an actor.
+***Experimental Conditions.*** Respondents are randomly assigned to either view a political party as an actor, or a masked condition, where they see `X` as an actor; simultaneously, respondents see either a fully specified sentence or a underspecified sentence, in which one needs additional information outside of the text to determine an actor's position.
 Table \ref{tab:conditions} gives an overview of the variations in treatment in the surveys.
 
 ```{r conditions, topcaption=TRUE}
@@ -436,6 +441,9 @@ knitr::include_graphics(c(here("report/figures", "issues-1.png")))
 Human annotation represents a crucial instrument in the toolkit of the social sciences.
 In order to address concerns regarding the validity and reliability of annotation tasks, we establish strict standards.
 Especially in times where due to the democratization of data and the advances in NLP more data can be analyzed or classified, these standards are more important than ever.
+Human annotation is a crucial instrument in the toolkit of the social sciences.
+In order to safeguard the validity and reliability of annotation tasks, strict standards need to be upheld.
+Especially in these days, where due to the democratization of data and the advances in NLP more data can be analyzed or classified, these standards are more important than ever.
 After all, an algorithm trained on biased data will reproduce and often exacerbate bias [e.g. see @prost2019debiasing].
 It is key to realize that the underlying assumption to create valid and reliable annotated data is that there is only one correct interpretation for every input example, and that disagreement between the annotators is something that needs to be dealt with at all costs [@aroyo2015truth].
 In times of increasing factual opinion polarization [@rekker2022understanding; @lee2021more], it is crucial to ask *whose perspective is being recorded in these datasets*, given that there is no neutral data and no apolitical standpoint from where we can call out bias: "Datasets are always 'a worldview' and, as such, data always remains biased" [@miceli2022studying, p.5].

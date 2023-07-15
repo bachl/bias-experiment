@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.7.13)  15 JUL 2023 12:08
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.4.28)  13 JUL 2023 16:41
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -761,28 +761,28 @@ Overfull \hbox (13.44627pt too wide) detected at line 743
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [14] [15]
-<figures/baseline-1.png, id=155, 770.88pt x 385.44pt>
+<figures/baseline-1.png, id=153, 770.88pt x 385.44pt>
 File: figures/baseline-1.png Graphic file (type png)
 <use figures/baseline-1.png>
 Package pdftex.def Info: figures/baseline-1.png  used on input line 868.
 (pdftex.def)             Requested size: 446.26582pt x 223.1319pt.
 [16 <./figures/baseline-1.png>] [17] [18]
-<figures/h1-1.png, id=179, 770.88pt x 770.88pt>
+<figures/h1-1.png, id=177, 770.88pt x 770.88pt>
 File: figures/h1-1.png Graphic file (type png)
 <use figures/h1-1.png>
 Package pdftex.def Info: figures/h1-1.png  used on input line 933.
 (pdftex.def)             Requested size: 318.70944pt x 187.89684pt.
-<figures/h1-2.png, id=180, 770.88pt x 770.88pt>
+<figures/h1-2.png, id=178, 770.88pt x 770.88pt>
 File: figures/h1-2.png Graphic file (type png)
 <use figures/h1-2.png>
 Package pdftex.def Info: figures/h1-2.png  used on input line 933.
 (pdftex.def)             Requested size: 318.70944pt x 187.89684pt.
-<figures/h2-1.png, id=181, 770.88pt x 770.88pt>
+<figures/h2-1.png, id=179, 770.88pt x 770.88pt>
 File: figures/h2-1.png Graphic file (type png)
 <use figures/h2-1.png>
 Package pdftex.def Info: figures/h2-1.png  used on input line 941.
 (pdftex.def)             Requested size: 318.70944pt x 187.89684pt.
-<figures/h2-2.png, id=182, 770.88pt x 770.88pt>
+<figures/h2-2.png, id=180, 770.88pt x 770.88pt>
 File: figures/h2-2.png Graphic file (type png)
 <use figures/h2-2.png>
 Package pdftex.def Info: figures/h2-2.png  used on input line 941.
@@ -798,7 +798,7 @@ Package pdftex.def Info: figures/h3-1.png  used on input line 970.
 [20
 
 ] [21 <./figures/h3-1.png>] [22]
-<figures/issues-1.png, id=213, 770.88pt x 1541.76pt>
+<figures/issues-1.png, id=211, 770.88pt x 1541.76pt>
 File: figures/issues-1.png Graphic file (type png)
 <use figures/issues-1.png>
 Package pdftex.def Info: figures/issues-1.png  used on input line 1035.
@@ -848,8 +848,8 @@ pdfTeX warning (dest): name{attention-checks} has been referenced but does not e
 </Users/felicialoecherbach/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></Users/felicialoecherbach/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbxi10.pfb></Users/felicialoecherbach/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi12.pfb></Users/felicialoecherbach/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></Users/felicialoecherbach/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb></Users/felicialoecherbach/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb></Users/felicialoecherbach/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr17.pfb></Users/felicialoecherbach/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr7.pfb></Users/felicialoecherbach/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb></Users/felicialoecherbach/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri12.pfb></Users/felicialoecherbach/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt12.pfb>
 Output written on draft.pdf (33 pages, 677954 bytes).
 PDF statistics:
- 456 PDF objects out of 1000 (max. 8388607)
- 378 compressed objects within 4 object streams
- 125 named destinations out of 1000 (max. 500000)
+ 454 PDF objects out of 1000 (max. 8388607)
+ 376 compressed objects within 4 object streams
+ 124 named destinations out of 1000 (max. 500000)
  124 words of extra memory for PDF output out of 10000 (max. 10000000)
 
