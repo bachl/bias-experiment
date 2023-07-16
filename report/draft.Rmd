@@ -182,7 +182,7 @@ Data sets are always "a worldview" and, as such, data always remains biased" [@m
 
 Most recently, new annotation paradigms have gone one step further by asking whether we are modelling the task, or the annotator [@geva2019we].
 @pavlick2019 find that for the logical coherence task Natural Language Inference, annotators have several valid interpretations that are not reflected in one ground truth label.
-They call for new training paradigms that can reflect "the full range of possible human inferences"[@pavlick2019, p.688].
+They call for new training paradigms that can reflect "the full range of possible human inferences" [@pavlick2019, p.688].
 Recent approaches in NLP have sought to explicitly incorporate disagreement and diversity in training data annotations.
 @rottger2022two introduce the idea of an explicitly subjective annotation paradigm existing in addition to one focussed on one label and "ground truth".
 Such a subjective annotation paradigm can be used for purposes where the goal is finding diverse perspectives on the task or concepts, and for models to model more accurately how humans interpret a task or text.
