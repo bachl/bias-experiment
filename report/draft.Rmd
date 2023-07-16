@@ -97,7 +97,7 @@ The behavior of citizens and the study of them by social scientists rely heavily
 The behavior of citizens and the study thereof by social scientists both rely heavily on key information.
 Classical theories of political communication, such as agenda setting or framing [e.g. @vanaelst2016political; @lecheler2019news], formulate that political information drives opinion formation and participation in politics -- from voting to protests [for overviews hereof across countries, see @pfetsch2013comparing].
 The democratization of data and advent of computational social science has paved the way for new possibilities of gathering and analyzing textual data [for a recent overview, see @vanatteveldt2022computational].
-In particular, advances in Natural Language Processing (NLP) have made it possible to automatically analyze large quantities of data using machine learning [e.g., see @grimmer2022text; @wei2023overview].
+In particular, advances in Natural Language Processing (NLP) have made it possible to automatically analyze large quantities of data using machine learning [e.g., see @grimmer2022text; @akyurek-etal-2020-multi, @piskorski2023semeval].
 To determine the validity of such large scale computational analyses, we rely on "gold standard" data, created by human annotators.
 It follows that the validity of these analyses hinges on the quality of these gold standards.
 If a gold standard contains biases, i.e., systematic errors, it can foster bias in any downstream analysis.
@@ -121,7 +121,7 @@ Do we want to create a clean benchmark data set that follows strict linguistic r
 Trends of polarization have shown that people do interpret information according to their ideological position [e.g., @rekker2022understanding; @lee2021more].
 *Does this mean that some are right and others are wrong? Or is there an ideological difference in the ground truth?* These questions present a fundamental challenge to the main way of working when collecting gold standard data, as we operate from the baseline assumption that disagreement among the annotators should be avoided or reduced.
 Typically, when specific cases continuously cause disagreement, more instructions are added to limit interpretations (for recent innovations to improve annotation, see for example: @barbera2021automated; @struthers2020bridging; @winter2020online; @debell2013harder; @benoit2016crowd, @ying2022topics).
-However, work in computational linguistics has shown that increased annotation instructions do not increase quality [@parmar2022don].
+However, work in computational linguistics has shown that increased annotation instructions do not increase quality [@parmar2023don].
 This leaves us between a rock and a hard place.
 Is there a potential bias in annotators that we should account for?
 
@@ -471,7 +471,7 @@ For sentences with clear political stances on an issue (e.g., immigration should
 But if the sentence refers to the issue without making a clear stance (e.g., many immigrants are crossing our borders) we do see a clear effect of political knowledge.
 This indicates that for annotation bias to occur, there has to be sufficient room for different interpretations.
 If the stance is clearly specified, then there is more of a ground truth, and the opinions and perspectives of the annotator therefore matter less.
-It is when the stance is underspecified that perspectivism [@basile2021toward; @havens2022beyond] comes into play.
+It is when the stance is underspecified that perspectivism [@cabitza2023toward; @havens2022beyond] comes into play.
 When a party talks about a political issue without taking an explicit stance, annotators need to fill in the gaps and make their own inferences about the party's stance on this issue. Considering that in many political documents and specifically reporting on political news statements are not made explicit, underspecified sentences can be assumed to rather be the rule than the exception.
 Our results therefore imply that political knowledge is indeed a relevant dimension in shaping how an annotator perceives political stances.
 
