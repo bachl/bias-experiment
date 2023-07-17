@@ -1,0 +1,343 @@
+---
+output: 
+  stevetemplates::article:
+    number_sections: TRUE
+    toc: yes
+    dev: cairo_pdf
+title: "ONLINE APPENDIX: Whose Truth is it Anyway? An Experiment on Annotation Bias in Times of Factual Opinion Polarization"
+bibliography: references.bib
+biblio-style: apsr
+geometry: margin=1in
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+fontsize: 11pt
+endnotes: FALSE
+mainfont: cochineal
+sansitup: FALSE
+params:
+  anonymous: ""
+  doublespacing: ""
+  removetitleabstract: ""
+appendix: TRUE
+appendixletter: "OA"
+pandocparas: FALSE
+anonymous: "`r params$anonymous`"
+doublespacing: "`r params$doublespacing`"
+removetitleabstract: "`r params$removetitleabstract`"
+linkcolor: black
+#nocite: |
+#  @cartersmith2020fml, @andersetal2020bbgb
+header-includes: 
+   - \usepackage{array}
+   - \usepackage{floatrow}
+   - \floatsetup[figure]{capposition=top}
+   - \floatsetup[table]{capposition=top}
+   - \usepackage{booktabs}
+   - \usepackage{longtable}
+   - \usepackage{array}
+   - \usepackage{multirow}
+   - \usepackage{wrapfig}
+   - \usepackage{float}
+   - \usepackage{colortbl}
+   - \usepackage{pdflscape}
+   - \newcommand{\blandscape}{\begin{landscape}}
+   - \newcommand{\elandscape}{\end{landscape}}
+   - \usepackage{tabu}
+   - \usepackage[para,online,flushleft]{threeparttable}
+   - \usepackage{threeparttablex}
+   - \usepackage[normalem]{ulem}
+   - \usepackage{makecell}
+   - \usepackage{xcolor}
+   - \usepackage{caption}
+   - \usepackage{graphicx}
+   - \usepackage{epstopdf}
+   - \usepackage{siunitx}
+   - \usepackage{multirow}
+   - \usepackage{hhline}
+   - \usepackage{calc}
+   - \usepackage{tabularx}
+   - \usepackage{fontawesome}
+   - \usepackage{amsthm}
+   - \usepackage{csquotes}
+   - \LTcapwidth=.95\textwidth
+   - \linespread{1.05}
+   - \usepackage{hyperref}
+   - \usepackage{setspace}
+   - \renewcommand{\thepage}{OA-\arabic{page}}
+---
+
+```{r setup, include=FALSE}
+## include this at top of your RMarkdown file for pretty output
+## make sure to have the printr package installed: install.packages('printr')
+library(knitr)
+opts_chunk$set(echo = FALSE,
+                      message=FALSE, warning=FALSE,
+               fig.pos = "H", out.extra = "")
+options(kableExtra.latex.load_packages = FALSE)
+```
+
+```{r "data"}
+here::i_am("report/OnlineAppendix.Rmd")
+source(here::here("src/lib/functions.R"))
+load(here("data/intermediate/cleaned_data_nl.RData"))
+load(here("data/intermediate/cleaned_data_us.RData"))
+```
+
+\newpage
+# A-1. Power Analysis
+As detailed in our pre-analysis plan, we conduct multi-level regressions for the four sentences.
+The manipulation, i.e. the masking condition vs. the political actor, as well as the specification of the sentence (i.e. _fully specified_ or _underspecified_) as well as respondents ideological distance to the party and their levels of political knowledge are the main independent variables.
+  
+To calculate power for the hypotheses, the R package `DeclareDesign` is used [@blair2019declaring].
+The effect sizes are between $b = 0.2$ and $b = 0.1$ -- i.e. a small effect visualized by the purple and blue lines in Figure \ref{fig:power1}.
+The hypothesis are directional, Figure \ref{fig:power1} therefore displays one-tailed tests with $\alpha = 0.05$.
+The power analysis shows that testing the hypotheses requires a sample size of $2,000$ participants, who all annotate the four sentences, i.e. $8,000$ participants in total, (x-axis) to reach very high levels of power, i.e. $>95\%$, (indicated by the black dashed line in Figure \ref{fig:power}). 
+
+```{r power, fig.align = 'center', out.width = "100%", fig.cap = "\\label{fig:power1}Power Analysis", fig.topcaption=TRUE}
+knitr::include_graphics(here::here("docs/pap_files/figure-latex/power-1.pdf"))
+```
+
+\newpage
+# A-2. Data Collection: Questionnaire & Stimulus Material
+
+## Questionnaire
+
+**_Dependent Variables_**.
+We rely on whether or not a party's (implied) stance is coded according to the party’s position (H1 and H3) as well as whether or not the statement is coded as a stance at all (H3). For each issue, we ask the respondent `what is according to the sentence above the position of [ACTOR]?`, with the answer categories: `in favor`, `against`, `no stance`, `don't know`.
+
+&nbsp;
+
+**_Control Variables_**.
+As control variables, the following _demographics_ are measured post-treatment: gender, age, education, geographical region, level of urbanization, employment, and income.
+For the analysis, only variables that are unbalanced over the experimental conditions will be included.
+
+- _Gender_ is measured as `sex`. The answer categories are `Male` (value of `1`), `Female` (value of `0`), and `No answer` (value of `999`).
+
+- _Age_ is measured using 6 categories: `17 or younger`, `18--29`, `30--39`, `40--49`, `50--59`, `60--74`. 
+
+- _Education_ is measured as the highest successfully completed level of education, recoded into four categories: `low`, `middle`, `high`, and `none`.
+We created dummy variables for each level of education with the lowest category as base category.
+
+- _Employment_ Respondents were asked which category of employment -- `Full-time employed`, `Part-time employed`, `Entrepreneur`, `Unemployed and searching for a job`, `Unemployed and not searching for a job or incapacitated`, `Housewife/Househusband or else`, `Retired`, `Student or full-time education` -- applied most to them. 
+
+- _Income_ Respondents were questioned on their monthly income in bins of 500 Euro's or Dolllars -- `500 or less`, `501-1000`, `1001-1500`, `1501-2000`, `2001-2500`, `2501-3000`, `3001-3500`, `3501-4000`, `4501-7500`, `7501 or more` -- as well as giving them the options of `won't  say` and `don't know`.
+
+- _Geographical region_ is measured using the _Nielsen districs_, dividing the Netherlands into 1) the 3 major cities plus suburbs, Amsterdam (plus Diemen, Ouder-Amstel, Landsmeer, Amstelveen), Rotterdam (plus Schiedam, Capelle aan den IJssel, Krimpen aan den IJssel, Nederlek, Ridderkerk, Barendrecht, Albrandswaard) and The Hague (plus Leidschendam, Voorburg, Rijswijk, Wassenaar, Wateringen); 2) West (Noord-Holland, Zuid-Holland and Utrecht (excluding the major cities and their suburbs; 3) North (Groningen, Friesland and Drenthe), 4) East (Overijssel, Gelderland and Flevoland); and South (Zeeland, Noord-Brabant and Limburg). In the American case, we use the states.
+
+In addition, pre-treatment, respondents' ideological position, political knowledge, vote recall, and position on the issues migration, climate, tax, and EU are measured.
+Those variables will only be included in the analyses if balance checks indicate they are necessary.
+Moreover, the variables will be used to explore heterogeneous relationships. 
+
+- _Ideological position_ is measured using an 11-point scale ranging from left (`0`) to right (`10`) in the Dutch case, since this is common in the national election studies (DPES). In the American case, we use the ANES standard liberal-conservative 7 point scale from extremely conservative to extremely liberal.
+
+- _Vote Recall_ Respondents were asked which party they voted for in the 2021 parliamentary elections in the Dutch case, since party id is not a hellpful measure in this context. The options were 1) all parties that were elected into parliament -- `Bij1`, `BoerBurgerBeweging`, `CDA`, `ChristenUnie`, `D66`, `Denk`, `Forum for Democracy`, `JA21`, `GroenLinks`, `PvdA`, `Animal Rights Party`, `PVV`, `SGP`, `SP`, `VOLT`,`VVD`, `50Plus Party` -- 2) another party; 3) blanco vote; and 4) a `Don't know` option.
+
+- _Party ID_ For the American case, respondents where asked whether they think of themselves as a Democrat, a Republican, an independent, or
+something else.
+
+- _Political knowledge_ is measured with six items from the DPES for the Dutch study and four items from the ANES for the American study.
+
+- _Position on migration_ is measured by asking people whether or not there are too many immigrants in the Netherlands using a 5-point Likert-scale (`fully disagree`, `disagree`, `neutral`, `agree`, `fully agree`).
+
+- _Position on climate_ is measured by asking people whether or not the climate crisis is exaggerated using a 5-point Likert-scale (`fully disagree`, `disagree`, `neutral`, `agree`, `fully agree`).
+
+- _Position on tax_ is measured by asking people whether or not the  tax rate for the highest earners should go up using a 5-point Likert-scale (`fully disagree`, `disagree`, `neutral`, `agree`, `fully agree`).
+
+- _Position on the EU_ is measured by asking people whether or not membership in the European Union has been especially bad for the Netherlands so far using a 5-point Likert-scale (`fully disagree`, `disagree`, `neutral`, `agree`, `fully agree`).
+
+- _Position on Foreign Policy_ is measured by asking people whether or not say the U.S. needs to consider military build-up in the Pacific Ocean using a 5-point Likert-scale (`fully disagree`, `disagree`, `neutral`, `agree`, `fully agree`).
+
+
+**_Attention Check_**.
+We include one attention checks in the survey.
+This is asked just before respondents enter the round of the experimental treatments.
+The attention checks are taken from @berinsky2014separating and adapted to the Dutch context by the authors -- for the American data we use the original item.
+If a respondents fails the first attention check, a warning appears and the respondent can only continue with the survey once the respondent has correctly answered the question correctly.
+
+_When a big news story breaks people often go online to get up-to-the-minute details on what is going on. We want to know which websites people trust to get this information. We also want to know if people are paying attention to the question. To show that you have read this much, please ignore the question and select Volkskrant and Metro as your two answers. When there is a big news story, which is the one news website you would visit first? (Pleaseonly choose one). Eight (Dutch) news outlets are provided to choose from._ 
+Respondents pass the attention check if they select **de Volkskrant** and **Metro**.
+
+## Experimental Protocol
+The study is conducted online and in Dutch for the Dutch data as well as in English for the American data.
+Participants are told that they are taking part in a survey to get an overview of how people form their views on politics.
+After reading an informed consent message participants are forwarded to the main questionnaire (or the survey will be terminated if they do not agree to the consent form).
+
+First, participants complete a set of pre-treatment variables (i.e. vote recall, issue positions of the issues used in the experiment (Climate, EU/ Foreign Policy, Immigration, and Tax), ideology, and political knowledge).
+This block ends with the attention check included in this survey.
+When participants fail this attention check, a warning appears asking them to read the question again carefully  and  to  answer  again.
+Therefter, participants see the experimental stimuli.
+The stimuli in the experiment are to show respondents fully specified or underspecified sentences on the issue position of a political actor or a masked political actor (see Section Treatment for more details). 
+
+## Stimulus Material
+Respondents are randomly assigned to either view a political party as an actor, or a masked condition, where they see `X` as an actor; simultaneously, respondents see either a fully specified sentence or a underspecified sentence, in which one needs additional information to interpret the positon on an actor.
+Table \ref{tab:conditions} gives an overview of the variations in treatment  in the survey as well as their English translations.
+
+```{r conditions, topcaption=TRUE}
+d <- tibble(Condition = c(rep("Specified", 4),
+                          rep("Underspecified", 4)), 
+            `Wording ENG` = c("[PVV/X] says immigration should be made harder.",
+                              "[GreenLeft/X] says nitrogen emissions need to be reduced.",
+                              "[Labour Party/X] says tax rate should go up for highest earners.",
+                              "[Forum for Democracy/X] says that membership in the European Union has been especially bad for the Netherlands so far.",
+                              "[PVV/X] says many immigrants are coming this way.",
+                              "[GreenLeft/X] says nitrogen policy must be different.",
+                              "[Labour Party/X] says tax system must be changed.",
+                              "[Forum for Democracy/X] says the Netherlands should have a different role in the European Union."),
+            `Wording NL` = c("[PVV/X] zegt dat immigratie moeilijker gemaakt moet worden.",
+                             "[GroenLinks/X] zegt dat stikstofuitstoot meer tegengegaan moet worden.",
+                             "[PvdA/X] zegt dat het belastingtarief voor de hoogste inkomens omhoog moet.",
+                             "[Forum voor Democratie/X] zegt dat het lidmaatschap van de Europese Unie tot nu toe vooral slecht geweest voor Nederland is.",
+                             "[PVV/X] zegt dat veel immigranten deze kant op komen.",
+                             "[GroenLinks/X] zegt dat het stikstofbeleid anders moet.",
+                             "[PvdA/X] zegt dat het belastingstelsel moet worden aangepast.",
+                             "[Forum voor Democratie/X] zegt dat Nederland een andere rol in de Europese Unie moet hebben."))
+
+kbl(d, booktabs =T, caption = "\\label{tab:conditions}Survey Questions - Experimental Conditions") %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width = F, fixed_thead = T, position = "center") %>%
+  column_spec(1, width = "3cm") %>%
+  column_spec(2, width = "7cm") %>%
+  column_spec(3, width = "7cm")
+```
+
+\newpage
+
+# A-3. Balance Checkes
+
+Figure \ref{fig:balance} below shows that the data is balanced on all variables.
+As described in the Pre-Analysis Plan, we will therefore add no co-variates to the analyses as controls. 
+
+```{r "balance", out.width = "95%", fig.align = 'center', fig.cap = "\\label{fig:balance} Balance Test"}
+knitr::include_graphics(here("report/figures", "balance-checks-1.png"))
+```
+
+\newpage
+
+# A-4. Methods of Analyses
+
+To test our hypotheses, we will conduct a multilevel model, with respondents clustered in issues, see Equation \ref{eq:pooled1}.
+Using the pooled data we will estimate a within groups fixed effects model.
+We have conducted a balance test based on demographics (age, gender, education, geographical region, level of urbanization, employment, and income), vote choice in the 2021 parliamentary elections, ideological self-placement, political knowledge, and positions on the issues, using the `cobalt` R package [@greifer2021].
+This balance test indicated that none of the variables are unbalanced over the experimental groups, and therefore, as pre-registered, will not be added to the regression formula.
+$Y\hat{Y}_{r, i, t}$ in Equation \ref{eq:pooled1} denotes the evaluation of a stance by respondent $r$, during issue $i$ and at experimental round $t$ -- ranging from round 1 to round 4.
+The standard errors are clustered at the individual level.
+
+```{=tex}
+\begin{multline}\label{eq:pooled1}
+    \hat{stance correct}_{r, i, t} =\beta_{0} + \beta_{1}masked_{r, i, t} +
+    \beta_{2}specification_{r, i, t} + 
+    \beta_{3}ideological distance to party_{r, i, t} +\\
+    \beta_{4}political knowledge_{r, i, t} +
+    \alpha_{i} + \gamma_{t} + \varepsilon_{r, i, t}
+\end{multline}
+```
+
+
+\newpage
+
+# A-5. Descriptive Analyses
+
+Tables \ref{tab:profilenl} and \ref{tab:profileus} demonstrate the average profile of respondents who annotate correctly and incorrectly (where respondents who annotated some stances correctly and some incorrectly are weighted by proportion (in)correct).
+In terms of demographics, there is not much of a difference.
+Yet, people who are incorrectly identifying stances are more left-wing oriented compared to those who are correct -- i.e. an average score of four for those who are incorrect vs. an average score of five for those who are correct.
+For other positions on issues or political knowledge, we do not see a difference in averages between those who are correctly and incorrectly identifying stances.
+This profile is quite similar for the lenient interpretation of what a stance is.
+
+```{r "profilenl-strict"}
+load(here("data/intermediate/cleaned_data_nl.RData"))
+load(here("data/intermediate/cleaned_data_us.RData"))
+source(here("src/analysis/profile_resp.R"))
+kbl(e1_nlp, booktabs =T, caption = "\\label{tab:profilenl}Profile Dutch Stance Annotators") %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width = F, fixed_thead = T, position = "center") %>%
+  column_spec(1, width = "7cm") %>%
+  column_spec(2, width = "7cm")
+```
+
+```{r "profileus"}
+kbl(e1_us_nlp, booktabs =T, caption = "\\label{tab:conditions_us}Profile American Stance Annotators") %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width = F, fixed_thead = T, position = "center") %>%
+  column_spec(1, width = "7cm") %>%
+  column_spec(2, width = "7cm")
+```
+
+
+
+\newpage
+
+# A-6. Baseline Analyses
+
+Looking at the effect of the experimental conditions on the four dependent variables -- correctly identifying a stance and over-interpreting a stance for both a strict and a lenient interpretation of stance -- Figure \ref{fig:results-base} visualizes the baseline.
+The left-hand panel demonstrates the effect of the two experimental conditions for correctly identifying the stance in the Dutch case.
+The right-hand panel does so for the American case.
+On average, many respondents in both cases (respectively `85%` in the Dutch case and `65%` in the American case) correctly interpreted the stance using either the lenient or strict interpretation (respectively in blue and red) -- as indicated by the intercept.
+When we mask the political actor -- i.e. instead of mentioning the party, we put "X" -- we see that this does on average not improve correctly interpreting the stance significantly in neither the Dutch or the American case.
+Additionally, we do see that the level of specification of a sentence has a significant effect.
+If a sentence is not fully specified, it has a substantive negative effect on the likelihood to correctly interpret the stance in both the lenient and strict interpretation of a stance.
+These effects are substantial in both the American and Dutch case, with coefficients varying between `-0.2` and `-0.5`.
+This indicates that compared to a fully specified sentence, between `20%` and `50%` of the respondents are more likely to be incorrect when the sentence is under-specified -- that is when the sentence does not state a clear position, but mentions the issue.
+Looking at the other dependent variable, whether they interpreted the sentence as a stance or not, we see that almost nobody overinterprets a stance in the strict interpretation in either the Dutch or American case.
+Yet, they do overinterpret a stance in the lenient interpretation.
+Moreover, if people see an X compared to a political actor, they are statistically significantly more likely to interpret the sentence as a stance in its strict interpretation.
+Yet, a coefficient of `0.02` (i.e. `2%`) is a very small effect.
+For the condition of specification level, however, we see that compared to a fully specified sentence, people seeing an under-specified sentence are much more likely to interpret the sentence as a stance in the strict interpretation: an increase of `0.83`.
+This indicates that people do not excel in this task without any instruction.
+Using the lenient interpretation, however, people seem less likely to annotate the sentence as a stance.
+In the pre-registered section, we demonstrate the tests of the hypotheses, and afterwards, we discuss some explorations of the data to show the robustness of our findings, the visualizations thereof are displayed in OA A-3.
+
+```{r results-baseline, out.width = "95%", fig.align = 'center', fig.cap = "\\label{fig:results-base} Baseline Results of Experimental Conditions"}
+knitr::include_graphics(here("report/figures", "baseline-1.png"))
+```
+
+\newpage
+
+# A-7. Robustness Analyses
+
+To check the robustness of our findings, Figure \ref{fig:results-exp1} demonstrates the analyses for each issue separately.
+The different colors visualize the different dependent variables.
+We do not see much variation between issues *Tax*, *EU/Foreign Policy*, and *Environment*.
+For those issues, we see that almost everyone interprets the sentence correctly (in blue and red).
+We also see that for a lenient interpretation of stances, people are quite likely to overinterpret a position as a stance.
+Being correct about the stance does not decrease when masking the political actor in both cases.
+Yet, the chance of being correct decreases statistically significantly when the sentence is underspecified.
+The same holds for overinterpreting for the lenient interpretation, but the opposite is true for the strict interpretation; there overinterpretation is more likely with underspecified sentences.
+Looking at *Immigration*, we see a different pattern.
+We see that masking does not increase the likelihood of being correct, but does increase the likelihood of overinterpretation regardless of how one defines a stance.
+Underspecified sentences are less likely to be correctly identified and more likely to be overinterpreted regardless of the definition of a stance.
+So, while there are some differences in effect sizes between the issues, the overall findings are not driven by a single issue.
+
+```{r results-exploration1, out.height = "85%",out.width = "95%",, fig.align = 'center', fig.cap = "\\label{fig:results-exp1} Exploration: Issue Specific Analyses", fig.pos="H", fig.show="hold"}
+knitr::include_graphics(c(here("report/figures", "issues-1.png")))
+```
+
+In addition to issue-specific analyses, we also explore an interaction between treatments, visualized in Figure \ref{fig:results-exp2} for both dependent variables.
+This shows that masking is of help when sentences are under-specified.
+In the left-hand panel of Figure \ref{fig:results-exp2}, it demonstrates that for under-specified sentences, people are less likely to incorrectly identify a sentence as a stance when the actor is masked (coefficient of `-0.30`) than when an actor is revealed (coefficient of `-0.45`).
+That means there is a 15% increase in having it correct.
+The difference for overinterpreting is smaller between revealed and masked political actors -- shown in the right-hand panel of Figure \ref{fig:results-exp2} -- yet also statistically significant.
+Compared to `85%` overinterpreting the sentence as a stance, in the masking solution "only" `80%` over-interprets the sentence as a stance.
+In the recommendation section, we will reflect on the masking solution for under-specified sentences.
+
+```{r results-exploration2, out.height = "65%",out.width = "95%",, fig.align = 'center', fig.cap = "\\label{fig:results-exp2} Exploration: Interaction bewtween Treatments", fig.pos="H", fig.show="hold"}
+knitr::include_graphics(c(here("report/figures", "exploration-1.png")))
+```
+
+Lastly, we explore three different ways of measuring ideological distance and an alternative for political knowledge in the American case.
+First, we measured ideological bias by looking at the ideology of the respondents -- not in relation to the political actor revealed, visualized in the upper panels of Figure \ref{fig:results-exp3}.
+Secondly, we measured ideological bias by looking at whether the respondent is congruent or not with the issue position in the sentence, visualized in  the lower panels of Figure \ref{fig:results-exp3}.
+
+```{r results-exploration3, out.height = "85%",out.width = "95%",, fig.align = 'center', fig.cap = "\\label{fig:results-exp3} Exploration: Interaction bewtween Treatments", fig.pos="H", fig.show="hold"}
+knitr::include_graphics(c(here("report/figures", "exploration-3.png")))
+```
+
+And thirdly, we measured ideological bias by looking at whether the person voted for the party displayed in the sentence, visualized in the upper-rows of Figure \ref{fig:results-exp4}. 
+In none of the analyses, we find evidence for ideological bias.
+Also for the alternative measurement of political knowledge in the US, we find the same results as reported in the main analyses.
+
+```{r results-exploration4, out.height = "85%",out.width = "95%",, fig.align = 'center', fig.cap = "\\label{fig:results-exp4} Exploration: Interaction bewtween Treatments", fig.pos="H", fig.show="hold"}
+knitr::include_graphics(c(here("report/figures", "exploration-4.png")))
+```
+ \newpage
+ 
+# References
+ 
