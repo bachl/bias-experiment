@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.4.28)  17 JUL 2023 12:43
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.4.28)  21 JUL 2023 13:54
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -843,7 +843,7 @@ el Laver, and Slava Mikhaylov.
  []
 
 [21]
-Overfull \hbox (118.1306pt too wide) in paragraph at lines 1072--1078
+Overfull \hbox (118.1306pt too wide) in paragraph at lines 1073--1079
 \T1/lmr/m/n/12 States.'' \T1/lmr/m/it/12 An-nual Re-view of Po-lit-i-cal Sci-en
 ce \T1/lmr/m/n/12 22: 129--46. [][]$https : / / doi . org / 10 . 1146 / annurev
 -[]polisci-[]051117-[]073034$[][]. 
@@ -874,10 +874,10 @@ b></usr/local/texlive/2022/texmf-dist/fonts/type1/public/lm/lmr7.pfb></usr/loca
 l/texlive/2022/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr/local/texlive/20
 22/texmf-dist/fonts/type1/public/lm/lmri12.pfb></usr/local/texlive/2022/texmf-d
 ist/fonts/type1/public/lm/lmtt12.pfb>
-Output written on draft.pdf (24 pages, 539199 bytes).
+Output written on draft.pdf (24 pages, 539269 bytes).
 PDF statistics:
- 351 PDF objects out of 1000 (max. 8388607)
- 293 compressed objects within 3 object streams
+ 352 PDF objects out of 1000 (max. 8388607)
+ 294 compressed objects within 3 object streams
  100 named destinations out of 1000 (max. 500000)
  90 words of extra memory for PDF output out of 10000 (max. 10000000)
 
