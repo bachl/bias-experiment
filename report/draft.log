@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.4.28)  25 JUL 2023 17:42
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.4.28)  26 JUL 2023 15:01
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -874,7 +874,7 @@ b></usr/local/texlive/2022/texmf-dist/fonts/type1/public/lm/lmr7.pfb></usr/loca
 l/texlive/2022/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr/local/texlive/20
 22/texmf-dist/fonts/type1/public/lm/lmri12.pfb></usr/local/texlive/2022/texmf-d
 ist/fonts/type1/public/lm/lmtt12.pfb>
-Output written on draft.pdf (24 pages, 539332 bytes).
+Output written on draft.pdf (24 pages, 539320 bytes).
 PDF statistics:
  352 PDF objects out of 1000 (max. 8388607)
  294 compressed objects within 3 object streams
