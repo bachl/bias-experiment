@@ -53,7 +53,7 @@ author:
 - name: Kasper Welbers
 - affiliation: Dep. of Communciation Science, Vrije Universiteit Amsterdam
 thanks: "Corresponding author: MACGvdV, Replication files are available on the author's Github account (https://github.com/MarikenvdVelden/bias-experiment); Author contributions: a) designed the study: MACGvdV, MR, AF, FL, WvA, & KW; b) conducted the study: MACGvdV, FL & MR; c) data cleaning & analysis: MACGvdV; d) writing of the paper: MACGvdV, MR, AF, FL, & KW"
-anonymous: TRUE
+anonymous: FALSE
 abstract: "Information shapes citizens' political decision-making. This process is amply studied by social scientists, who have human annotation as a crucial instrument in their toolkit. To address concerns regarding the validity and reliability of annotation tasks, we establish strict standards. Due to the democratization of data and the advances in NLP more data can be analyzed or classified, making these standards are more important than ever: An algorithm trained on biased data will reproduce and often exacerbate bias. Our tools to create valid and reliable annotation data currently do not allow for dealing with different perspectives of annotators. In two pre-registered experiments in the United States and the Netherlands, we show that personal characteristics of annotators, like political ideology or knowledge, interfere with annotators' judgement of political stances. Our results show that to improve annotated data for automated text analyses, and for stance detection models in particular, we need to critically evaluate how we create our gold standards."
 keywords: "Experiment, Annotation Bias, Ideology, Measurinig Political Position, Text-as-Data, Political Knowledge"
 geometry: margin=1in
@@ -97,28 +97,32 @@ To gather and analyze the information citizens receive, the democratization of d
 In particular, advances in Natural Language Processing (NLP) have made it possible to automatically analyze large quantities of data using machine learning [e.g., see @akyurek-etal-2020-multi; @piskorski2023semeval].
 To determine the validity of such large scale computational analyses, we rely on "gold standard" data, created by human annotators.
 It follows that the validity of these analyses hinges on the quality of these gold standards.
-If a gold standard contains biases, i.e., systematic errors, it can foster bias in any downstream analysis.
+Most data collection efforts to create gold standards assume that there is only one correct interpretation for every input example.
+Disagreement between the annotators is considered a bias -- i.e. a systematic deviation between the "true" value of a theoretical concept in a population and how it is observed by the coder -- and thereby something that needs to be dealt with at all costs [@aroyo2015truth].
+If a gold standard contains biases, it can foster bias in any downstream analysis.
 
-Most data collection efforts to create gold standards assume that there is only one correct interpretation for every input example, and that disagreement between the annotators is something that needs to be dealt with at all costs [@aroyo2015truth].
-A recent study by @van2021validity demonstrates that using crowd-coding platforms is a good way to collect such golden standards without too much disagreement.
-These platforms have also been used for experiments, and the quality of the respondents has been a center of attention [@coppock2019generalizing; @clifford2015samples; @huff2015these; @berinsky2014separating].
-While it has been argued that this data is of similar quality to data from a random sample of the population [@coppock2019generalizing], others have demonstrated that these online platforms are populated by people that are "unlike" the general public, being younger and holding more liberal values [@clifford2015samples; @huff2015these].
-If the latter is true, this might cause a problem for the coding of political texts: @ennser2018impact report that coders of political texts incorporate prior beliefs about parties' issue stances into their coding decisions.
+Crowd-coding platforms have been shown to be reliable platforms to collect a golden standard [@van2021validity].
+Yet, from experimental studies [@clifford2015samples; @huff2015these; @berinsky2014separating] we know that these online platforms are populated by people that are "unlike" the general public, being younger and holding more liberal values.
+This could mean that we introduce _sampling bias_ into the creation of the gold standard if we stricly consider only one position to be true.
+@ennser2018impact report that coders of political texts incorporate prior beliefs about parties' issue stances into their coding decisions.
 The authors find that party labels cue coders to a stance.
 For example, coders are more likely to report a left-wing party to be pro-immigration and a populist right-wing party to be against based on the exact same sentence.
-*Is this actually bias or a diversity of viewpoints? And how big of a problem does this bias/diversity of viewpoints generate for researchers relying on golden standard data?* 
-This question also taps into newer developments related to data annotations. Increasingly, Large Language Models such as ChatGPT are being used by researchers [@gilardi2023chatgpt] as well as annotators themselves [@veselovsky2023artificial] to "simulate" human respondents for annotation tasks.
-These models draw among other things from the gold standard data sets that have been created by researchers, perpetuating the specific biases that are present in them and not allowing for any further disagreement or diversity of viewpoints.
+*Is this actually bias or a diversity of viewpoints?*
+*And how big of a problem is this bias/diversity of viewpoints?* 
 
 There is a long history of text annotation in studies analyzing political text.
-While this yields lots of experiences as to how to train coders to get reliable hand-coded data, the procedure is expensive, protracted, and sometimes does not even get us the quality of data we need [@weber18].
-While crowd-coding offers a solution to some of these issues [@van2021validity], the main underlying assumption that there is one correct interpretation for every input example remains untouched.
+Yet, the main underlying assumption that there is one correct interpretation for every input example remains untouched.
 However, especially for more complex coding tasks, research fields differ in their interpretations of what counts as a *correct* solution depending on the main goal of annotation.
 Do we want to create a clean benchmark data set that follows strict linguistic rules?
 Or do we want one that reflects how statements are being interpreted by "real" readers?
+This question also taps into newer developments related to data annotations. 
+Increasingly, Large Language Models such as ChatGPT are being used by researchers [@gilardi2023chatgpt] as well as annotators themselves [@veselovsky2023artificial] to "simulate" human respondents for annotation tasks.
+These models draw among other things from the gold standard data sets that have been created by researchers, perpetuating the specific biases that are present in them and not allowing for any further disagreement or diversity of viewpoints.
 
 Trends of polarization have shown that people do interpret information according to their ideological position [e.g., @rekker2022understanding; @lee2021more].
-*Does this mean that some are right and others are wrong? Or is there an ideological difference in the ground truth?* These questions present a fundamental challenge to the main way of working when collecting gold standard data, as we operate from the baseline assumption that disagreement among the annotators should be avoided or reduced.
+Does this mean that some are right and others are wrong? 
+Or is there an ideological difference in the ground truth?
+These questions present a fundamental challenge to the main way of working when collecting gold standard data, as we operate from the baseline assumption that disagreement among the annotators should be avoided or reduced.
 Typically, when specific cases continuously cause disagreement, more instructions are added to limit interpretations (for recent innovations to improve annotation, see for example: @barbera2021automated; @struthers2020bridging; @winter2020online; @debell2013harder; @benoit2016crowd; @ying2022topics).
 However, work in computational linguistics has shown that increased annotation instructions do not increase quality [@parmar2023don].
 This leaves us between a rock and a hard place.
@@ -129,7 +133,9 @@ In this paper, we build upon the NLP literature on disagreement -- or bias -- in
 We test the extent to which disagreement takes place and for what type of stances.
 In addition, we provide guidance on how to deal with diversity in conceptions and political heterogeneity when creating gold standard data. <!-- that nowadays potentially occurs in our sample of annotators.-->
 We use two high-powered pre-registered experiments (see [here](link) and [here](link)) in the Netherlands -- a low-level polarized country -- and in the U.S. -- a high-level polarized country.
-We test possible biases stemming from ideology and political knowledge for correctly and overinterpreting stances, as well as whether masking he political actor to mitigates these biases.[^1]
+We test possible biases stemming from ideology and political knowledge for correctly and overinterpreting stances.
+Moreover, based on the results of @ennser2018impact, we test whether masking the political actor to mitigates these biases.^[The data and research compendium is published on the [[main author's github page]](X) -- ommitted for the review process.]
+Another offered solution by Webb-Williams et al. (2023) is to collect information on political positions of the annotators to potentially re-weight responses based on population proportions to create composite measures, which is the focus of our H1 and H2. 
 <!--effect of ideological distance between the annotator and the political actor in the text (H1), the effect of overinterpretation based on political knowledge or ideological engagement (H2), and an offered solution of masking the political actor to mitigate the effects of ideology and knowledge (H3).-->
 In the experiments, we vary the level of specification with which a political actor takes a stance -- a declarative sentence versus a sentence where with some knowledge on politics, the stance might be inferred -- as well as whether the political actor is shown or masked with putting `[ACTOR]` instead of the political party.
 We do this for four different political issues: *Environment*, *Immigration*, *Tax Policy*, and *EU* (for the Dutch case) or *Foreign Policy* (for the American case).
@@ -137,11 +143,9 @@ This country selection not only allow us to showcase the scope conditions of dis
 English is not only the most dominant language for computational text analysis in social science [@baden2022three; @dolinsky2023threegaps], crowd-coders do not need to be first language speakers, given the dominance of English in our daily lives.
 This is different for Dutch, it is a language spoken by a smaller community, typically first language speakers, yet still an often-enough researched case in computational text analysis in the social science [@baden2022three; @dolinsky2023threegaps].
 
-[^1]: The data and research compendium is published on the [[main author's github page]](https://github.com/MarikenvdVelden/bias-experiment) -- anonymized for the review process.
-
 Overall, our results demonstrate that sentences where with some knowledge on politics the stance might be inferred are more likely to be overinterpreted, inferring a position where none is explicitly given. 
 This is problematic as these sentences are very common in political text -- like legislative debates or speeches -- as well as media reports.
-<!--Moreover, our results also demonstrate that for these disagreements in the crowd to occur, the context is important, as we find differences in disagreements between the American and Dutch context.-->
+Moreover, our results also demonstrate that for these disagreements in the crowd to occur, the context is important, as we find differences in disagreements between the American and Dutch context.
 Our findings underline the importance of taking disagreement seriously for the creation of gold standard text -- the bread-and-butter of all machine learning endeavors.
 We should look beyond the majority vote and model it in the data, because if an algorithm is trained on biased data from disagreeing annotators, it will reproduce and often exacerbate that bias when it is applied to new data [e.g., see @prost2019debiasing].
 To be able to model these annotators' characteristics, we should survey the characteristics of annotators when using the crowd (see Webb-Williams et al. 2023 for a similar argument, yet different annotator characteristics).
