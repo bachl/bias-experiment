@@ -42,16 +42,17 @@ title: "Whose Truth is it Anyway? An Experiment on Annotation Bias in Times of F
 author:
 - name: Mariken A.C.G. van der Velden
 - affiliation: Dep. of Communciation Science, Vrije Universiteit Amsterdam
+- name: Felicia Loecherbach
+- affiliation: Amsterdam School of Communication Research, University of Amsterdam
+- name: Kasper Welbers
+- affiliation: Dep. of Communciation Science, Vrije Universiteit Amsterdam
 - name: Myrthe Reuver
+- affiliation: Computational Linguistics & Text Mining Lab, Vrije Universiteit Amsterdam
+- name: Antse Fokkens
 - affiliation: Computational Linguistics & Text Mining Lab, Vrije Universiteit Amsterdam
 - name: Wouter van Atteveldt
 - affiliation: Dep. of Communciation Science, Vrije Universiteit Amsterdam
-- name: Antse Fokkens
-- affiliation: Computational Linguistics & Text Mining Lab, Vrije Universiteit Amsterdam
-- name: Felicia Loecherbach
-- affiliation: Center for Social Media & Politics, New York University
-- name: Kasper Welbers
-- affiliation: Dep. of Communciation Science, Vrije Universiteit Amsterdam
+
 thanks: "Corresponding author: MACGvdV, Replication files are available on the author's Github account (https://github.com/MarikenvdVelden/bias-experiment); Author contributions: a) designed the study: MACGvdV, MR, AF, FL, WvA, & KW; b) conducted the study: MACGvdV, FL & MR; c) data cleaning & analysis: MACGvdV; d) writing of the paper: MACGvdV, MR, AF, FL, & KW"
 anonymous: FALSE
 abstract: "Information shapes citizens' political decision-making. This process is amply studied by social scientists, who have human annotation as a crucial instrument in their toolkit. To address concerns regarding the validity and reliability of annotation tasks, we establish strict standards. Due to the democratization of data and the advances in NLP more data can be analyzed or classified, making these standards are more important than ever: An algorithm trained on biased data will reproduce and often exacerbate bias. Our tools to create valid and reliable annotation data currently do not allow for dealing with different perspectives of annotators. In two pre-registered experiments in the United States and the Netherlands, we show that personal characteristics of annotators, like political ideology or knowledge, interfere with annotators' judgement of political stances. Our results show that to improve annotated data for automated text analyses, and for stance detection models in particular, we need to critically evaluate how we create our gold standards."
