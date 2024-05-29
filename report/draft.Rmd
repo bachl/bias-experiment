@@ -71,9 +71,11 @@ editor_options:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE,
-                      message=FALSE, warning=FALSE,
-                      fig.pos = "h", out.extra = "")
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE, warning = FALSE,
+  fig.pos = "h", out.extra = ""
+)
 options(kableExtra.latex.load_packages = FALSE)
 options(scipen = 1, digits = 2)
 source(here::here("src/lib/functions.R"))
@@ -102,7 +104,7 @@ Most data collection efforts to create gold standards assume that there is only 
 Disagreement between the annotators is considered a bias -- i.e. a systematic deviation between the "true" value of a theoretical concept in a population and how it is observed by the coder -- and thereby something that needs to be dealt with at all costs [@aroyo2015truth].
 If a gold standard contains biases, it can foster bias in any downstream analysis.
 
-Crowd-coding platforms have been shown to be reliable platforms to collect a golden standard [@van2021validity].
+Crowd-coding platforms have been shown to be reliable platforms to collect a gold standard [@van2021validity].
 Yet, from experimental studies [@clifford2015samples; @huff2015these; @berinsky2014separating] we know that these online platforms are populated by people that are "unlike" the general public, being younger and holding more liberal values.
 This could mean that we introduce _sampling bias_ into the creation of the gold standard if we stricly consider only one position to be true.
 @ennser2018impact report that coders of political texts incorporate prior beliefs about parties' issue stances into their coding decisions.
@@ -111,11 +113,12 @@ For example, coders are more likely to report a left-wing party to be pro-immigr
 *Is this actually bias or a diversity of viewpoints?*
 *And how big of a problem is this bias/diversity of viewpoints?* 
 
+In this context, bias would occur if there is one objectively correct solution to a coding task and coders systematically get the answer *wrong* due to prior beliefs. Opposed to this, diversity of viewspoints rather indicates that there are actually multiple ways of assessing the situation which all can be (in some way, depending on the siutation) correct. 
 There is a long history of text annotation in studies analyzing political text.
 Yet, the main underlying assumption that there is one correct interpretation for every input example remains untouched.
 However, especially for more complex coding tasks, research fields differ in their interpretations of what counts as a *correct* solution depending on the main goal of annotation.
 Do we want to create a clean benchmark data set that follows strict linguistic rules?
-Or do we want one that reflects how statements are being interpreted by "real" readers?
+Or do we want one that reflects how statements are being interpreted by "real" readers, how the perception of different types of respondents differs for the same stimulus? This could potentially affect downstream tasks as manual stance annotations are further used for e.g. sentiment analysis or frame analysis. Are we modelling the sentiment and frames of a particular section of the population while the results would change with a different sample? 
 This question also taps into newer developments related to data annotations. 
 Increasingly, Large Language Models such as ChatGPT are being used by researchers [@gilardi2023chatgpt] as well as annotators themselves [@veselovsky2023artificial] to "simulate" human respondents for annotation tasks.
 These models draw among other things from the gold standard data sets that have been created by researchers, perpetuating the specific biases that are present in them and not allowing for any further disagreement or diversity of viewpoints.
@@ -148,7 +151,7 @@ Overall, our results demonstrate that sentences where with some knowledge on pol
 This is problematic as these sentences are very common in political text -- like legislative debates or speeches -- as well as media reports.
 Moreover, our results also demonstrate that for these disagreements in the crowd to occur, the context is important, as we find differences in disagreements between the American and Dutch context.
 Our findings underline the importance of taking disagreement seriously for the creation of gold standard text -- the bread-and-butter of all machine learning endeavors.
-We should look beyond the majority vote and model it in the data, because if an algorithm is trained on biased data from disagreeing annotators, it will reproduce and often exacerbate that bias when it is applied to new data [e.g., see @prost2019debiasing].
+We should look beyond the majority vote and model it in the data, because if an algorithm is trained on biased data from disagreeing annotators, it will reproduce and often exacerbate that bias when it is applied to new data [e.g., see @prost2019debiasing]. We thus rather opt for modelling a diversity of viewpoints instead of choosing for (potentially) biased solving of disagreements.
 To be able to model these annotators' characteristics, we should survey the characteristics of annotators when using the crowd (see Webb-Williams et al. 2023 for a similar argument, yet different annotator characteristics).
 
 # Whose Truth is it Anyway? Disagreement & Perspectivism in Creating Gold Standard Data
@@ -158,7 +161,7 @@ Studying political texts, the most familiar annotation tasks involve identifying
 This includes noting the topic of the text, the position of the actor or the tone of the text.
 Crowdcoding seems suitable for this task [@van2021validity].
 Yet, having only a few workers annotating the majority of texts has raised concerns about data diversity and models' ability to generalize beyond the crowd-workers.
-In a series of experiments, @geva2019we show that often models do not generalize well to annotations from annotators that did not contribute to the training set, suggesting that annotator bias should be monitored during data set creation.
+In a series of experiments, [@geva2019we] show that often models do not generalize well to annotations from annotators that did not contribute to the training set, suggesting that annotator bias should be monitored during data set creation.
 One such potential bias, especially in times of increasing polarization [@iyengar2019origins; @gidron2019toward; @boxell2022cross], is based on the ideological position of the annotator.
 Given that annotators on crowd-coding platforms tend to be younger and hold more liberal values than the general public [@clifford2015samples; @huff2015these], this could potentially hamper the data diversity and generalizability of the model.
 An additional reason to monitor the annotators' ideological position as a potential source of annotator bias is that a recent study in NLP showed that experiential factors influence the consistency of how political ideologies are perceived [@shen2021sounds].
@@ -253,28 +256,38 @@ To ensure good quality of our data, one attention check (discussed in more detai
 Table \ref{tab:conditions} gives an overview of the variations in treatment in the surveys.
 
 ```{r conditions, topcaption=TRUE}
-d <- tibble(`Condition` = c(rep("Specified", 4),
-                          rep("Underspecified", 4)), 
-            `US Experiment` = c("[Republicans/X] say immigration should be made more difficult.",
-                              "[Democrats/X] say we need to put a tax on carbon emissions",
-                              "[Democrats/X] say we should implement a wealth tax for the richest Americans.",
-                              "[Republicans/X] say the U.S. needs to consider military build-up in the Pacific Ocean",
-                              "[Republicans/ X] say many immigrants are crossing our borders.",
-                              "[Democrats/X] say carbon emissions policy should be implemented differently.",
-                              "[Democrats/X] say the tax system should be implemented differently.",
-                              "[Republicans/ X] say there should be a different military presence in the Pacific Ocean."),
-            `NL Experiment` = c("[PVV/X] says immigration should be made harder.",
-                             "[GreenLeft/X] says nitrogen emissions need to be reduced.",
-                             "[Labour Party/X] says tax rate should go up for highest earners.",
-                             "[Forum for Democracy/X] says that membership in the European Union has been especially bad for the Netherlands so far.",
-                             "[PVV/X] says many immigrants are coming this way.",
-                             "[GreenLeft/X] says nitrogen policy must be different.",
-                             "[Labour Party/X] says tax system must be changed.",
-                             "[Forum for Democracy/X] says the Netherlands should have a different role in the European Union."))
+d <- tibble(
+  `Condition` = c(
+    rep("Specified", 4),
+    rep("Underspecified", 4)
+  ),
+  `US Experiment` = c(
+    "[Republicans/X] say immigration should be made more difficult.",
+    "[Democrats/X] say we need to put a tax on carbon emissions",
+    "[Democrats/X] say we should implement a wealth tax for the richest Americans.",
+    "[Republicans/X] say the U.S. needs to consider military build-up in the Pacific Ocean",
+    "[Republicans/ X] say many immigrants are crossing our borders.",
+    "[Democrats/X] say carbon emissions policy should be implemented differently.",
+    "[Democrats/X] say the tax system should be implemented differently.",
+    "[Republicans/ X] say there should be a different military presence in the Pacific Ocean."
+  ),
+  `NL Experiment` = c(
+    "[PVV/X] says immigration should be made harder.",
+    "[GreenLeft/X] says nitrogen emissions need to be reduced.",
+    "[Labour Party/X] says tax rate should go up for highest earners.",
+    "[Forum for Democracy/X] says that membership in the European Union has been especially bad for the Netherlands so far.",
+    "[PVV/X] says many immigrants are coming this way.",
+    "[GreenLeft/X] says nitrogen policy must be different.",
+    "[Labour Party/X] says tax system must be changed.",
+    "[Forum for Democracy/X] says the Netherlands should have a different role in the European Union."
+  )
+)
 
-kbl(d, booktabs =T, caption = "\\label{tab:conditions}Survey Questions - Experimental Conditions") %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width = F, fixed_thead = T, position = "center") %>%
+kbl(d, booktabs = T, caption = "\\label{tab:conditions}Survey Questions - Experimental Conditions") %>%
+  kable_styling(
+    latex_options = c("striped", "hold_position"),
+    full_width = F, fixed_thead = T, position = "center"
+  ) %>%
   column_spec(1, width = "3cm") %>%
   column_spec(2, width = "7cm") %>%
   column_spec(3, width = "7cm")
@@ -329,17 +342,21 @@ This profile is quite similar for the lenient interpretation of what a stance is
 load(here("data/intermediate/cleaned_data_nl.RData"))
 load(here("data/intermediate/cleaned_data_us.RData"))
 source(here("src/analysis/profile_resp.R"))
-kbl(e1_nlp, booktabs =T, caption = "\\label{tab:profilenl}Profile Dutch Stance Annotators") %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width = F, fixed_thead = T, position = "center") %>%
+kbl(e1_nlp, booktabs = T, caption = "\\label{tab:profilenl}Profile Dutch Stance Annotators") %>%
+  kable_styling(
+    latex_options = c("striped", "hold_position"),
+    full_width = F, fixed_thead = T, position = "center"
+  ) %>%
   column_spec(1, width = "7cm") %>%
   column_spec(2, width = "7cm")
 ```
 
 ```{r "profileus"}
-kbl(e1_us_nlp, booktabs =T, caption = "\\label{tab:conditions_us}Profile American Stance Annotators") %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width = F, fixed_thead = T, position = "center") %>%
+kbl(e1_us_nlp, booktabs = T, caption = "\\label{tab:conditions_us}Profile American Stance Annotators") %>%
+  kable_styling(
+    latex_options = c("striped", "hold_position"),
+    full_width = F, fixed_thead = T, position = "center"
+  ) %>%
   column_spec(1, width = "7cm") %>%
   column_spec(2, width = "7cm")
 ```
@@ -457,7 +474,7 @@ In order to address concerns regarding the validity and reliability of annotatio
 Especially in times where due to the democratization of data and the advances in NLP more data can be analyzed or classified, these standards are more important than ever.
 After all, an algorithm trained on biased data will reproduce and often exacerbate bias [e.g. see @prost2019debiasing].
 It is key to realize that the underlying assumption to create valid and reliable annotated data is that there is only one correct interpretation for every input example, and that disagreement between the annotators is something that needs to be dealt with at all costs [@aroyo2015truth].
-In times of increasing factual opinion polarization [@rekker2022understanding; @lee2021more], it is crucial to ask *whose perspective is being recorded in these datasets*, given that there is no neutral data and no apolitical standpoint from which we can call out bias: "Datasets are always 'a worldview' and, as such, data always remains biased" [@miceli2022studying, p.5].
+In times of increasing factual opinion polarization [@rekker2022understanding; @lee2021more], it is crucial to ask *whose perspective is being recorded in these datasets*, given that there is no neutral data and no apolitical standpoint from which we can call out bias.
 Our tools to create valid and reliable annotation data does currently not allow for dealing with different perspectives.
 In this paper, we examined annotation bias in the classification of political stances using two pre-registered crowd-coding experiments in the Netherlands and the United States.
 We used both a strict and a lenient interpretation of stance to illustrate whether decisions made in the research process on what constitutes a stance influences the results.
