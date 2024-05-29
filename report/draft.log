@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.3.11)  23 MAY 2024 11:10
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.3.11)  29 MAY 2024 21:02
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -749,44 +749,44 @@ LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <11> not available
 (Font)              Font shape `T1/phv/b/n' tried instead on input line 232.
 [1
 
-{/Users/marikenvandervelden/Library/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/Users/marikenvandervelden/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/Users/marikenvandervelden/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}{/Users/marikenvandervelden/Library/TinyTeX/texmf-dist/fonts/enc/dvips/base/8r.enc}] [2]
+{/Users/marikenvandervelden/Library/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/Users/marikenvandervelden/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/Users/marikenvandervelden/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}{/Users/marikenvandervelden/Library/TinyTeX/texmf-dist/fonts/enc/dvips/base/8r.enc}] [2] [3]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 402.
+(Font)              <12> on input line 412.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 402.
+(Font)              <8> on input line 412.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 402.
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 412.
+(Font)              <6> on input line 412.
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 422.
 (/Users/marikenvandervelden/Library/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-) [3] [4] [5] [6] [7] [8] [9] [10]
-Overfull \hbox (49.9418pt too wide) in paragraph at lines 666--681
+) [4] [5] [6] [7] [8] [9] [10]
+Overfull \hbox (49.9418pt too wide) in paragraph at lines 678--693
  [][] 
  []
 
-LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 689.
+LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 701.
 (/Users/marikenvandervelden/Library/TinyTeX/texmf-dist/tex/latex/lm/ts1lmtt.fd
 File: ts1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 ) [11] [12] [13] [14]
 <figures/h1-1.png, id=137, 770.88pt x 770.88pt>
 File: figures/h1-1.png Graphic file (type png)
 <use figures/h1-1.png>
-Package pdftex.def Info: figures/h1-1.png  used on input line 785.
+Package pdftex.def Info: figures/h1-1.png  used on input line 797.
 (pdftex.def)             Requested size: 318.70944pt x 187.89684pt.
 <figures/h1-2.png, id=139, 770.88pt x 770.88pt>
 File: figures/h1-2.png Graphic file (type png)
 <use figures/h1-2.png>
-Package pdftex.def Info: figures/h1-2.png  used on input line 785.
+Package pdftex.def Info: figures/h1-2.png  used on input line 797.
 (pdftex.def)             Requested size: 318.70944pt x 187.89684pt.
 <figures/h2-1.png, id=140, 770.88pt x 770.88pt>
 File: figures/h2-1.png Graphic file (type png)
 <use figures/h2-1.png>
-Package pdftex.def Info: figures/h2-1.png  used on input line 793.
+Package pdftex.def Info: figures/h2-1.png  used on input line 805.
 (pdftex.def)             Requested size: 318.70944pt x 187.89684pt.
 <figures/h2-2.png, id=141, 770.88pt x 770.88pt>
 File: figures/h2-2.png Graphic file (type png)
 <use figures/h2-2.png>
-Package pdftex.def Info: figures/h2-2.png  used on input line 793.
+Package pdftex.def Info: figures/h2-2.png  used on input line 805.
 (pdftex.def)             Requested size: 318.70944pt x 187.89684pt.
 [15
 
@@ -794,17 +794,17 @@ Package pdftex.def Info: figures/h2-2.png  used on input line 793.
 <figures/h3-1.png, id=153, 770.88pt x 770.88pt>
 File: figures/h3-1.png Graphic file (type png)
 <use figures/h3-1.png>
-Package pdftex.def Info: figures/h3-1.png  used on input line 822.
+Package pdftex.def Info: figures/h3-1.png  used on input line 834.
 (pdftex.def)             Requested size: 375.80544pt x 520.34508pt.
 [16
 
 ] [17 <./figures/h3-1.png>] [18] [19] [20] [21]
-Overfull \hbox (5.77013pt too wide) in paragraph at lines 1002--1008
+Overfull \hbox (5.77013pt too wide) in paragraph at lines 1013--1019
 []\T1/lmr/m/n/12 Benoit, Ken-neth, Drew Con-way, Ben-jamin E Laud-erdale, Michael Laver, and Slava Mikhaylov.
  []
 
 [22]
-Overfull \hbox (118.1306pt too wide) in paragraph at lines 1113--1119
+Overfull \hbox (118.1306pt too wide) in paragraph at lines 1124--1130
 \T1/lmr/m/n/12 States.'' \T1/lmr/m/it/12 An-nual Re-view of Po-lit-i-cal Sci-ence \T1/lmr/m/n/12 22: 129--46. [][]$https : / / doi . org / 10 . 1146 / annurev-[]polisci-[]051117-[]073034$[][]. 
  []
 
@@ -828,7 +828,7 @@ Here is how much of TeX's memory you used:
  14 hyphenation exceptions out of 8191
  89i,11n,95p,549b,928s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </Users/marikenvandervelden/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></Users/marikenvandervelden/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbxi10.pfb></Users/marikenvandervelden/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb></Users/marikenvandervelden/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb></Users/marikenvandervelden/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr17.pfb></Users/marikenvandervelden/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr7.pfb></Users/marikenvandervelden/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb></Users/marikenvandervelden/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb></Users/marikenvandervelden/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri12.pfb></Users/marikenvandervelden/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt12.pfb></Users/marikenvandervelden/Library/TinyTeX/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb>
-Output written on draft.pdf (25 pages, 576883 bytes).
+Output written on draft.pdf (25 pages, 577439 bytes).
 PDF statistics:
  373 PDF objects out of 1000 (max. 8388607)
  307 compressed objects within 4 object streams
