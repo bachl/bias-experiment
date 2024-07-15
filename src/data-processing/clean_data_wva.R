@@ -68,6 +68,7 @@ d_nl <- d_nl_raw |>
                      `7` = "Retired",                           
                      `8` = "Student",
                      .missing = "NA", .default = "NA"),
+
          PT1 = recode(PT1,
                       `1` = "VVD",
                       `2` = "D66",                        
@@ -257,7 +258,6 @@ d_us <- d_us_raw %>%
 # Combine NL and US data and compute attention
 
 
-
 # Code experimental conditions
 conditions = tribble(
   ~specified, ~gold, ~party_rile,~sentence, 
@@ -286,6 +286,7 @@ conditions = tribble(
 # Make a 'pivot_spec' to pivot this in one operation
 pivot_spec <- map(c("actor", "specified", "issue", "S"), 
                   ~tibble(.name=str_c(., 1:4), .value=., round=1:4)) |> list_rbind()
+
 
 d <- bind_rows(d_nl, d_us) |>
   mutate(across(Attention1_1:Attention1_9, ~recode(., .missing = 0, .default = 1)),
