@@ -1,22 +1,37 @@
-df_us <- d_us %>% 
-  mutate(country = "United States") %>% 
-  select(stance_nlp, stance_ss, masking, specification, interpretation_nlp, interpretation_ss, country, issue)
-df_nl <- d_nl %>% 
-  mutate(country = "The Netherlands") %>% 
-  select(stance_nlp, stance_ss, masking, specification, interpretation_nlp, interpretation_ss, country, issue)
+df_us <- d %>% 
+  filter(country == "US") %>% 
+  select(stance_nlp2, stance_ss2, masking, specified, interpret_nlp2, interpret_ss2, country, issue) |> 
+  mutate(issue2 = recode(issue,
+                         `tax on carbon emissions` = "Climate",
+                         `a wealth tax for the richest Americans` = "Tax",
+                         `the tax system` = "Tax",
+                         `military presence in the Pacific Ocean` = "EU/Foreign Policy",
+                         `military build-up in the Pacific Ocean` = "EU/Foreign Policy"))
+df_nl <- d %>% 
+  filter(country == "NL") %>% 
+  select(stance_nlp2, stance_ss2, masking, specified, interpret_nlp2, interpret_ss2, country, issue) |> 
+  mutate(issue2 = recode(issue,
+                         `immigranten` = "Immigration",
+                         `immigratie` = "Immigration",
+                         `het tegengaan van stikstofuitstoot` = "Climate",
+                         `het stikstofbeleid` = "Climate",
+                         `het verhogen van het belastingstarief voor de hoogste inkomens` = "Tax",
+                         `het belastingstelsel` = "Tax",
+                         `de  rol van Nederland in de Europese Unie` = "EU/Foreign Policy",
+                         `het lidmaatschap van de Europese Unie voor Nederland` = "EU/Foreign Policy"))
 
-issues_us <- unique(df_us$issue)
-issues_nl <- unique(df_nl$issue)
+issues_us <- unique(df_us$issue2)
+issues_nl <- unique(df_nl$issue2)
 
 for(i in 1:length(issues_us)){
   df <- df_us %>% filter(issue==issues_us[i])
   if(i==1){
-    b1 <- broom::tidy(lm(stance_nlp ~ masking + specification , data= df)) %>%
+    b1 <- broom::tidy(lm(stance_nlp2 ~ masking + specified , data= df_us)) %>%
       mutate(y = "Y: Correctly Interpreting Stance (Strict Interpretation)",
              issue = issues_us[i],
              type = "United States")}
   else{
-    tmp <- broom::tidy(lm(stance_nlp ~ masking + specification , data= df)) %>%
+    tmp <- broom::tidy(lm(stance_nlp2 ~ masking + specified , data= df_us)) %>%
       mutate(y = "Y: Correctly Interpreting Stance (Strict Interpretation)",
              issue = issues_us[i],
              type = "United States")
@@ -26,7 +41,7 @@ for(i in 1:length(issues_us)){
 
 for(i in 1:length(issues_us)){
   df <- df_us %>% filter(issue==issues_us[i])
-  tmp <- broom::tidy(lm(stance_ss ~ masking + specification , data= df)) %>%
+  tmp <- broom::tidy(lm(stance_ss2 ~ masking + specified , data= df_us)) %>%
     mutate(y = "Y: Correctly Interpreting Stance (Lenient Interpretation)",
            issue = issues_us[i],
            type = "United States")
@@ -36,7 +51,7 @@ for(i in 1:length(issues_us)){
 
 for(i in 1:length(issues_nl)){
   df <- df_nl %>% filter(issue==issues_nl[i])
-  tmp <- broom::tidy(lm(stance_nlp ~ masking + specification , data= df)) %>%
+  tmp <- broom::tidy(lm(stance_nlp2 ~ masking + specified , data= df_nl)) %>%
     mutate(y = "Y: Correctly Interpreting Stance (Strict Interpretation)",
            issue = issues_nl[i],
            type = "The Netherlands")
@@ -46,7 +61,7 @@ for(i in 1:length(issues_nl)){
 
 for(i in 1:length(issues_nl)){
   df <- df_nl %>% filter(issue==issues_nl[i])
-  tmp <- broom::tidy(lm(stance_ss ~ masking + specification , data= df)) %>%
+  tmp <- broom::tidy(lm(stance_ss2 ~ masking + specified , data= df_nl)) %>%
     mutate(y = "Y: Correctly Interpreting Stance (Lenient Interpretation)",
            issue = issues_nl[i],
            type = "The Netherlands")
@@ -57,14 +72,14 @@ for(i in 1:length(issues_nl)){
 for(i in 1:length(issues_us)){
   df <- df_us %>% filter(issue==issues_us[i])
   if(i==1){
-    b2 <- broom::tidy(lm(interpretation_nlp ~ masking + specification, data= df_us)) %>%
+    b2 <- broom::tidy(lm(interpret_nlp2 ~ masking + specified, data= df_us)) %>%
       mutate(y = "Y: Overinterpreting Stance (Strict Interpretation)",
              issue = issues_us[i],
              type = "United States")
   }
   else{
-    tmp <- broom::tidy(lm(interpretation_nlp ~ masking + 
-                            specification, data= df_us)) %>%
+    tmp <- broom::tidy(lm(interpret_nlp2 ~ masking + 
+                            specified, data= df_us)) %>%
       mutate(y = "Y: Overinterpreting Stance (Strict Interpretation)",
              issue = issues_us[i],
              type = "United States")
@@ -75,7 +90,7 @@ for(i in 1:length(issues_us)){
 
 for(i in 1:length(issues_us)){
   df <- df_us %>% filter(issue==issues_us[i])
-  tmp <- broom::tidy(lm(interpretation_ss ~ masking + specification , data= df)) %>%
+  tmp <- broom::tidy(lm(interpret_ss2 ~ masking + specified , data= df_us)) %>%
     mutate(y = "Y: Overinterpreting Stance (Lenient Interpretation)",
            issue = issues_us[i],
            type = "United States")
@@ -86,7 +101,7 @@ for(i in 1:length(issues_us)){
 
 for(i in 1:length(issues_nl)){
   df <- df_nl %>% filter(issue==issues_nl[i])
-  tmp <- broom::tidy(lm(interpretation_nlp ~ masking + specification , data= df)) %>%
+  tmp <- broom::tidy(lm(interpret_nlp2 ~ masking + specified , data= df_nl)) %>%
     mutate(y = "Y: Overinterpreting Stance (Strict Interpretation)",
            issue = issues_nl[i],
            type = "The Netherlands")
@@ -96,7 +111,7 @@ for(i in 1:length(issues_nl)){
 
 for(i in 1:length(issues_nl)){
   df <- df_nl %>% filter(issue==issues_nl[i])
-  tmp <- broom::tidy(lm(interpretation_ss ~ masking + specification , data= df)) %>%
+  tmp <- broom::tidy(lm(interpret_ss2 ~ masking + specified , data= df_nl)) %>%
     mutate(y = "Y: Overinterpreting Stance (Lenient Interpretation)",
            issue = issues_nl[i],
            type = "The Netherlands")
@@ -108,11 +123,11 @@ b_i <- b1 %>%
   add_case(b2) %>% 
   filter(term %in% c("(Intercept)",
                      "maskingParty",
-                     "specificationUnderspecified")) %>% 
+                     "specifiedUnderspecified")) %>% 
   mutate(term = recode(term,
                        `(Intercept)` = "Intercept",
                        `maskingParty` = "Condition:Masked Political Actor",
-                       `specificationUnderspecified` = "Condition: Underspecified Sentence"),
+                       `specifiedUnderspecified` = "Condition: Underspecified Sentence"),
          issue = ifelse(issue=="Foreign Policy" & type == "The Netherlands",
                         "EU", issue)) %>% 
   ggplot(aes(y = term, x = estimate,

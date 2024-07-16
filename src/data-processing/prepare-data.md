@@ -24,28 +24,33 @@ This code chuck downloads the data from Qualtrics using the API and
 cleans the raw data.
 
 ``` r
-#Clean Dutch Data
+#Load Dutch Data
 d_nl <- read_sav(here("data/raw-private/NLOZ2206_Mariken_Bias-experiment.sav"))
-source(here("src/data-processing/clean_data_nl.R"))
 
-#Clean US Data
+#Load US Data
 d_us <- fetch_survey(surveyID = "SV_86XBcsFUJka9eke", 
                     verbose = TRUE, force_request = T,
                     label = FALSE, convert = FALSE)
-source(here("src/data-processing/clean_data_us.R"))
+#Clean data
+source(here("src/data-processing/clean_data.R"))
 ```
 
 ## Save Data for Analysis
 
 ``` r
-save(d_nl, file = here("data/intermediate/cleaned_data_nl.RData"))
-save(d_us, file = here("data/intermediate/cleaned_data_us.RData"))
+save(d, file = here("data/intermediate/cleaned_data_joined.RData"))
 ```
 
 ## Visualization of Data
 
 ### Dependent Variable by Issue
 
+<img src="../../report/figures/Dependent Variable-1.png" style="display: block; margin: auto;" />
+
 ### Covariates
 
+<img src="../../report/figures/Independent Variables-1.png" style="display: block; margin: auto;" />
+
 ### Correlations Matrix
+
+<img src="../../report/figures/Correlations Matrix-1.png" style="display: block; margin: auto;" /><img src="../../report/figures/Correlations Matrix-2.png" style="display: block; margin: auto;" />

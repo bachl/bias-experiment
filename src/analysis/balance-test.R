@@ -1,10 +1,12 @@
 ## NL Data
-covs <- d_nl %>%
-  mutate(treat = if_else(masking == "Masked" & specification == "Specified", 1,
-                 if_else(masking == "Masked" & specification == "Underspecified", 2,
-                 if_else(masking == "Party" & specification == "Specified", 3, 4)))) %>%
+covs <- d |> 
+  filter(country == "NL") |> 
+  mutate(treat = if_else(masking == 1 & specified == "Specified", 1,
+                 if_else(masking == 1 & specified == "Underspecified", 2,
+                 if_else(masking == 0 & specified == "Specified", 3, 4)))) %>%
   select(treat, D1:D6, PT1:PT7, attention) %>%
-  filter(PT1 != "NA", D6 != "NA")
+  filter(PT1 != "NA", D6 != "NA") |> 
+  drop_na()
 
 balanced <-bal.tab(treat ~ D1 + factor(D2) + factor(D3) + 
                      factor(D4) +D5 + factor(D6) + factor(PT1) + PT2 + 
@@ -58,17 +60,19 @@ df_nl <- balanced %>%
 rm(covs, balanced)
 
 ## US Data
-covs <- d_us %>%
-  mutate(treat = if_else(masking == "Masked" & specification == "Specified", 1,
-                         if_else(masking == "Masked" & specification == "Underspecified", 2,
-                                 if_else(masking == "Party" & specification == "Specified", 3, 4)))) %>%
+covs <- d |> 
+  filter(country == "US") |> 
+  mutate(treat = if_else(masking == 1 & specified == "Specified", 1,
+                 if_else(masking == 1 & specified == "Underspecified", 2,
+                 if_else(masking == 0 & specified == "Specified", 3, 4)))) %>%
   select(treat, D1:D6, PT1:PT7b, attention) %>%
   filter(PT1 != "NA", D6 != "NA", D2!= "NA",
-         D3 != "NA")
+         D3 != "NA") |> 
+  drop_na()
 
 balanced <-bal.tab(treat ~ D1 + factor(D2) + factor(D3) + 
                      factor(D4) +D5 + factor(D6) + factor(PT1) +
-                     factor(PT1b) + PT2 + PT3 + PT4 + PT5 + 
+                     PT2 + PT3 + PT4 + PT5 + 
                      PT6 + PT7 + PT7b + attention,
                    data = covs,
                    thresholds = c(m = 0.05))[[1]] 
@@ -84,7 +88,7 @@ df_us <- balanced %>%
                        "Job: Prmanently disabled", "Job: Retired", "Job: Student",
                        "Job: Temporarily laid off", "Job: Unemployed", "Job: Working now",
                        "PID: Democrat","PID: Independent", "PID: Republican",
-                       "PID: Something else","PID Strength: Strong",
+                       "PID: Something else",
                        "Migration", "Climate", "Tax", "Foreign Policy", "Ideology",
                        "Political Knowledge", "Bullshit Receptivity",
                        "Attention Check")) %>%
@@ -99,7 +103,7 @@ df_us <- balanced %>%
                                       "Job: Prmanently disabled", "Job: Retired", "Job: Student",
                                       "Job: Temporarily laid off", "Job: Unemployed", "Job: Working now",
                                       "PID: Democrat","PID: Independent", "PID: Republican",
-                                      "PID: Something else","PID Strength: Strong",
+                                      "PID: Something else",
                                       "Migration", "Climate", "Tax", "Foreign Policy", "Ideology",
                                       "Political Knowledge", "Bullshit Receptivity",
                                       "Attention Check")),

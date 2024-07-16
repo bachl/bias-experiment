@@ -1,26 +1,28 @@
-df_us <- d_us %>% 
-  select(stance_nlp, stance_ss, interpretation_nlp, interpretation_ss,
-         masking, specification, distance, PT7, PT7b, issue)
-df_nl <- d_nl %>% 
-  select(stance_nlp, stance_ss, interpretation_nlp, interpretation_ss,
-         masking, specification, distance, PT7, issue)
+df_us <- d |>  
+  filter(country == "US") |>
+  select(stance_nlp2, stance_ss2, interpret_nlp2, interpret_ss2,
+         masking, specified, distance, PT7, PT7b, issue)
+df_nl <- d |>  
+  filter(country == "NL") |>
+  select(stance_nlp2, stance_ss2, interpret_nlp2, interpret_ss2,
+         masking, specified, distance, PT7, issue)
 
 df <- df_us %>% 
-  mutate(b = specification,
+  mutate(b = specified,
          a = distance)
-h2a <- lmer(interpretation_nlp ~ masking + b * a +
+h2a <- lmer(interpret_nlp2 ~ masking + b * a +
               PT7 + (1 | issue), data= df)
 h2a_2 <- tidy(h2a) %>% 
   mutate(hyp = "H2a: Ideological Distance",
          type = "United States",
          y = "Overinterpreting Stance (Strict Interpretation)")
 h2a <- tidy(margins::margins(h2a, variables = "b",
-                             at = list("a" = 0:7))) %>% 
+                             at = list("a" = 0:1))) %>% 
   mutate(hyp = "H2a: Ideological Distance",
          type = "United States",
          y = "Overinterpreting Stance (Strict Interpretation)")
 
-tmp <- lmer(interpretation_ss ~ masking + b * a +
+tmp <- lmer(interpret_ss2 ~ masking + b * a +
               PT7 + (1 | issue), data= df)
 tmpp <- tidy(tmp) %>% 
   mutate(hyp = "H2a: Ideological Distance",
@@ -29,7 +31,7 @@ tmpp <- tidy(tmp) %>%
 h2a_2 <- h2a_2 %>% 
   add_case(tmpp) 
 tmp <- tidy(margins::margins(tmp, variables = "b",
-                             at = list("a" = 0:7))) %>%
+                             at = list("a" = 0:1))) %>%
   mutate(hyp = "H2a: Ideological Distance",
          type = "United States",
          y = "Overinterpreting Stance (Lenient Interpretation)")
@@ -38,10 +40,10 @@ h2a <- h2a %>%
   add_case(tmp)
 
 df <- df_nl %>% 
-  mutate(b = specification,
+  mutate(b = specified,
          a = distance)
 
-tmp <- lmer(interpretation_nlp ~ masking + b * a +
+tmp <- lmer(interpret_nlp2 ~ masking + b * a +
               PT7 + (1 | issue), data= df)
 tmpp <- tidy(tmp) %>% 
   mutate(hyp = "H2a: Ideological Distance",
@@ -50,7 +52,7 @@ tmpp <- tidy(tmp) %>%
 h2a_2 <- h2a_2 %>% 
   add_case(tmpp) 
 tmp <- tidy(margins::margins(tmp, variables = "b",
-                             at = list("a" = 0:8.5))) %>%
+                             at = list("a" = 0:1))) %>%
   mutate(hyp = "H2a: Ideological Distance",
          type = "The Netherlands",
          y = "Overinterpreting Stance (Strict Interpretation)")
@@ -58,7 +60,7 @@ tmp <- tidy(margins::margins(tmp, variables = "b",
 h2a <- h2a %>% 
   add_case(tmp)
 
-tmp <- lmer(interpretation_ss ~ masking + b * a +
+tmp <- lmer(interpret_ss2 ~ masking + b * a +
               PT7 + (1 | issue), data= df)
 tmpp <- tidy(tmp) %>% 
   mutate(hyp = "H2a: Ideological Distance",
@@ -67,7 +69,7 @@ tmpp <- tidy(tmp) %>%
 h2a_2 <- h2a_2 %>% 
   add_case(tmpp) 
 tmp <- tidy(margins::margins(tmp, variables = "b",
-                             at = list("a" = 0:8.5))) %>%
+                             at = list("a" = 0:1))) %>%
   mutate(hyp = "H2a: Ideological Distance",
          type = "The Netherlands",
          y = "Overinterpreting Stance (Lenient Interpretation)")
@@ -76,21 +78,21 @@ h2a <- h2a %>%
   add_case(tmp)
 
 df <- df_us %>% 
-  mutate(b = specification,
+  mutate(b = specified,
          a = PT7)
-h2b <- lmer(interpretation_nlp ~ masking + b * a +
+h2b <- lmer(interpret_nlp2 ~ masking + b * a +
               distance + (1 | issue), data= df)
 h2b_2 <- tidy(h2b) %>% 
   mutate(hyp = "H2b: Political Knowledge",
          type = "United States",
          y = "Overinterpreting Stance (Strict Interpretation)")
 h2b <- tidy(margins::margins(h2b, variables = "b",
-                             at = list("a" = 0:3))) %>% 
+                             at = list("a" = 0:1))) %>% 
   mutate(hyp = "H2b: Political Knowledge",
          type = "United States",
          y = "Overinterpreting Stance (Strict Interpretation)")
 
-tmp <- lmer(interpretation_ss ~ masking + b * a +
+tmp <- lmer(interpret_ss2 ~ masking + b * a +
               distance + (1 | issue), data= df)
 tmpp <- tidy(tmp) %>% 
   mutate(hyp = "H2b: Political Knowledge",
@@ -99,7 +101,7 @@ tmpp <- tidy(tmp) %>%
 h2b_2 <- h2b_2 %>% 
   add_case(tmpp)
 tmp <- tidy(margins::margins(tmp, variables = "b",
-                             at = list("a" = 0:3))) %>% 
+                             at = list("a" = 0:1))) %>% 
   mutate(hyp = "H2b: Political Knowledge",
          type = "United States",
          y = "Overinterpreting Stance (Lenient Interpretation)")
@@ -108,10 +110,10 @@ h2b <- h2b %>%
   add_case(tmp)
 
 df <- df_nl %>% 
-  mutate(b = specification,
+  mutate(b = specified,
          a = PT7)
 
-tmp <- lmer(interpretation_nlp ~ masking + b * a +
+tmp <- lmer(interpret_nlp2 ~ masking + b * a +
               distance + (1 | issue), data= df)
 tmpp <- tidy(tmp) %>% 
   mutate(hyp = "H2b: Political Knowledge",
@@ -120,7 +122,7 @@ tmpp <- tidy(tmp) %>%
 h2b_2 <- h2b_2 %>% 
   add_case(tmpp)
 tmp <- tidy(margins::margins(tmp, variables = "b",
-                             at = list("a" = 0:4))) %>% 
+                             at = list("a" = 0:1))) %>% 
   mutate(hyp = "H2b: Political Knowledge",
          type = "The Netherlands",
          y = "Overinterpreting Stance (Strict Interpretation)")
@@ -128,7 +130,7 @@ tmp <- tidy(margins::margins(tmp, variables = "b",
 h2b <- h2b %>% 
   add_case(tmp)
 
-tmp <- lmer(interpretation_ss ~ masking + b * a +
+tmp <- lmer(interpret_ss2 ~ masking + b * a +
               distance + (1 | issue), data= df)
 tmpp <- tidy(tmp) %>% 
   mutate(hyp = "H2b: Political Knowledge",
@@ -137,7 +139,7 @@ tmpp <- tidy(tmp) %>%
 h2b_2 <- h2b_2 %>% 
   add_case(tmpp)
 tmp <- tidy(margins::margins(tmp, variables = "b",
-                             at = list("a" = 0:4))) %>% 
+                             at = list("a" = 0:1))) %>% 
   mutate(hyp = "H2b: Political Knowledge",
          type = "The Netherlands",
          y = "Overinterpreting Stance (Lenient Interpretation)")
@@ -195,7 +197,7 @@ p2b <- h2a  %>%
   geom_line(position = position_dodge(.2)) +
   facet_grid(hyp~type, scales = "free") +
   labs(x = "",
-       y = "Marginal Effect of Sentence Underspecification \n for Overinterpreting Stance") +
+       y = "Marginal Effect of Sentence Underspecified \n for Overinterpreting Stance") +
   theme_ipsum() +
   scale_colour_manual(values = fig_cols) +
   scale_fill_manual(values = fig_cols) +
@@ -203,10 +205,11 @@ p2b <- h2a  %>%
         legend.title = element_blank())
 
 ##
-df <- d_us %>% 
-  mutate(b = specification,
+df <- d |> 
+  filter(country == "US") |> 
+  mutate(b = specified,
          a = PT7b)
-tmp <- lmer(interpretation_nlp ~ masking + b * a +
+tmp <- lmer(interpret_nlp2 ~ masking + b * a +
               distance + (1 | issue), data= df)
 tmpp <- tidy(tmp) %>% 
   mutate(hyp = "Exploration: Bullshit Receptivity \n (0 = Low, 5 = High)",
@@ -225,7 +228,7 @@ tmp <- tidy(margins::margins(tmp, variables = "b",
 h2b <- h2b  %>% 
   add_case(tmp)
 
-tmp <- lmer(interpretation_ss ~ masking + b * a +
+tmp <- lmer(interpret_ss2 ~ masking + b * a +
               distance + (1 | issue), data= df)
 tmpp <- tidy(tmp) %>% 
   mutate(hyp = "Exploration: Bullshit Receptivity \n (0 = Low, 5 = High)",
@@ -285,9 +288,97 @@ p2c2 <- h2b  %>%
   geom_line(position = position_dodge(.2)) +
   facet_grid(.~hyp, scales = "free") +
   labs(x = "",
-       y = "Marginal Effect of Sentence Underspecification \n for Overinterpreting Stance") +
+       y = "Marginal Effect of Sentence Underspecified \n for Overinterpreting Stance") +
   theme_ipsum() +
   scale_colour_manual(values = fig_cols) +
   scale_fill_manual(values = fig_cols) +
   theme(legend.position = "none",
         legend.title = element_blank())
+
+# Effect plot
+df <- d |> 
+  filter(country == "US") 
+
+pred2a_1 <- lmer(interpret_nlp2 ~ masking + specified * distance +
+              PT7 + (1 | issue), data= df)
+p2a_1 <- sjPlot::plot_model(pred2a_1, type = "pred", terms = c("distance", "specified"), colors = fig_cols) +
+  labs(x = "Ideological Distance",
+       y = "Predicted Effect for Overinterpreting Stance",
+       title = "Strict Interpretation - US") +
+  theme_ipsum() +
+  theme(legend.position = "bottom",
+        legend.title = element_blank())
+
+pred2a_2 <- lmer(interpret_ss2 ~ masking + specified * distance +
+                   PT7 + (1 | issue), data= df)
+p2a_2 <- sjPlot::plot_model(pred2a_2, type = "pred", terms = c("distance", "specified"), colors = fig_cols) +
+  labs(x = "Ideological Distance",
+       y = "Predicted Effect for Overinterpreting Stance",
+       title = "Lenient Interpretation - US") +
+  theme_ipsum() +
+  theme(legend.position = "bottom",
+        legend.title = element_blank())
+
+pred2b_1 <- lmer(interpret_nlp2 ~ masking + specified * PT7 +
+                   PT7 + (1 | issue), data= df)
+p2b_1 <- sjPlot::plot_model(pred2b_1, type = "pred", terms = c("PT7", "specified"), colors = fig_cols) +
+  labs(x = "Political Knowledge",
+       y = "Predicted Effect for Overinterpreting Stance",
+       title = "Strict Interpretation - US") +
+  theme_ipsum() +
+  theme(legend.position = "bottom",
+        legend.title = element_blank())
+
+pred2b_2 <- lmer(interpret_ss2 ~ masking + specified * PT7 +
+                   PT7 + (1 | issue), data= df)
+p2b_2 <- sjPlot::plot_model(pred2b_2, type = "pred", terms = c("PT7", "specified"), colors = fig_cols) +
+  labs(x = "Political Knowledge",
+       y = "Predicted Effect for Overinterpreting Stance",
+       title = "Lenient Interpretation - US") +
+  theme_ipsum() +
+  theme(legend.position = "bottom",
+        legend.title = element_blank())
+
+df <- d |> 
+  filter(country == "NL") 
+
+pred2a_3 <- lmer(interpret_nlp2 ~ masking + specified * distance +
+                   PT7 + (1 | issue), data= df)
+p2a_3 <- sjPlot::plot_model(pred2a_3, type = "pred", terms = c("distance", "specified"), colors = fig_cols) +
+  labs(x = "Ideological Distance",
+       y = "Predicted Effect for Overinterpreting Stance",
+       title = "Strict Interpretation - NL") +
+  theme_ipsum() +
+  theme(legend.position = "bottom",
+        legend.title = element_blank())
+
+pred2a_4 <- lmer(interpret_ss2 ~ masking + specified * distance +
+                   PT7 + (1 | issue), data= df)
+p2a_4 <- sjPlot::plot_model(pred2a_4, type = "pred", terms = c("distance", "specified"), colors = fig_cols) +
+  labs(x = "Ideological Distance",
+       y = "Predicted Effect for Overinterpreting Stance",
+       title = "Lenient Interpretation - NL") +
+  theme_ipsum() +
+  theme(legend.position = "bottom",
+        legend.title = element_blank())
+
+pred2b_3 <- lmer(interpret_nlp2 ~ masking + specified * PT7 +
+                   PT7 + (1 | issue), data= df)
+p2b_3 <- sjPlot::plot_model(pred2b_3, type = "pred", terms = c("PT7", "specified"), colors = fig_cols) +
+  labs(x = "Political Knowledge",
+       y = "Predicted Effect for Overinterpreting Stance",
+       title = "Strict Interpretation - NL") +
+  theme_ipsum() +
+  theme(legend.position = "bottom",
+        legend.title = element_blank())
+
+pred2b_4 <- lmer(interpret_ss2 ~ masking + specified * PT7 +
+                   PT7 + (1 | issue), data= df)
+p2b_4 <- sjPlot::plot_model(pred2b_4, type = "pred", terms = c("PT7", "specified"), colors = fig_cols) +
+  labs(x = "Political Knowledge",
+       y = "Predicted Effect for Overinterpreting Stance",
+       title = "Lenient Interpretation - NL") +
+  theme_ipsum() +
+  theme(legend.position = "bottom",
+        legend.title = element_blank())
+

@@ -1,9 +1,11 @@
-df_us <- d_us %>% 
-  select(stance_nlp, stance_ss, masking, specification, distance, PT7, issue)
-df_nl <- d_nl %>% 
-  select(stance_nlp, stance_ss, masking, specification, distance, PT7, issue)
+df_us <- d |>  
+  filter(country == "US") |> 
+  select(stance_nlp2, stance_ss2, masking, specified, distance, PT7, issue)
+df_nl <- d |> 
+  filter(country == "NL") |> 
+  select(stance_nlp2, stance_ss2, masking, specified, distance, PT7, issue)
 
-h1a <- broom.mixed::tidy(lmer(stance_nlp ~ masking + specification + 
+h1a <- broom.mixed::tidy(lmer(stance_nlp2 ~ masking + specified + 
                                 distance + PT7 +
                                 (1 | issue), data= df_us)) %>% 
   mutate(hyp = "H1a",
@@ -11,7 +13,7 @@ h1a <- broom.mixed::tidy(lmer(stance_nlp ~ masking + specification +
          y = "Interpreting Stance Correctly (Strict Interpretation)") %>% 
   filter(term %in% c("distance"))
 
-tmp <- broom.mixed::tidy(lmer(stance_ss ~ masking + specification + 
+tmp <- broom.mixed::tidy(lmer(stance_ss2 ~ masking + specified + 
                                 distance + PT7 +
                                 (1 | issue), data= df_us)) %>% 
   mutate(hyp = "H1a",
@@ -22,7 +24,7 @@ tmp <- broom.mixed::tidy(lmer(stance_ss ~ masking + specification +
 h1a <- h1a %>% 
   add_case(tmp)
 
-tmp <- broom.mixed::tidy(lmer(stance_nlp ~ masking + specification + 
+tmp <- broom.mixed::tidy(lmer(stance_nlp2 ~ masking + specified + 
                                 distance + PT7 +
                                 (1 | issue), data= df_nl)) %>% 
   mutate(hyp = "H1a",
@@ -33,7 +35,7 @@ tmp <- broom.mixed::tidy(lmer(stance_nlp ~ masking + specification +
 h1a <- h1a %>% 
   add_case(tmp)
 
-tmp <- broom.mixed::tidy(lmer(stance_ss ~ masking + specification + 
+tmp <- broom.mixed::tidy(lmer(stance_ss2 ~ masking + specified + 
                                 distance + PT7 +
                                 (1 | issue), data= df_nl)) %>% 
   mutate(hyp = "H1a",
@@ -45,51 +47,51 @@ h1a <- h1a %>%
   add_case(tmp)
 rm(tmp)
 
-h1b <- broom.mixed::tidy(lmer(stance_nlp ~ masking + 
-                                specification * distance +
+h1b <- broom.mixed::tidy(lmer(stance_nlp2 ~ masking + 
+                                specified * distance +
                                 PT7 + (1 | issue), data= df_us)) %>% 
   mutate(hyp = "H1b",
          type = "United States",
          y = "Interpreting Stance Correctly (Strict Interpretation)") %>% 
-  filter(term %in% c("specificationUnderspecified",
+  filter(term %in% c("specifiedUnderspecified",
                      "distance",
-                     "specificationUnderspecified:distance"))
+                     "specifiedUnderspecified:distance"))
 
-tmp <- broom.mixed::tidy(lmer(stance_ss ~ masking + 
-                               specification * distance +
+tmp <- broom.mixed::tidy(lmer(stance_ss2 ~ masking + 
+                               specified * distance +
                                PT7 + (1 | issue), data= df_us)) %>% 
   mutate(hyp = "H1b",
          type = "United States",
          y = "Interpreting Stance Correctly (Lenient Interpretation)") %>% 
-  filter(term %in% c("specificationUnderspecified",
+  filter(term %in% c("specifiedUnderspecified",
                      "distance",
-                     "specificationUnderspecified:distance"))
+                     "specifiedUnderspecified:distance"))
 
 h1b <- h1b %>% 
   add_case(tmp)
 
-tmp <- broom.mixed::tidy(lmer(stance_nlp ~ masking + 
-                                specification * distance +
+tmp <- broom.mixed::tidy(lmer(stance_nlp2 ~ masking + 
+                                specified * distance +
                                 PT7 + (1 | issue), data= df_nl)) %>% 
   mutate(hyp = "H1b",
          type = "The Netherlands",
          y = "Interpreting Stance Correctly (Strict Interpretation)") %>% 
-  filter(term %in% c("specificationUnderspecified",
+  filter(term %in% c("specifiedUnderspecified",
                      "distance",
-                     "specificationUnderspecified:distance"))
+                     "specifiedUnderspecified:distance"))
 
 h1b <- h1b %>% 
   add_case(tmp)
 
-tmp <- broom.mixed::tidy(lmer(stance_ss ~ masking + 
-                                specification * distance +
+tmp <- broom.mixed::tidy(lmer(stance_ss2 ~ masking + 
+                                specified * distance +
                                 PT7 + (1 | issue), data= df_nl)) %>% 
   mutate(hyp = "H1b",
          type = "The Netherlands",
          y = "Interpreting Stance Correctly (Lenient Interpretation)") %>% 
-  filter(term %in% c("specificationUnderspecified",
+  filter(term %in% c("specifiedUnderspecified",
                      "distance",
-                     "specificationUnderspecified:distance"))
+                     "specifiedUnderspecified:distance"))
 
 h1b <- h1b %>% 
   add_case(tmp)
@@ -99,9 +101,9 @@ p1a <- h1a %>%
   add_case(h1b) %>% 
   mutate(term = recode(term,
                        `maskingParty` = "Condition: Political Actor Revealed",
-                       `specificationUnderspecified` = "Condition: Underspecified Sentence",
+                       `specifiedUnderspecified` = "Condition: Underspecified Sentence",
                        `distance` = "Ideological Distance from Party",
-                       `specificationUnderspecified:distance` = "Interaction: Underspecified * Distance"),
+                       `specifiedUnderspecified:distance` = "Interaction: Underspecified * Distance"),
          term = factor(term,
                        levels = c("Interaction: Underspecified * Distance",
                                   "Ideological Distance from Party",
@@ -125,21 +127,21 @@ p1a <- h1a %>%
 
 ## Marginal Effects
 df <- df_nl %>% 
-  mutate(b = specification,
+  mutate(b = specified,
          a = distance)
-h1b <- lmer(stance_nlp ~ masking +
+h1b <- lmer(stance_nlp2 ~ masking +
               b * a + 
               PT7 + (1 | issue), data= df)
 h1b <- tidy(margins::margins(h1b, variables = "b",
-                             at = list("a" = 0:8.5))) %>% 
+                             at = list("a" = 0:1))) %>% 
   mutate(type = "The Netherlands",
          y = "Interpreting Stance Correctly (Strict Interpretation)")
 
-tmp <- lmer(stance_ss ~ masking +
+tmp <- lmer(stance_ss2 ~ masking +
               b * a + 
               PT7 + (1 | issue), data= df)
 tmp <- tidy(margins::margins(tmp, variables = "b",
-                             at = list("a" = 0:8.5))) %>% 
+                             at = list("a" = 0:1))) %>% 
   mutate(type = "The Netherlands",
          y = "Interpreting Stance Correctly (Lenient Interpretation)")
 
@@ -147,24 +149,24 @@ h1b <- h1b %>%
   add_case(tmp)
 
 df <- df_us %>% 
-  mutate(b = specification,
+  mutate(b = specified,
          a = distance)
-tmp <- lmer(stance_nlp ~ masking +
+tmp <- lmer(stance_nlp2 ~ masking +
               b * a + 
               PT7 + (1 | issue), data= df)
 tmp <- tidy(margins::margins(tmp, variables = "b",
-                             at = list("a" = 0:3))) %>% 
+                             at = list("a" = 0:1))) %>% 
   mutate(type = "United States",
          y = "Interpreting Stance Correctly (Strict Interpretation)")
 
 h1b <- h1b %>% 
   add_case(tmp)
 
-tmp <- lmer(stance_ss ~ masking +
+tmp <- lmer(stance_ss2 ~ masking +
               b * a + 
               PT7 + (1 | issue), data= df)
 tmp <- tidy(margins::margins(tmp, variables = "b",
-                             at = list("a" = 0:3))) %>% 
+                             at = list("a" = 0:1))) %>% 
   mutate(type = "United States",
          y = "Interpreting Stance Correctly (Lenient Interpretation)")
 
@@ -182,7 +184,7 @@ p1b <- h1b %>%
   #ylim(c(-0.4, -0.3)) +
   #xlim(c(1,8)) +
   labs(x = "Ideological Distance",
-       y = "Marginal Effect of Sentence Underspecification \n for Correctly Interpreting Stance") +
+       y = "Marginal Effect of Sentence Underspecified \n for Correctly Interpreting Stance") +
   theme_ipsum() +
   facet_grid(.~type, scales = "free") +
   scale_colour_manual(values = fig_cols) +
@@ -190,3 +192,55 @@ p1b <- h1b %>%
   theme(legend.position = "bottom",
         legend.title = element_blank())
 
+# Predicted effects
+pred1b_1 <- lmer(stance_nlp2 ~ masking + specified * distance + 
+       PT7 + (1 | issue), data= df_us)
+p1b_1 <- sjPlot::plot_model(pred1b_1, type = "pred", terms = c("distance", "specified"), colors = fig_cols) +
+  labs(x = "Ideological Distance",
+       y = "Predicted Effect for Correctly Interpreting Stance",
+       title = "Strict Interpretation - US") +
+  theme_ipsum() +
+  #facet_grid(.~type, scales = "free") +
+ # scale_colour_manual(values = fig_cols) +
+  #scale_fill_manual(values = fig_cols) +
+  theme(legend.position = "bottom",
+        legend.title = element_blank())
+
+pred1b_2 <- lmer(stance_ss2 ~ masking + specified * distance + 
+                   PT7 + (1 | issue), data= df_us)
+p1b_2 <- sjPlot::plot_model(pred1b_2, type = "pred", terms = c("distance", "specified"), colors = fig_cols) +
+  labs(x = "Ideological Distance",
+       y = "Predicted Effect for Correctly Interpreting Stance",
+       title = "Lenient Interpretation - US") +
+  theme_ipsum() +
+  #facet_grid(.~type, scales = "free") +
+  # scale_colour_manual(values = fig_cols) +
+  #scale_fill_manual(values = fig_cols) +
+  theme(legend.position = "bottom",
+        legend.title = element_blank())
+
+pred1b_3 <- lmer(stance_nlp2 ~ masking + specified * distance + 
+                   PT7 + (1 | issue), data= df_nl)
+p1b_3 <- sjPlot::plot_model(pred1b_3, type = "pred", terms = c("distance", "specified"), colors = fig_cols) +
+  labs(x = "Ideological Distance",
+       y = "Predicted Effect for Correctly Interpreting Stance",
+       title = "Strict Interpretation - NL") +
+  theme_ipsum() +
+  #facet_grid(.~type, scales = "free") +
+  # scale_colour_manual(values = fig_cols) +
+  #scale_fill_manual(values = fig_cols) +
+  theme(legend.position = "bottom",
+        legend.title = element_blank())
+
+pred1b_4 <- lmer(stance_ss2 ~ masking + specified * distance + 
+                   PT7 + (1 | issue), data= df_nl)
+p1b_4 <- sjPlot::plot_model(pred1b_4, type = "pred", terms = c("distance", "specified"), colors = fig_cols) +
+  labs(x = "Ideological Distance",
+       y = "Predicted Effect for Correctly Interpreting Stance",
+       title = "Lenient Interpretation - NL") +
+  theme_ipsum() +
+  #facet_grid(.~type, scales = "free") +
+  # scale_colour_manual(values = fig_cols) +
+  #scale_fill_manual(values = fig_cols) +
+  theme(legend.position = "bottom",
+        legend.title = element_blank())

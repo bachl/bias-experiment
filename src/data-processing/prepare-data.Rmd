@@ -30,74 +30,180 @@ source(here::here("src/lib/functions.R"))
 This code chuck downloads the data from Qualtrics using the API and cleans the raw data.
 
 ```{r "get & clean data", results="hide"}
-#Clean Dutch Data
+#Load Dutch Data
 d_nl <- read_sav(here("data/raw-private/NLOZ2206_Mariken_Bias-experiment.sav"))
-source(here("src/data-processing/clean_data_nl.R"))
 
-#Clean US Data
+#Load US Data
 d_us <- fetch_survey(surveyID = "SV_86XBcsFUJka9eke", 
                     verbose = TRUE, force_request = T,
                     label = FALSE, convert = FALSE)
-source(here("src/data-processing/clean_data_us.R"))
+#Clean data
+source(here("src/data-processing/clean_data.R"))
 ```
 
 ## Save Data for Analysis
 ```{r "save data"}
-save(d_nl, file = here("data/intermediate/cleaned_data_nl.RData"))
-save(d_us, file = here("data/intermediate/cleaned_data_us.RData"))
+save(d, file = here("data/intermediate/cleaned_data_joined.RData"))
 ```
 
 ## Visualization of Data
 
 ### Dependent Variable by Issue
-```{r "Dependent Variable", echo=F, fig.width=15, fig.height=8, eval = F}
-p1 <- d_nl %>%
-  group_by(stance_nlp,issue,specification, masking) %>% 
+```{r "Dependent Variable", echo=F, fig.width=15, fig.height=10}
+p1a <- d |> 
+  filter(country == "NL") |> 
+  mutate(issue2 = recode(issue,
+                         `tax on carbon emissions` = "Climate",
+                         `a wealth tax for the richest Americans` = "Tax",
+                         `the tax system` = "Tax",
+                         `military presence in the Pacific Ocean` = "EU/Foreign Policy",
+                         `military build-up in the Pacific Ocean` = "EU/Foreign Policy",
+                         `immigranten` = "Immigration",
+                         `immigratie` = "Immigration",
+                         `het tegengaan van stikstofuitstoot` = "Climate",
+                         `het stikstofbeleid` = "Climate",
+                         `het verhogen van het belastingstarief voor de hoogste inkomens` = "Tax",
+                         `het belastingstelsel` = "Tax",
+                         `de  rol van Nederland in de Europese Unie` = "EU/Foreign Policy",
+                         `het lidmaatschap van de Europese Unie voor Nederland` = "EU/Foreign Policy")) |> 
+  group_by(stance_nlp,issue2,specified, masking, country) %>% 
   count() %>% 
-  mutate(stance = ifelse(stance==0, "Not Correctly identified stance",
-                         "Correctly identified stance"),
-         specification = ifelse(specification == "Specified", 
+  drop_na(stance_nlp) |> 
+  mutate(stance_nlp = recode(stance_nlp,
+                             `correct` = "Correct",
+                             `incorrect` = "Incorrect"),
+         specified = ifelse(specified == "Specified", 
                                 "Condition: Specified Sentence", "Underspecified Sentence"),
-         masking = ifelse(masking == "Masked", "Actor Masked", "Party Revealed")) %>% 
-  ggplot(aes(y = issue, x = n, fill = stance)) +
+         masking = ifelse(masking == 1, "Actor Masked", "Party Revealed")) %>% 
+  ggplot(aes(y = issue2, x = n, fill = stance_nlp)) +
   geom_col() +
-  facet_grid(masking~specification) +
-  labs(x = "", y = "", 
-       title = "Dutch Data") +
+  facet_grid(masking~specified) +
+  labs(x = "", y = "",
+       title = "NL Data - Strict Interpretation") +
   #scale_x_continuous(labels = scales::percent) +
   theme_ipsum() +
   scale_fill_manual(values = fig_cols[c(3, 2)]) +
   theme(legend.position = "bottom",
         legend.title = element_blank())
 
-p2 <- d_us %>%
-  group_by(stance,issue,specification, masking) %>% 
+p1b <- d |> 
+  filter(country == "NL") |> 
+  mutate(issue2 = recode(issue,
+                         `tax on carbon emissions` = "Climate",
+                         `a wealth tax for the richest Americans` = "Tax",
+                         `the tax system` = "Tax",
+                         `military presence in the Pacific Ocean` = "EU/Foreign Policy",
+                         `military build-up in the Pacific Ocean` = "EU/Foreign Policy",
+                         `immigranten` = "Immigration",
+                         `immigratie` = "Immigration",
+                         `het tegengaan van stikstofuitstoot` = "Climate",
+                         `het stikstofbeleid` = "Climate",
+                         `het verhogen van het belastingstarief voor de hoogste inkomens` = "Tax",
+                         `het belastingstelsel` = "Tax",
+                         `de  rol van Nederland in de Europese Unie` = "EU/Foreign Policy",
+                         `het lidmaatschap van de Europese Unie voor Nederland` = "EU/Foreign Policy")) |> 
+  group_by(stance_ss,issue2,specified, masking, country) %>% 
   count() %>% 
-  mutate(stance = ifelse(stance==0, "Not Correctly identified stance",
-                         "Correctly identified stance"),
-         specification = ifelse(specification == "Specified", 
+  drop_na(stance_ss) |> 
+  mutate(stance_ss = recode(stance_ss,
+                             `correct` = "Correct",
+                             `incorrect` = "Incorrect"),
+         specified = ifelse(specified == "Specified", 
                                 "Condition: Specified Sentence", "Underspecified Sentence"),
-         masking = ifelse(masking == "Masked", "Actor Masked", "Party Revealed")) %>% 
-  ggplot(aes(y = issue, x = n, fill = stance)) +
+         masking = ifelse(masking == 1, "Actor Masked", "Party Revealed")) %>% 
+  ggplot(aes(y = issue2, x = n, fill = stance_ss)) +
   geom_col() +
-  facet_grid(masking~specification) +
-  labs(x = "", y = "", 
-       title = "US Data") +
+  facet_grid(masking~specified) +
+  labs(x = "", y = "",
+       title = "NL Data - Lenient Interpretation") +
   #scale_x_continuous(labels = scales::percent) +
   theme_ipsum() +
   scale_fill_manual(values = fig_cols[c(3, 2)]) +
   theme(legend.position = "bottom",
         legend.title = element_blank())
 
-p1 + p2 + 
+p2a <- d |> 
+  filter(country == "US") |> 
+  mutate(issue2 = recode(issue,
+                         `tax on carbon emissions` = "Climate",
+                         `a wealth tax for the richest Americans` = "Tax",
+                         `the tax system` = "Tax",
+                         `military presence in the Pacific Ocean` = "EU/Foreign Policy",
+                         `military build-up in the Pacific Ocean` = "EU/Foreign Policy",
+                         `immigranten` = "Immigration",
+                         `immigratie` = "Immigration",
+                         `het tegengaan van stikstofuitstoot` = "Climate",
+                         `het stikstofbeleid` = "Climate",
+                         `het verhogen van het belastingstarief voor de hoogste inkomens` = "Tax",
+                         `het belastingstelsel` = "Tax",
+                         `de  rol van Nederland in de Europese Unie` = "EU/Foreign Policy",
+                         `het lidmaatschap van de Europese Unie voor Nederland` = "EU/Foreign Policy")) |> 
+  group_by(stance_nlp,issue2,specified, masking, country) %>% 
+  count() %>% 
+  drop_na(stance_nlp) |> 
+  mutate(stance_nlp = recode(stance_nlp,
+                             `correct` = "Correct",
+                             `incorrect` = "Incorrect"),
+         specified = ifelse(specified == "Specified", 
+                                "Condition: Specified Sentence", "Underspecified Sentence"),
+         masking = ifelse(masking == 1, "Actor Masked", "Party Revealed")) %>% 
+  ggplot(aes(y = issue2, x = n, fill = stance_nlp)) +
+  geom_col() +
+  facet_grid(masking~specified) +
+  labs(x = "", y = "", 
+       title = "US Data - Strict Interpretation") +
+  #scale_x_continuous(labels = scales::percent) +
+  theme_ipsum() +
+  scale_fill_manual(values = fig_cols[c(3, 2)]) +
+  theme(legend.position = "bottom",
+        legend.title = element_blank())
+
+p2b <- d |> 
+  filter(country == "US") |> 
+  mutate(issue2 = recode(issue,
+                         `tax on carbon emissions` = "Climate",
+                         `a wealth tax for the richest Americans` = "Tax",
+                         `the tax system` = "Tax",
+                         `military presence in the Pacific Ocean` = "EU/Foreign Policy",
+                         `military build-up in the Pacific Ocean` = "EU/Foreign Policy",
+                         `immigranten` = "Immigration",
+                         `immigratie` = "Immigration",
+                         `het tegengaan van stikstofuitstoot` = "Climate",
+                         `het stikstofbeleid` = "Climate",
+                         `het verhogen van het belastingstarief voor de hoogste inkomens` = "Tax",
+                         `het belastingstelsel` = "Tax",
+                         `de  rol van Nederland in de Europese Unie` = "EU/Foreign Policy",
+                         `het lidmaatschap van de Europese Unie voor Nederland` = "EU/Foreign Policy")) |> 
+  group_by(stance_ss,issue2,specified, masking, country) %>% 
+  count() %>% 
+  drop_na(stance_ss) |> 
+  mutate(stance_ss = recode(stance_ss,
+                             `correct` = "Correct",
+                             `incorrect` = "Incorrect"),
+         specified = ifelse(specified == "Specified", 
+                                "Condition: Specified Sentence", "Underspecified Sentence"),
+         masking = ifelse(masking == 1, "Actor Masked", "Party Revealed")) %>% 
+  ggplot(aes(y = issue2, x = n, fill = stance_ss)) +
+  geom_col() +
+  facet_grid(masking~specified) +
+  labs(x = "", y = "", 
+       title = "US Data - Lenient Interpretation") +
+  #scale_x_continuous(labels = scales::percent) +
+  theme_ipsum() +
+  scale_fill_manual(values = fig_cols[c(3, 2)]) +
+  theme(legend.position = "bottom",
+        legend.title = element_blank())
+
+(p2a + p2b)/ (p1a + p1b) +
   plot_layout(guides = "collect") & theme(legend.position = 'bottom')
-
 ```
 
 ### Covariates
-```{r "Independent Variables", echo=F, message=FALSE, warning=FALSE,fig.width=10, fig.height=10, eval = F}
-rm(p1,p2)
-p <- d_nl %>% select(distance, PT7, PT6) %>% 
+```{r "Independent Variables", echo=F, message=FALSE, warning=FALSE,fig.width=6, fig.height=6}
+rm(p1a, p1b, p2a, p2b)
+p <- d %>% 
+  filter(country=="NL") |> 
+  select(distance, PT7, PT6) %>% 
   pivot_longer(cols = everything(),
                values_to = "score") %>% 
   group_by(name) %>% 
@@ -105,22 +211,25 @@ p <- d_nl %>% select(distance, PT7, PT6) %>%
             stdev = sd(score)) %>% 
   mutate(name = recode(name,
                        `distance` = "Ideological Distance \n(> = More Distance)",
-                       `PT6` = "Ideological Self Placement \n(0 = Left, 10 = Right)",
-                       `PT7` = "Political Knowledge \n(0 = Low, 6 = High)"),
+                       `PT6` = "Ideological Self Placement \n(0 = Left/Liberal, 1 = Right/Conservative)",
+                       `PT7` = "Political Knowledge \n(0 = Low, 1 = High)"),
          country = "The Netherlands")
 
-p2 <- d_us %>% 
+p2 <-d %>% 
+  filter(country=="US") |> 
   select(distance, PT7, PT7b, PT6) %>% 
+  mutate(PT7b = PT7b / 5) |> 
   pivot_longer(cols = everything(),
                values_to = "score") %>% 
+  drop_na(score) |> 
   group_by(name) %>% 
   summarise(m = mean(score),
             stdev = sd(score)) %>% 
   mutate(name = recode(name,
                        `distance` = "Ideological Distance \n(> = More Distance)",
-                       `PT6` = "Ideological Self Placement \n(0 = Extremely Liberal, 6 = Extremely Conservative)",
-                       `PT7` = "Political Knowledge \n(0 = Low, 3 = High)",
-                       `PT7b` = "Bullshit Receptivity \n(0 = Low, 5 = High)"),
+                       `PT6` = "Ideological Self Placement \n(0 = Left/Liberal, 1 = Right/Conservative)",
+                       `PT7` = "Political Knowledge \n(0 = Low, 1 = High)",
+                       `PT7b` = "Bullshit Receptivity \n(0 = Low, 1 = High)"),
          country = "United States") 
 
 p %>% 
@@ -139,9 +248,9 @@ p %>%
 ```
 
 ### Correlations Matrix
-```{r "Correlations Matrix", echo=F, message=F, warning=F, fig.width=15, fig.height=15, eval = F}
-d_nl %>%
-  drop_na() %>% 
+```{r "Correlations Matrix", echo=F, message=F, warning=F, fig.width=8, fig.height=8}
+d %>%
+  filter(country == "NL") |> 
   select(`Age` = D1,
          `Gender` = D2,
          `Education` = D3,
@@ -157,6 +266,7 @@ d_nl %>%
          `Political Knowledge` = PT7,
          `Distance to Political Party` = distance,
          `Stance` = stance) %>%
+  drop_na() %>% 
   ggcorrmat(
   type = "robust", # correlation method
   cor.vars = c(everything()), # a range of variables can be selected
@@ -165,8 +275,8 @@ d_nl %>%
   subtitle = "Dutch Data"
 )
 
-d_us %>%
-  drop_na() %>% 
+d %>%
+  filter(country == "US") |> 
   select(`Age` = D1,
          `Gender` = D2,
          `Education` = D3,
@@ -174,16 +284,17 @@ d_us %>%
          `Income`  = D5,
          `Job`  = D6,
          `PID`  = PT1,
-         `PID Strength` = PT1b,
+         #`PID Strength` = PT1b,
          `Position: Immigration`  = PT2,
          `Position: Climate`  = PT3,
          `Position: Tax`  = PT4,
-         `Position: EU`  = PT5,
+         `Position: Foreign Policy`  = PT5,
          `Ideology`  = PT6,
          `Political Knowledge` = PT7,
          `Bullshit Receptivity` = PT7b,
          `Distance to Political Party` = distance,
          `Stance` = stance) %>%
+    drop_na() %>% 
   ggcorrmat(
   type = "robust", # correlation method
   cor.vars = c(everything()), # a range of variables can be selected
