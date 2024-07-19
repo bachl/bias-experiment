@@ -32,8 +32,8 @@ load(here("data/intermediate/cleaned_data_joined.RData"))
 The figure below shows that the data is not unbalanced for any of the variables: As described in the Pre-Analysis Plan (p.10), we will not add any covariates to the analyses as controls.
 
 ```{r "balance-checks", fig.height=12, fig.width=8}
-#source(here("src/analysis/balance-test.R"))
-#df
+source(here("src/analysis/balance-test.R"))
+df
 ```
 
 ## Baseline Model
@@ -105,6 +105,12 @@ p_b1
 p_b2
 p_e1a
 p_e1b
+```
+
+```{r "explore-profiles", fig.height=7, fig.width=8}
+source(here("src/analysis/profiles.R"))
+prof1 
+prof2
 ```
 
 ```{r "explor2", eval=FALSE}
