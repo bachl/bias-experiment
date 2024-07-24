@@ -11,7 +11,7 @@ source(here::here("src/lib/functions.R"))
 # Analyses
 
 ``` r
-load(here("data/intermediate/cleaned_data_joined.RData"))
+load(here::here("data/intermediate/cleaned_data_joined.RData"))
 ```
 
 ## Balance Checks
