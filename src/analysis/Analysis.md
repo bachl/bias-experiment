@@ -201,6 +201,12 @@ p_e1b
 <img src="../../report/figures/exploration-4.png" style="display: block; margin: auto;" />
 
 ``` r
+p_e1c
+```
+
+<img src="../../report/figures/exploration-5.png" style="display: block; margin: auto;" />
+
+``` r
 source(here("src/analysis/profiles.R"))
 prof1 
 ```
@@ -212,31 +218,3 @@ prof2
 ```
 
 <img src="../../report/figures/explore-profiles-2.png" style="display: block; margin: auto;" />
-
-``` r
-source(here("src/analysis/profile_resp.R"))
-kbl(e1_nlp, booktabs =T, caption = "\\label{tab:conditions}Profile Dutch Stance Annotators") %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width = F, fixed_thead = T, position = "center") %>%
-  column_spec(1, width = "7cm") %>%
-  column_spec(2, width = "7cm")
-
-kbl(e1_ss, booktabs =T, caption = "\\label{tab:conditions2}Profile Dutch Stance Annotators") %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width = F, fixed_thead = T, position = "center") %>%
-  column_spec(1, width = "7cm") %>%
-  column_spec(2, width = "7cm")
-
-
-kbl(e1_us_nlp, booktabs =T, caption = "\\label{tab:conditions_us}Profile American Stance Annotators") %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width = F, fixed_thead = T, position = "center") %>%
-  column_spec(1, width = "7cm") %>%
-  column_spec(2, width = "7cm")
-
-kbl(e1_us_ss, booktabs =T, caption = "\\label{tab:conditions_us2}Profile American Stance Annotators") %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width = F, fixed_thead = T, position = "center") %>%
-  column_spec(1, width = "7cm") %>%
-  column_spec(2, width = "7cm")
-```

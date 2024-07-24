@@ -105,15 +105,16 @@ p_b1
 p_b2
 p_e1a
 p_e1b
+p_e1c
 ```
 
-```{r "explore-profiles", fig.height=7, fig.width=8}
+```{r "explore-profiles", fig.height=10, fig.width=15}
 source(here("src/analysis/profiles.R"))
 prof1 
 prof2
 ```
 
-```{r "explor2", eval=FALSE}
+```{r "explor2", eval=FALSE, echo=FALSE}
 source(here("src/analysis/profile_resp.R"))
 kbl(e1_nlp, booktabs =T, caption = "\\label{tab:conditions}Profile Dutch Stance Annotators") %>%
   kable_styling(latex_options = c("striped", "hold_position"),

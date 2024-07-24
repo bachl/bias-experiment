@@ -6,7 +6,8 @@ df_us <- d %>%
                          `a wealth tax for the richest Americans` = "Tax",
                          `the tax system` = "Tax",
                          `military presence in the Pacific Ocean` = "EU/Foreign Policy",
-                         `military build-up in the Pacific Ocean` = "EU/Foreign Policy"))
+                         `military build-up in the Pacific Ocean` = "EU/Foreign Policy",
+                         `immigration` = "Immigration"))
 df_nl <- d %>% 
   filter(country == "NL") %>% 
   select(stance_nlp2, stance_ss2, masking, specified, interpret_nlp2, interpret_ss2, country, issue) |> 

@@ -477,7 +477,7 @@ h2b_e_pid <- tidy(margins::margins(h2b_e_pid, variables = "b",
                                at = list("a" = c("Forum voor Democratie","GroenLinks", "PvdA","PVV")))) %>% 
   mutate(hyp = "Party Voted For/ PID",
          condition = "Condition: Underspecified Sentence",
-         y = "Y: Overinterpreting Stance (Strict Interpretation",
+         y = "Y: Overinterpreting Stance (Strict Interpretation)",
          type = "The Netherlands")
 
 tmp <- lmer(interpret_ss2 ~ masking + b * a +
@@ -485,7 +485,7 @@ tmp <- lmer(interpret_ss2 ~ masking + b * a +
 tmpp <- tidy(tmp) %>% 
   mutate(hyp = "Party Voted For/ PID",
          condition = "Condition: Underspecified Sentence",
-         y = "Y: Overinterpreting Stance (Strict Interpretation)",
+         y = "Y: Overinterpreting Stance (Lenient Interpretation)",
          type = "The Netherlands")
 h2b_e_pid2 <- h2b_e_pid2 %>% 
   add_case(tmpp)
@@ -493,7 +493,7 @@ tmp <- tidy(margins::margins(tmp, variables = "b",
                                 at = list("a" = c("Forum voor Democratie","GroenLinks", "PvdA","PVV")))) %>% 
   mutate(hyp = "Party Voted For/ PID",
          condition = "Condition: Underspecified Sentence",
-         y = "Y: Overinterpreting Stance (Strict Interpretation",
+         y = "Y: Overinterpreting Stance (Lenient Interpretation)",
          type = "The Netherlands")
 h2b_e_pid <- h2b_e_pid %>% 
   add_case(tmp)
@@ -962,7 +962,7 @@ h2b_e_pid <- tidy(margins::margins(h2b_e_pid, variables = "b",
                                    at = list("a" = c("Democrat","Republican")))) %>% 
   mutate(hyp = "Party Voted For/ PID",
          condition = "Condition: Underspecified Sentence",
-         y = "Y: Overinterpreting Stance (Strict Interpretation",
+         y = "Y: Overinterpreting Stance (Strict Interpretation)",
          type = "United States")
 
 tmp <- lmer(interpret_ss2 ~ masking + b * a +
@@ -970,7 +970,7 @@ tmp <- lmer(interpret_ss2 ~ masking + b * a +
 tmpp <- tidy(tmp) %>% 
   mutate(hyp = "Party Voted For/ PID",
          condition = "Condition: Underspecified Sentence",
-         y = "Y: Overinterpreting Stance (Strict Interpretation)",
+         y = "Y: Overinterpreting Stance (Lenient Interpretation)",
          type = "United States")
 h2b_e_pid2 <- h2b_e_pid2 %>% 
   add_case(tmpp)
@@ -978,7 +978,7 @@ tmp <- tidy(margins::margins(tmp, variables = "b",
                              at = list("a" = c("Democrat","Republican")))) %>% 
   mutate(hyp = "Party Voted For/ PID",
          condition = "Condition: Underspecified Sentence",
-         y = "Y: Overinterpreting Stance (Strict Interpretation",
+         y = "Y: Overinterpreting Stance (Lenient Interpretation)",
          type = "United States")
 h2b_e_pid <- h2b_e_pid %>% 
   add_case(tmp)
@@ -1160,20 +1160,24 @@ rm(h2a_e,h2a_e_ic, h2b_e, h2b_e_pid,
 
 p_e1a <- exp_nl_int2 %>% 
   add_case(exp_us_int2) %>% 
-  filter(term %in% c("a", "bUnderspecified", "bUnderspecified:a")) %>% 
+  filter(term %in% c("a", "bUnderspecified", "bUnderspecified:a",
+                     "b1", "b1:a")) %>% 
   mutate(hyp = ifelse(hyp=="Ideological Position (0 = Left/Liberal, 1 = Right/Conservative)", "Ideological Position",
                       hyp),
          term = ifelse(term == "a", hyp, term),
+         term = ifelse(term == "b1", condition, term),
+         term = ifelse(term == "b1:a", "Interaction", term),
          term = ifelse(term == "bUnderspecified", condition, term),
          term = ifelse(term == "bUnderspecified:a", "Interaction", term),
          lower = estimate - (1.96 * std.error),
          upper = estimate + (1.96 * std.error)) %>% 
+  filter(hyp == "Issue Congruence") |> 
   ggplot(aes(x = estimate, y = term,
              xmin = lower, xmax = upper, color = y)) +
   geom_point(position = position_dodge(0.5)) +
   geom_errorbar(width = 0,
                 position = position_dodge(0.5)) +
-  facet_grid(hyp~type, scales = "free") +
+  facet_grid(condition~type, scales = "free") +
   geom_vline(xintercept = 0, linetype = "dashed", color = "gray25") +
   labs(x = "Predicted Effect for Overinterpreting Stance", y = "") +
   theme_ipsum() +
@@ -1182,13 +1186,41 @@ p_e1a <- exp_nl_int2 %>%
         legend.title = element_blank()) +
   guides(color=guide_legend(nrow=2,byrow=TRUE))
 
-p_e1b <- exp_nl_char2 %>% 
+p_e1b <- exp_nl_int2 %>% 
+  add_case(exp_us_int2) %>% 
+  filter(term %in% c("a", "bUnderspecified", "bUnderspecified:a",
+                     "b1", "b1:a")) %>% 
+  mutate(hyp = ifelse(hyp=="Ideological Position (0 = Left/Liberal, 1 = Right/Conservative)", "Ideological Position",
+                      hyp),
+         term = ifelse(term == "a", hyp, term),
+         term = ifelse(term == "b1", condition, term),
+         term = ifelse(term == "b1:a", "Interaction", term),
+         term = ifelse(term == "bUnderspecified", condition, term),
+         term = ifelse(term == "bUnderspecified:a", "Interaction", term),
+         lower = estimate - (1.96 * std.error),
+         upper = estimate + (1.96 * std.error)) %>% 
+  filter(hyp != "Issue Congruence") |> 
+  ggplot(aes(x = estimate, y = term,
+             xmin = lower, xmax = upper, color = y)) +
+  geom_point(position = position_dodge(0.5)) +
+  geom_errorbar(width = 0,
+                position = position_dodge(0.5)) +
+  facet_grid(condition~type, scales = "free") +
+  geom_vline(xintercept = 0, linetype = "dashed", color = "gray25") +
+  labs(x = "Predicted Effect for Overinterpreting Stance", y = "") +
+  theme_ipsum() +
+  scale_colour_manual(values = fig_cols) +
+  theme(legend.position = "bottom",
+        legend.title = element_blank()) +
+  guides(color=guide_legend(nrow=2,byrow=TRUE))
+
+p_e1c <- exp_nl_char2 %>% 
   add_case(exp_us_char2) %>% 
   filter(term %in% c("aForum voor Democratie", "aGroenLinks", "aPvdA", "aPVV",
                      "aDemocrat", "aRepublican",
-                     "b", "bUnderspecified",
-                     "b:aDemocrat", "b:aRepublican",
-                     "b:aForum voor Democratie", "b:aGroenLinks", "b:aPvdA", "b:aPVV",
+                     "b1", "bUnderspecified",
+                     "b1:aDemocrat", "b1:aRepublican",
+                     "b1:aForum voor Democratie", "b1:aGroenLinks", "b1:aPvdA", "b1:aPVV",
                      "bUnderspecified:aForum voor Democratie", "bUnderspecified:aGroenLinks", 
                      "bUnderspecified:aPvdA", "bUnderspecified:aPVV",
                      "bUnderspecified:aDemocrat",
@@ -1201,20 +1233,27 @@ p_e1b <- exp_nl_char2 %>%
          term = ifelse(term == "aPVV", "PVV", term),
          term = ifelse(term == "aDemocrat", "Democrat", term),
          term = ifelse(term == "aRepublican", "Republican", term),
-         term = ifelse(term == "b", condition, term),
+         term = ifelse(term == "b1", condition, term),
          term = ifelse(term == "bUnderspecified", condition, term),
-         term = ifelse(term == "b:aForum voor Democratie", "Interaction", term),
-         term = ifelse(term == "b:aPvdA voor Democratie", "Interaction", term),
-         term = ifelse(term == "b:aGroenLinks voor Democratie", "Interaction", term),
-         term = ifelse(term == "b:aPVV voor Democratie", "Interaction", term),
-         term = ifelse(term == "b:aDemocrat", "Interaction", term),
-         term = ifelse(term == "b:aRepublican", "Interaction", term),
-         term = ifelse(term == "bUnderspecified:aForum voor Democratie", "Interaction", term),
-         term = ifelse(term == "bUnderspecified:aPvdA", "Interaction", term),
-         term = ifelse(term == "bUnderspecified:aGroenLinks", "Interaction", term),
-         term = ifelse(term == "bUnderspecified:aPVV", "Interaction", term),
-         term = ifelse(term == "bUnderspecified:aDemocrat", "Interaction", term),
-         term = ifelse(term == "bUnderspecified:aRepublican", "Interaction", term),
+         term = ifelse(term == "b1:aForum voor Democratie", "Interaction Forum voor Democratie", term),
+         term = ifelse(term == "b1:aPvdA", "Interaction PvdA", term),
+         term = ifelse(term == "b1:aGroenLinks", "Interaction GroenLinks", term),
+         term = ifelse(term == "b1:aPVV", "Interaction PVV", term),
+         term = ifelse(term == "b1:aDemocrat", "Interaction Democrat", term),
+         term = ifelse(term == "b1:aRepublican", "Interaction Republican", term),
+         term = ifelse(term == "bUnderspecified:aForum voor Democratie", "Interaction Forum voor Democratie", term),
+         term = ifelse(term == "bUnderspecified:aPvdA", "Interaction PvdA", term),
+         term = ifelse(term == "bUnderspecified:aGroenLinks", "Interaction GroenLinks", term),
+         term = ifelse(term == "bUnderspecified:aPVV", "Interaction PVV", term),
+         term = ifelse(term == "bUnderspecified:aDemocrat", "Interaction Democrat", term),
+         term = ifelse(term == "bUnderspecified:aRepublican", "Interaction Republican", term),
+         term = factor(term, 
+                       levels = c("Interaction Republican", "Interaction Democrat",
+                                  "Interaction PVV", "Interaction PvdA",
+                                  "Interaction GroenLinks", "Interaction Forum voor Democratie",
+                                  "Republican", "Democrat",
+                                  "PVV", "PvdA", "GroenLinks", "Forum voor Democratie",
+                                  "Condition: Underspecified Sentence", "Condition: Party Masked")),
          lower = estimate - (1.96 * std.error),
          upper = estimate + (1.96 * std.error)) %>% 
   ggplot(aes(x = estimate, y = term,
@@ -1222,7 +1261,7 @@ p_e1b <- exp_nl_char2 %>%
   geom_point(position = position_dodge(0.5)) +
   geom_errorbar(width = 0,
                 position = position_dodge(0.5)) +
-  facet_grid(.~type, scales = "free") +
+  facet_grid(condition~type, scales = "free") +
   geom_vline(xintercept = 0, linetype = "dashed", color = "gray25") +
   labs(x = "Predicted Effect for Overinterpreting Stance", y = "") +
   theme_ipsum() +
