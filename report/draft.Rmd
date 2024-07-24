@@ -93,6 +93,8 @@ source(here::here("src/lib/functions.R"))
 
 <!--Word count: `r as.integer(sub("(\\d+).+$", "\\1", system(sprintf("wc -w %s", knitr::current_input()), intern = TRUE))) - 20`-->
 
+\newpage
+
 # Introduction
 Information shapes citizens' political decision-making. 
 This process is amply studied by social scientists: Classical theories of political communication, such as agenda setting or framing [e.g. @vanaelst2016political; @lecheler2019news], formulate that political information drives opinion formation and participation in politics -- from voting to protests.
@@ -327,9 +329,29 @@ The standard errors are clustered at the individual level.
 
 # Results
 
+Before discussing the results of our preregistered analysis, we will describe which profiles, based on ideology (see Figure \ref{fig:profile1}) and political knowledge (see Figure \ref{fig:profile2}).
+OA A-5 gives even more detail; it describes the average profile of the respondents who annotate correctly and incorrectly (where respondents who annotated some stances correctly and some incorrectly are weighted by proportion (in)correct).
+Figure \ref{fig:profile1} demonstrates that in both countries people positioned on the ideological left of the spectrum are more likely to correctly code the specified sentences (upper-panel) to our gold standard. 
+In general, we see that for the specified sentences, the coders where almost always in line with our gold standard.
+This picture is a bit different for the underspecified sentences. 
+In principle, all these sentences where defined so that they are linguistacally neutral (no stance).
+Yet, we see that all cases but the sentence "many immigrants are crossing the border" when the party is masked, a stance is interpreted. 
+Except for the sentences "there should be a different military presence in the Pacific Ocean" and "carbon emissions should be implemented differently" when the Democrats are shown, all sentences are interpreted as negative.
+What is interesting is that in the underspecified sentences, which are likely to also be in political information we have annotators for, there is quite a bit of variation on how one codes it depending on their ideological position.
+Looking at the profiles based on political knowledge, Figure \ref{fig:profile2} demonstrates that in the US, people with lower levels of political knowledge are more likely to be correct, whereas in the Netherlands, people with higher levels of political knowledge are more likely to be correct.
+This indicates that biases based on political knowledge can be context dependent.
+For the rest, Figure \ref{fig:profile2} paints a similar picture as \ref{fig:profile1}: Respondents where to high degrees correct based on the gold standard in the specified sentences, but interpreted the underspecified sentences overwhelmingly as a negative stance.
+
+```{r prof1, fig.align = 'center', fig.cap = "\\label{fig:profile1} Profile Ideological Distance", fig.pos="H", fig.show="hold",out.width = "90%"}
+knitr::include_graphics(here("report/figures", "explore-profiles-1.png"))
+```
+
+```{r prof2, fig.align = 'center', fig.cap = "\\label{fig:profile2} Profile Political Knowledge", fig.pos="H", fig.show="hold",out.width = "90%"}
+knitr::include_graphics(here("report/figures", "explore-profiles-2.png"))
+```
+
 To answer whether there is an ideological or knowledge-based annotation bias, we have conducted a two-by-two experiment.
 To test our hypotheses, we will conduct a multilevel model, with respondents clustered in issues (for more details, see OA A-4).
-OA A-5 describes the average profile of the respondents who annotate correctly and incorrectly (where respondents who annotated some stances correctly and some incorrectly are weighted by proportion (in)correct).
 OA A-6 displays the effect of the experimental conditions on the four dependent variables -- correctly identifying a stance and over-interpreting a stance for both a strict and a lenient interpretation of stance.
 OA A-7 demonstrates the exploratory analyses that test the robustness of our results presented below.
 <!--Tables \ref{tab:profilenl} and \ref{tab:profileus} demonstrate the average profile of respondents who annotate correctly and incorrectly (where respondents who annotated some stances correctly and some incorrectly are weighted by proportion (in)correct).
@@ -385,25 +407,24 @@ knitr::include_graphics(here("report/figures", "baseline-1.png"))
 -->
 
 First, we test whether there is an ideological bias in interpreting stances (H1a), and if this bias increases for those that are further away from the ideological position of the political actor in the under-specified condition (H1b).
-Figure \ref{fig:results-h1} demonstrates on the left-hand panel the regression coefficients and on the right-hand panel the average marginal effects of the interaction between ideological distance and under-specified sentences.
+Figure \ref{fig:results-h1} demonstrates on the regression coefficients and the predicted effects.
 The upper-left panel of Figure \ref{fig:results-h1} demonstrates the coefficient of ideological distances for the likelihood of interpreting the stance correctly.
-There is a negligible positive effect -- a coefficient of `0.002` -- that is borderline significant.
+There is a negligible positive effect -- a coefficient of `0.002` -- that is borderline significant in the Netherlands, when looking at the strict interpretation of a stance.
 Substantially, this means that there is no effect of ideological distance for correctly interpreting the stance in either the American or Dutch case.
 Hence, no ideological bias found, thus no support for our H1a.
-Looking at the lower-left, and right-hand panel of Figure \ref{fig:results-h1}, we see a small but significant effect of the interaction between ideological distance and the under-specified condition for both interpretations in the American case, and only for the strict interpretation of a stance in the Dutch case.
-These effects are, however, going in the other direction than hypothesized.
-Those who are ideologically further away from the party are less likely to be wrong than those who are close to the party, as shown in the right-hand panel of Figure \ref{fig:results-h1}.
-For the Dutch case, using the strict interpretation, the difference is about `20%` -- from a coefficient of `-0.6` to `-0.4`.
-In the American case, the slope is even steeper, with a difference of about `40%`.
-We thus find evidence for H1b.
-This demonstrates that even in times of heightened polarization, ideological annotation bias can be a concern.
+Looking at the lower-left panel of Figure \ref{fig:results-h1}, we see a small but significant effect of the interaction between ideological distance and the under-specified condition for the strict interpretations in the Dutch case (hypothesized direction), and a small negative effect for the lenient interpretation of a stance in the US case (other direction as hypothesized).
+Those who are ideologically further away from the party are less likely to be wrong than those who are close to the party in the Netherlands, as shown in the right-hand panel of Figure \ref{fig:results-h1}.
+For the Dutch case, using the strict interpretation, the difference is about `10%` -- from a coefficient of `0.3` to `0.4`.
+In the American case, the slope for the lenient interpretation goes down as predicted, but not that much, with a difference of about `5%`.
+This could indicate that in times of heightened polarization, ideological annotation bias can be a concern.
+We thus find mixed evidence for H1b.
 
 Secondly, we hypothesized that there is a risk of over-interpretation from those that are ideologically distant to the political actor (H2a) as well as those who have high levels of political knowledge (H2b).
 We measure this with an interaction between the experimental condition of specification and the variable of interest.
-Following @brambor2006understanding, we visualize the average marginal effects for both interactions to enhance interpretation in the right-hand panel of Figure \ref{fig:results-h2}.
-Figure \ref{fig:results-h2} demonstrates the average marginal effects for both interaction effects: In the upper-panel the results for H2a, and in the bottom-panel, the results for H2b.
-In both countries, we see that the different interpretations of stance have opposite effects: A strict interpretation increases the chance of overinterpreting, but this is not exacerbated by ideological distance or political knowledge.
-Using a more lenient interpretation, we see that this decreases the chance of overinterpreting.
+<!-- We visualize the predicted effects for both interactions to enhance interpretation in the right-hand panel of Figure \ref{fig:results-h2}.
+Figure \ref{fig:results-h2} demonstrates the predicted marginal effects for both interaction effects: In the upper-panel the results for H2a, and in the bottom-panel, the results for H2b.-->
+In both countries, we see that the different interpretations of stance have opposite effects: A strict interpretation decreases the chance of overinterpreting, and this is exacerbated by ideological distance but not by political knowledge.
+Using a more lenient interpretation, we see that this increases the chance of overinterpreting.
 While this is not further diminished by political knowledge, ideological distance does further diminish the change in the American case -- i.e. against expectation H2b.
 In the Dutch case, however, the further you are from the party the more likely you are to overinterpret the sentence as a stance.
 So, while we do find some support for our H2a, we will reflect on the interpretation of a stance in combination with the context, as this effects how crowds interpret underspecified sentences.
@@ -411,10 +432,10 @@ So, while we do find some support for our H2a, we will reflect on the interpreta
 ````{=tex}
 \begin{landscape}
 ```{r results-h1, fig.align = 'center', fig.cap = "\\label{fig:results-h1} Ideological Distance", fig.pos="H", fig.show="hold",out.width = "49%", out.height="40%"}
-knitr::include_graphics(c(here("report/figures", "h1-1.png"), here("report/figures", "h1-2.png")))
+knitr::include_graphics(c(here("report/figures", "h1-1.png"), here("report/figures", "h1-3.png")))
 ```
 ```{r results-h2, fig.align = 'center', fig.cap = "\\label{fig:results-h2} Results Level of Sentence Specification", fig.pos="H", fig.show="hold",out.width = "49%", out.height="40%"}
-knitr::include_graphics(c(here("report/figures", "h2-1.png"), here("report/figures", "h2-2.png")))
+knitr::include_graphics(here("report/figures", "h2-1.png"))
 ```
 \end{landscape}
 ````
@@ -422,11 +443,9 @@ knitr::include_graphics(c(here("report/figures", "h2-1.png"), here("report/figur
 Thirdly, we test whether masking of the political actor is a solution for potentially misinterpreting the stance.
 We hypothesized that masking should reduce the ideological bias (H3a) as well as the bias resulting from political knowledge (H3b).
 We test these hypotheses with an interaction between the condition masking and the variables of interest and Figure \ref{fig:results-h3} demonstrates the regression coefficients.
-The upper-left panel of Figure \ref{fig:results-h3} shows, against expectation, a slight increase in the Dutch case: Those that are further away from the masked political actor are more likely to incorrectly interpret the stance.
-The decrease in slope is however negligible: From approximately `0.1%` to `0.2%` of the respondents being incorrect.
-There is no effect found in the American case.
+There is no effect found in the American or Dutch case regarding ideological distance.
 The same goes for the interaction between masking and political knowledge, on the bottom-panel of Figure \ref{fig:results-h3}.
-There is no significant effect found in the US, but a very small negative effect in the Dutch case.
+There is no significant effect found in the US nor int the Netherlands.
 This means that masking of political actors does not help to correctly interpret a sentence as a stance -- i.e. no support for H3a and H3b.
 
 ```{r results-h3, fig.align = 'center', fig.cap = "\\label{fig:results-h3} Results Masking Solution", fig.pos="H", fig.show="hold",out.width = "80%", out.height="80%"}
