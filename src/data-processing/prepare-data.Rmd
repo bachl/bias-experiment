@@ -29,7 +29,7 @@ source(here::here("src/lib/functions.R"))
 ## Tidy Data
 This code chuck downloads the data from Qualtrics using the API and cleans the raw data.
 
-```{r "get & clean data", results="hide"}
+```{r "get & clean data", results="hide", eval=FALSE}
 #Load Dutch Data
 d_nl <- read_sav(here("data/raw-private/NLOZ2206_Mariken_Bias-experiment.sav"))
 
@@ -42,14 +42,16 @@ source(here("src/data-processing/clean_data.R"))
 ```
 
 ## Save Data for Analysis
-```{r "save data"}
+```{r "save data", eval=FALSE}
 save(d, file = here("data/intermediate/cleaned_data_joined.RData"))
+rm(d_nl, d_us)
 ```
 
 ## Visualization of Data
 
 ### Dependent Variable by Issue
 ```{r "Dependent Variable", echo=F, fig.width=15, fig.height=10}
+load(here("data/intermediate/cleaned_data_joined.RData"))
 p1a <- d |> 
   filter(country == "NL") |> 
   mutate(issue2 = recode(issue,
@@ -201,6 +203,7 @@ p2b <- d |>
 ### Covariates
 ```{r "Independent Variables", echo=F, message=FALSE, warning=FALSE,fig.width=6, fig.height=6}
 rm(p1a, p1b, p2a, p2b)
+
 p <- d %>% 
   filter(country=="NL") |> 
   select(distance, PT7, PT6) %>% 

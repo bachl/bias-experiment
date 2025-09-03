@@ -39,6 +39,7 @@ source(here("src/data-processing/clean_data.R"))
 
 ``` r
 save(d, file = here("data/intermediate/cleaned_data_joined.RData"))
+rm(d_nl, d_us)
 ```
 
 ## Visualization of Data

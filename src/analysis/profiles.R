@@ -1,7 +1,6 @@
 # |> group_by(country, round, specified, sentence, stance) |>
 #  summarize(PT6=mean(PT6, na.rm=T)) |>
 #  ggplot(aes(x=stance, y=sentence, label=round(PT6, 1), fill=PT6)) + geom_tile() + geom_text()
-library(tidyverse)
 
 actors <- d |> select(sentence, actor) |> filter(actor != "X") |> unique() |>
   mutate(actor = if_else(actor == "Forum voor Democratie", "FvD", actor))

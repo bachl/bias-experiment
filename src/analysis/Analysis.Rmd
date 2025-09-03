@@ -33,85 +33,14 @@ The figure below shows that the data is not unbalanced for any of the variables:
 
 ```{r "balance-checks", fig.height=12, fig.width=8}
 source(here("src/analysis/balance-test.R"))
-df
+df #Figure OA3
 ```
 
-## Baseline Model
-```{r "baseline", fig.align="center", fig.height=4, fig.width=8}
-source(here("src/analysis/baseline.R"))
-b
-rm(b_b, b1, b2, df, df_nl, df_us, tmp)
-```
-
-```{r "issues", fig.align="center", fig.height=16, fig.width=8}
-source(here("src/analysis/issue_specific.R"))
-b_i
-rm(b1, b2, df, df_nl, df_us, tmp, issues_nl, issues_us, i)
-```
-
-## Ideological Bias hypothesis
-```{r "h1", fig.align="center", fig.height=8, fig.width=8}
-source(here("src/analysis/h1.R"))
-p1a
-p1b
-
-(p1b_1+p1b_2)/(p1b_3 + p1b_4) + 
-  plot_layout(guides = "collect") & theme(legend.position = 'bottom')
-rm(df, df_nl, df_us, h1a, h1b, p1b_1, 
-   pred1b_1, pred1b_2, pred1b_3, pred1b_4, tmp)
-```
-
-## Overinterpretation Hypotheses
-```{r "h2", fig.align="center", fig.height=8, fig.width=8}
-source(here("src/analysis/h2.R"))
-p2a
-p2b
-p2c1
-p2c2
-
-(p2a_1+p2a_2)/(p2a_3 + p2a_4) + 
-  plot_layout(guides = "collect") & theme(legend.position = 'bottom')
-
-(p2b_1+p2b_2)/(p2b_3 + p2b_4) + 
-  plot_layout(guides = "collect") & theme(legend.position = 'bottom')
-rm(df, df_nl, df_us, h2a, h2a_2, h2b, h2b_2, tmp, tmpp,
-   pred2a_1, pred2a_2, pred2a_3, pred2a_4, 
-   pred2b_1, pred2b_2, pred2b_3, pred2b_4)
-```
-
-## Masking Hypothesis
-```{r "h3", fig.align="center", fig.height=8, fig.width=8}
-source(here("src/analysis/h3.R"))
-p3a
-p3b
-p3c1
-p3c2
-
-(p3a_1+p3a_2)/(p3a_3 + p3a_4) + 
-  plot_layout(guides = "collect") & theme(legend.position = 'bottom')
-
-(p3b_1+p3b_2)/(p3b_3 + p3b_4) + 
-  plot_layout(guides = "collect") & theme(legend.position = 'bottom')
-rm(df, df_nl, df_us, h3a, h3a_2, h3b, 
-   h3b_2,h3b_bs, h3b_2bs, tmp, tmpp,
-   pred3a_1, pred3a_2, pred3a_3, pred3a_4, 
-   pred3b_1, pred3b_2, pred3b_3, pred3b_4)
-```
-
-## Exploration
-```{r "exploration", fig.height=7, fig.width=8}
-source(here("src/analysis/exploration.R"))
-p_b1
-p_b2
-p_e1a
-p_e1b
-p_e1c
-```
-
+#Descriptives: Profiles
 ```{r "explore-profiles", fig.height=10, fig.width=15}
 source(here("src/analysis/profiles.R"))
-prof1 
-prof2
+prof1 #Figure 2
+prof2 #Figure 3
 ```
 
 ```{r "explor2", eval=FALSE, echo=FALSE}
@@ -141,3 +70,79 @@ kbl(e1_us_ss, booktabs =T, caption = "\\label{tab:conditions_us2}Profile America
   column_spec(1, width = "7cm") %>%
   column_spec(2, width = "7cm")
 ```
+
+## Ideological Bias hypothesis (H1)
+```{r "h1", fig.align="center", fig.height=8, fig.width=8}
+source(here("src/analysis/h1.R"))
+p1a #Figure 4a
+p1b #Figure 4b
+
+(p1b_1+p1b_2)/(p1b_3 + p1b_4) + 
+  plot_layout(guides = "collect") & theme(legend.position = 'bottom') #Figure 4b
+rm(df, df_nl, df_us, h1a, h1b, p1b_1, 
+   pred1b_1, pred1b_2, pred1b_3, pred1b_4, tmp)
+```
+
+## Overinterpretation Hypotheses (H2)
+```{r "h2", fig.align="center", fig.height=8, fig.width=8}
+source(here("src/analysis/h2.R"))
+p2a #Figure 5
+p2b
+p2c1
+p2c2
+
+(p2a_1+p2a_2)/(p2a_3 + p2a_4) + 
+  plot_layout(guides = "collect") & theme(legend.position = 'bottom')
+
+(p2b_1+p2b_2)/(p2b_3 + p2b_4) + 
+  plot_layout(guides = "collect") & theme(legend.position = 'bottom')
+rm(df, df_nl, df_us, h2a, h2a_2, h2b, h2b_2, tmp, tmpp,
+   pred2a_1, pred2a_2, pred2a_3, pred2a_4, 
+   pred2b_1, pred2b_2, pred2b_3, pred2b_4)
+```
+
+## Masking Hypothesis (H3)
+```{r "h3", fig.align="center", fig.height=8, fig.width=8}
+source(here("src/analysis/h3.R"))
+p3a #Figure 6
+p3b
+p3c1
+p3c2
+
+(p3a_1+p3a_2)/(p3a_3 + p3a_4) + 
+  plot_layout(guides = "collect") & theme(legend.position = 'bottom')
+
+(p3b_1+p3b_2)/(p3b_3 + p3b_4) + 
+  plot_layout(guides = "collect") & theme(legend.position = 'bottom')
+rm(df, df_nl, df_us, h3a, h3a_2, h3b, 
+   h3b_2,h3b_bs, h3b_2bs, tmp, tmpp,
+   pred3a_1, pred3a_2, pred3a_3, pred3a_4, 
+   pred3b_1, pred3b_2, pred3b_3, pred3b_4)
+```
+
+## Exploration
+
+### Issues effect
+```{r "issues", fig.align="center", fig.height=16, fig.width=8}
+source(here("src/analysis/issue_specific.R"))
+b_i #Figure OA.4
+rm(b1, b2, df, df_nl, df_us, tmp, issues_nl, issues_us, i)
+```
+
+### Baseline Model
+```{r "baseline", fig.align="center", fig.height=4, fig.width=8}
+source(here("src/analysis/baseline.R"))
+b #Figure OA.5
+rm(b_b, b1, b2, df, df_nl, df_us, tmp)
+```
+
+### Different ways of measuring ideological distance
+```{r "exploration", fig.height=7, fig.width=8}
+source(here("src/analysis/exploration.R")) #Figures OA.6
+p_b1
+p_b2
+p_e1a
+p_e1b
+p_e1c
+```
+
