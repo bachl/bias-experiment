@@ -132,8 +132,8 @@ b_i <- b1 %>%
          issue = ifelse(issue=="Foreign Policy" & type == "The Netherlands",
                         "EU", issue)) %>% 
   ggplot(aes(y = term, x = estimate,
-             xmin = estimate -1.56*std.error,
-             xmax = estimate +1.56*std.error,
+             xmin = estimate -1.645*std.error,
+             xmax = estimate +1.645*std.error,
              color = y)) +
   geom_point(position = position_dodge(.5)) +
   geom_errorbar(position = position_dodge(.5), width = 0) +

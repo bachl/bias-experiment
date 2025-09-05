@@ -160,8 +160,8 @@ p2a <- h2a_2  %>%
                        "Interaction: Underspecified * Distance", term),
          term = ifelse(term == "bUnderspecified:a" & hyp != "H2a: Ideological Distance",
                        "Interaction: Underspecified * Knowledge", term), 
-         lower = estimate - 1.56 * std.error,
-         upper = estimate + 1.56 * std.error) %>% 
+         lower = estimate - 1.645 * std.error,
+         upper = estimate + 1.645 * std.error) %>% 
   ggplot(aes(x = estimate, y = term,
              xmin = lower, xmax = upper,
              color = y)) +

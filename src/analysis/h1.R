@@ -109,8 +109,8 @@ p1a <- h1a %>%
                                   "Ideological Distance from Party",
                                   "Condition: Underspecified Sentence",
                                   "Condition: Political Actor Revealed")), 
-         lower = estimate - 1.56 * std.error,
-         upper = estimate + 1.56 * std.error) %>% 
+         lower = estimate - 1.645 * std.error,
+         upper = estimate + 1.645 * std.error) %>% 
     ggplot(aes(x = estimate, y = term,
              xmin = lower, xmax = upper,
              color = y)) +

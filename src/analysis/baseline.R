@@ -113,8 +113,8 @@ b <- b1 %>%
                        `masking1` = "Condition: Masked Political Actor",
                        `specifiedUnderspecified` = "Condition: Underspecified Sentence")) %>% 
   ggplot(aes(y = term, x = estimate,
-             xmin = estimate -1.56*std.error,
-             xmax = estimate +1.56*std.error,
+             xmin = estimate -1.645*std.error,
+             xmax = estimate +1.645*std.error,
              color = y)) +
   geom_point(position = position_dodge(.5)) +
   geom_errorbar(position = position_dodge(.5), width = 0) +
@@ -138,8 +138,8 @@ b_b <- b1 %>%
                        `masking1` = "Condition:Masked Political Actor",
                        `specifiedUnderspecified` = "Condition: Underspecified Sentence")) %>% 
   ggplot(aes(y = term, x = estimate,
-             xmin = estimate -1.56*std.error,
-             xmax = estimate +1.56*std.error,
+             xmin = estimate -1.645*std.error,
+             xmax = estimate +1.645*std.error,
              color = y)) +
   geom_point(position = position_dodge(.5)) +
   geom_errorbar(position = position_dodge(.5), width = 0) +

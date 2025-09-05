@@ -160,8 +160,8 @@ p3a <- h3a_2  %>%
                        "Interaction: Masking * Distance", term),
          term = ifelse(term == "b1:a" & hyp != "H3a: Ideological Distance",
                        "Interaction: Masking * Knowledge", term), 
-         lower = estimate - 1.56 * std.error,
-         upper = estimate + 1.56 * std.error) %>% 
+         lower = estimate - 1.645 * std.error,
+         upper = estimate + 1.645 * std.error) %>% 
   ggplot(aes(x = estimate, y = term,
              xmin = lower, xmax = upper,
              color = y)) +
@@ -180,8 +180,8 @@ p3a <- h3a_2  %>%
 p3b <- h3a  %>% 
   add_case(h3b) %>% 
   ggplot(aes(x = `at.value`, y = estimate,
-             ymin = (estimate - (1.65 * `std.error`)),
-             ymax = (estimate + (1.65 * `std.error`)),
+             ymin = (estimate - (1.645 * `std.error`)),
+             ymax = (estimate + (1.645 * `std.error`)),
              color = y, fill = y)) +
   geom_ribbon(alpha = 0.2, position = position_dodge(.2)) +
   geom_line(position = position_dodge(.2)) +
@@ -239,8 +239,8 @@ p3c1 <- h3b_2bs %>%
          term = ifelse(term == "b1", "Condition: Masked Actor", term),
          term = ifelse(term == "b1:a",
                        "Interaction: Masking * Bullshit Receptivity", term),
-         lower = estimate - 1.56 * std.error,
-         upper = estimate + 1.56 * std.error,
+         lower = estimate - 1.645 * std.error,
+         upper = estimate + 1.645 * std.error,
          hyp = factor(hyp,
                       levels = c("H3b: Political Knowledge",
                                  "Exploration: Bullshit Receptivity"))) %>% 
