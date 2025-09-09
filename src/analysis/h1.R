@@ -6,16 +6,16 @@ df_nl <- d |>
   select(stance_nlp2, stance_ss2, masking, specified, distance, PT7, issue)
 
 h1a <- broom.mixed::tidy(lmer(stance_nlp2 ~ masking + specified + 
-                                distance + PT7 +
-                                (1 | issue), data= df_us)) %>% 
+                                distance + PT7 + issue +
+                                (1 | sentence), data= df_us)) %>% 
   mutate(hyp = "H1a",
          type = "United States",
          y = "Interpreting Stance Correctly (Strict Interpretation)") %>% 
   filter(term %in% c("distance"))
 
 tmp <- broom.mixed::tidy(lmer(stance_ss2 ~ masking + specified + 
-                                distance + PT7 +
-                                (1 | issue), data= df_us)) %>% 
+                                distance + PT7 + issue +
+                                (1 | sentence), data= df_us)) %>% 
   mutate(hyp = "H1a",
          type = "United States",
          y = "Interpreting Stance Correctly (Lenient Interpretation)") %>% 
@@ -25,8 +25,8 @@ h1a <- h1a %>%
   add_case(tmp)
 
 tmp <- broom.mixed::tidy(lmer(stance_nlp2 ~ masking + specified + 
-                                distance + PT7 +
-                                (1 | issue), data= df_nl)) %>% 
+                                distance + PT7 + issue +
+                                (1 | sentence), data= df_nl)) %>% 
   mutate(hyp = "H1a",
          type = "The Netherlands",
          y = "Interpreting Stance Correctly (Strict Interpretation)") %>% 
@@ -37,7 +37,7 @@ h1a <- h1a %>%
 
 tmp <- broom.mixed::tidy(lmer(stance_ss2 ~ masking + specified + 
                                 distance + PT7 +
-                                (1 | issue), data= df_nl)) %>% 
+                                issue +  (1 | sentence), data= df_nl)) %>% 
   mutate(hyp = "H1a",
          type = "The Netherlands",
          y = "Interpreting Stance Correctly (Lenient Interpretation)") %>% 
@@ -49,7 +49,7 @@ rm(tmp)
 
 h1b <- broom.mixed::tidy(lmer(stance_nlp2 ~ masking + 
                                 specified * distance +
-                                PT7 + (1 | issue), data= df_us)) %>% 
+                                PT7 + issue +  (1 | sentence), data= df_us)) %>% 
   mutate(hyp = "H1b",
          type = "United States",
          y = "Interpreting Stance Correctly (Strict Interpretation)") %>% 
@@ -59,7 +59,7 @@ h1b <- broom.mixed::tidy(lmer(stance_nlp2 ~ masking +
 
 tmp <- broom.mixed::tidy(lmer(stance_ss2 ~ masking + 
                                specified * distance +
-                               PT7 + (1 | issue), data= df_us)) %>% 
+                               PT7 + issue +  (1 | sentence), data= df_us)) %>% 
   mutate(hyp = "H1b",
          type = "United States",
          y = "Interpreting Stance Correctly (Lenient Interpretation)") %>% 
@@ -72,7 +72,7 @@ h1b <- h1b %>%
 
 tmp <- broom.mixed::tidy(lmer(stance_nlp2 ~ masking + 
                                 specified * distance +
-                                PT7 + (1 | issue), data= df_nl)) %>% 
+                                PT7 + issue +  (1 | sentence), data= df_nl)) %>% 
   mutate(hyp = "H1b",
          type = "The Netherlands",
          y = "Interpreting Stance Correctly (Strict Interpretation)") %>% 
@@ -85,7 +85,7 @@ h1b <- h1b %>%
 
 tmp <- broom.mixed::tidy(lmer(stance_ss2 ~ masking + 
                                 specified * distance +
-                                PT7 + (1 | issue), data= df_nl)) %>% 
+                                PT7 + issue +  (1 | sentence), data= df_nl)) %>% 
   mutate(hyp = "H1b",
          type = "The Netherlands",
          y = "Interpreting Stance Correctly (Lenient Interpretation)") %>% 
@@ -131,7 +131,7 @@ df <- df_nl %>%
          a = distance)
 h1b <- lmer(stance_nlp2 ~ masking +
               b * a + 
-              PT7 + (1 | issue), data= df)
+              PT7 + issue +  (1 | sentence), data= df)
 h1b <- tidy(margins::margins(h1b, variables = "b",
                              at = list("a" = 0:1))) %>% 
   mutate(type = "The Netherlands",
@@ -139,7 +139,7 @@ h1b <- tidy(margins::margins(h1b, variables = "b",
 
 tmp <- lmer(stance_ss2 ~ masking +
               b * a + 
-              PT7 + (1 | issue), data= df)
+              PT7 + issue +  (1 | sentence), data= df)
 tmp <- tidy(margins::margins(tmp, variables = "b",
                              at = list("a" = 0:1))) %>% 
   mutate(type = "The Netherlands",
@@ -153,7 +153,7 @@ df <- df_us %>%
          a = distance)
 tmp <- lmer(stance_nlp2 ~ masking +
               b * a + 
-              PT7 + (1 | issue), data= df)
+              PT7 + issue +  (1 | sentence), data= df)
 tmp <- tidy(margins::margins(tmp, variables = "b",
                              at = list("a" = 0:1))) %>% 
   mutate(type = "United States",
@@ -164,7 +164,7 @@ h1b <- h1b %>%
 
 tmp <- lmer(stance_ss2 ~ masking +
               b * a + 
-              PT7 + (1 | issue), data= df)
+              PT7 + issue +  (1 | sentence), data= df)
 tmp <- tidy(margins::margins(tmp, variables = "b",
                              at = list("a" = 0:1))) %>% 
   mutate(type = "United States",
@@ -194,7 +194,7 @@ p1b <- h1b %>%
 
 # Predicted effects
 pred1b_1 <- lmer(stance_nlp2 ~ masking + specified * distance + 
-       PT7 + (1 | issue), data= df_us)
+       PT7 + issue + (1 | sentence), data= df_us)
 p1b_1 <- sjPlot::plot_model(pred1b_1, type = "pred", terms = c("distance", "specified"), colors = fig_cols) +
   labs(x = "Ideological Distance",
        y = "Predicted Effect for Correctly Interpreting Stance",
@@ -207,7 +207,7 @@ p1b_1 <- sjPlot::plot_model(pred1b_1, type = "pred", terms = c("distance", "spec
         legend.title = element_blank())
 
 pred1b_2 <- lmer(stance_ss2 ~ masking + specified * distance + 
-                   PT7 + (1 | issue), data= df_us)
+                   PT7 + issue +  (1 | sentence), data= df_us)
 p1b_2 <- sjPlot::plot_model(pred1b_2, type = "pred", terms = c("distance", "specified"), colors = fig_cols) +
   labs(x = "Ideological Distance",
        y = "Predicted Effect for Correctly Interpreting Stance",
@@ -220,7 +220,7 @@ p1b_2 <- sjPlot::plot_model(pred1b_2, type = "pred", terms = c("distance", "spec
         legend.title = element_blank())
 
 pred1b_3 <- lmer(stance_nlp2 ~ masking + specified * distance + 
-                   PT7 + (1 | issue), data= df_nl)
+                   PT7 + issue + (1 | sentence), data= df_nl)
 p1b_3 <- sjPlot::plot_model(pred1b_3, type = "pred", terms = c("distance", "specified"), colors = fig_cols) +
   labs(x = "Ideological Distance",
        y = "Predicted Effect for Correctly Interpreting Stance",
@@ -233,7 +233,7 @@ p1b_3 <- sjPlot::plot_model(pred1b_3, type = "pred", terms = c("distance", "spec
         legend.title = element_blank())
 
 pred1b_4 <- lmer(stance_ss2 ~ masking + specified * distance + 
-                   PT7 + (1 | issue), data= df_nl)
+                   PT7 + issue + (1 | sentence), data= df_nl)
 p1b_4 <- sjPlot::plot_model(pred1b_4, type = "pred", terms = c("distance", "specified"), colors = fig_cols) +
   labs(x = "Ideological Distance",
        y = "Predicted Effect for Correctly Interpreting Stance",

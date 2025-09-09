@@ -9,7 +9,7 @@ df <- df_us %>%
   mutate(b= factor(masking),
          a = distance)
 h3a <- lmer(stance_nlp2 ~ specified + b * a +
-              PT7 + (1 | issue), data= df)
+              PT7 + issue + (1 | sentence), data= df)
 h3a_2 <- tidy(h3a) %>% 
   mutate(hyp = "H3a: Ideological Distance",
          type = "United States",
@@ -21,7 +21,7 @@ h3a <- broom.mixed::tidy(margins::margins(h3a, variables = "b",
          y = "Correctly Interpreting Stance (Strict Interpretation)")
 
 tmp <- lmer(stance_ss2 ~ specified + b * a +
-              PT7 + (1 | issue), data= df)
+              PT7 + issue + (1 | sentence), data= df)
 tmpp <- tidy(tmp) %>% 
   mutate(hyp = "H3a: Ideological Distance",
          type = "United States",
@@ -42,7 +42,7 @@ df <- df_nl %>%
          a = distance)
 
 tmp <- lmer(stance_nlp2 ~ specified + b * a +
-              PT7 + (1 | issue), data= df)
+              PT7 + issue + (1 | sentence), data= df)
 tmpp <- tidy(tmp) %>% 
   mutate(hyp = "H3a: Ideological Distance",
          type = "The Netherlands",
@@ -60,7 +60,7 @@ h3a <- h3a %>%
 
 
 tmp <- lmer(stance_ss2 ~ specified + b * a +
-              PT7 + (1 | issue), data= df)
+              PT7 + issue + (1 | sentence), data= df)
 tmpp <- tidy(tmp) %>% 
   mutate(hyp = "H3a: Ideological Distance",
          type = "The Netherlands",
@@ -81,7 +81,7 @@ df <- df_us %>%
   mutate(b= factor(masking),
          a = PT7)
 h3b <- lmer(stance_nlp2 ~ specified + b * a +
-              distance + (1 | issue), data= df)
+              distance + issue + (1 | sentence), data= df)
 h3b_2 <- tidy(h3b) %>% 
   mutate(hyp = "H3b: Political Knowledge",
          type = "United States",
@@ -93,7 +93,7 @@ h3b <- tidy(margins::margins(h3b, variables = "b",
          y = "Correctly Interpreting Stance (Strict Interpretation)")
 
 tmp <- lmer(stance_ss2 ~ specified + b * a +
-              distance + (1 | issue), data= df)
+              distance + issue + (1 | sentence), data= df)
 tmpp <- tidy(tmp) %>% 
   mutate(hyp = "H3b: Political Knowledge",
          type = "United States",
@@ -114,7 +114,7 @@ df <- df_nl %>%
          a = PT7)
 
 tmp <- lmer(stance_nlp2 ~ specified + b * a +
-              distance + (1 | issue), data= df)
+              distance + issue + (1 | sentence), data= df)
 tmpp <- tidy(tmp) %>% 
   mutate(hyp = "H3b: Political Knowledge",
          type = "The Netherlands",
@@ -131,7 +131,7 @@ h3b <- h3b %>%
   add_case(tmp)
 
 tmp <- lmer(stance_ss2 ~ specified + b * a +
-              distance + (1 | issue), data= df)
+              distance + issue + (1 | sentence), data= df)
 tmpp <- tidy(tmp) %>% 
   mutate(hyp = "H3b: Political Knowledge",
          type = "The Netherlands",
@@ -202,7 +202,7 @@ df <- df_us %>%
          a = PT7b)
 
 h3b_bs <- lmer(stance_nlp2 ~ specified + b * a +
-              distance + (1 | issue), data= df)
+              distance + issue + (1 | sentence), data= df)
 h3b_2bs <- tidy(h3b_bs) %>% 
   mutate(hyp = "Exploration: Bullshit Receptivity",
          type = "United States",
@@ -214,7 +214,7 @@ h3b_bs <- tidy(margins::margins(h3b_bs, variables = "b",
          y = "Correctly Interpreting Stance (Strict Interpretation)")
 
 tmp <- lmer(stance_ss2 ~ specified + b * a +
-              distance + (1 | issue), data= df)
+              distance + issue + (1 | sentence), data= df)
 tmpp <- tidy(tmp) %>% 
   mutate(hyp = "Exploration: Bullshit Receptivity",
          type = "United States",
@@ -286,7 +286,7 @@ df <- d |>
                           labels = c("Party", "Masked")))
 
 pred3a_1 <- lmer(stance_nlp2 ~ specified + masking * distance +
-                   PT7 + (1 | issue), data= df)
+                   PT7 + issue + (1 | sentence), data= df)
 p3a_1 <- sjPlot::plot_model(pred3a_1, type = "pred", 
                             terms = c("distance", "masking"), 
                             colors = fig_cols) +
@@ -298,7 +298,7 @@ p3a_1 <- sjPlot::plot_model(pred3a_1, type = "pred",
         legend.title = element_blank())
 
 pred3a_2 <- lmer(stance_ss2 ~ specified + masking * distance +
-                   PT7 + (1 | issue), data= df)
+                   PT7 + issue + (1 | sentence), data= df)
 p3a_2 <- sjPlot::plot_model(pred3a_2, type = "pred", terms = c("distance", "masking"), colors = fig_cols) +
   labs(x = "Ideological Distance",
        y = "Predicted Effect for Correctly Interpreting Stance",
@@ -308,7 +308,7 @@ p3a_2 <- sjPlot::plot_model(pred3a_2, type = "pred", terms = c("distance", "mask
         legend.title = element_blank())
 
 pred3b_1 <- lmer(stance_nlp2 ~  specified + masking * PT7 +
-                   PT7 + (1 | issue), data= df)
+                   PT7 + issue + (1 | sentence), data= df)
 p3b_1 <- sjPlot::plot_model(pred3b_1, type = "pred", terms = c("PT7", "masking"), colors = fig_cols) +
   labs(x = "Political Knowledge",
        y = "Predicted Effect for Correctly Interpreting Stance",
@@ -318,7 +318,7 @@ p3b_1 <- sjPlot::plot_model(pred3b_1, type = "pred", terms = c("PT7", "masking")
         legend.title = element_blank())
 
 pred3b_2 <- lmer(stance_ss2 ~ specified + masking * PT7 +
-                   PT7 + (1 | issue), data= df)
+                   PT7 + issue + (1 | sentence), data= df)
 p3b_2 <- sjPlot::plot_model(pred3b_2, type = "pred", terms = c("PT7", "masking"), colors = fig_cols) +
   labs(x = "Political Knowledge",
        y = "Predicted Effect for Correctly Interpreting Stance",
@@ -333,7 +333,7 @@ df <- d |>
                           labels = c("Party", "Masked")))
 
 pred3a_3 <- lmer(stance_nlp2 ~ specified +  masking * distance +
-                   PT7 + (1 | issue), data= df)
+                   PT7 + issue + (1 | sentence), data= df)
 p3a_3 <- sjPlot::plot_model(pred3a_3, type = "pred", terms = c("distance", "masking"),
                             colors = fig_cols) +
   labs(x = "Ideological Distance",
@@ -344,7 +344,7 @@ p3a_3 <- sjPlot::plot_model(pred3a_3, type = "pred", terms = c("distance", "mask
         legend.title = element_blank())
 
 pred3a_4 <- lmer(stance_ss2 ~ specified + masking * distance +
-                   PT7 + (1 | issue), data= df)
+                   PT7 + issue + (1 | sentence), data= df)
 p3a_4 <- sjPlot::plot_model(pred3a_4, type = "pred", terms = c("distance", "masking"), colors = fig_cols) +
   labs(x = "Ideological Distance",
        y = "Predicted Effect for Correctly Interpreting Stance",
@@ -354,7 +354,7 @@ p3a_4 <- sjPlot::plot_model(pred3a_4, type = "pred", terms = c("distance", "mask
         legend.title = element_blank())
 
 pred3b_3 <- lmer(stance_nlp2 ~ specified + masking * PT7 +
-                   PT7 + (1 | issue), data= df)
+                   PT7 + issue + (1 | sentence), data= df)
 p3b_3 <- sjPlot::plot_model(pred3b_3, type = "pred", terms = c("PT7", "masking"), colors = fig_cols) +
   labs(x = "Political Knowledge",
        y = "Predicted Effect for Correctly Interpreting Stance",
@@ -364,7 +364,7 @@ p3b_3 <- sjPlot::plot_model(pred3b_3, type = "pred", terms = c("PT7", "masking")
         legend.title = element_blank())
 
 pred3b_4 <- lmer(stance_ss2 ~ specified + masking * PT7 +
-                   PT7 + (1 | issue), data= df)
+                   PT7 + issue + (1 | sentence), data= df)
 p3b_4 <- sjPlot::plot_model(pred3b_4, type = "pred", terms = c("PT7", "masking"), colors = fig_cols) +
   labs(x = "Political Knowledge",
        y = "Predicted Effect for Correctly Interpreting Stance",
