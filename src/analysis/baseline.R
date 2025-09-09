@@ -9,12 +9,12 @@
 #  add_case(df_us)
 
 b1 <- broom.mixed::tidy(lmer(stance_nlp2 ~ masking + specified + issue +
-                         (country | sentetence), data= d)) %>%
+                         (country | sentence), data= d)) %>%
   mutate(y = "Y: Correctly Interpreting Stance (Strict Interpretation)",
          type = "Pooled Analysis")
 
 tmp <- broom.mixed::tidy(lmer(stance_ss2 ~ masking + specified + 
-                               issue + (country | sentetence), data= d)) %>%
+                               issue + (country | sentence), data= d)) %>%
   mutate(y = "Y: Correctly Interpreting Stance (Lenient Interpretation)",
          type = "Pooled Analysis")
 
@@ -58,12 +58,12 @@ b1 <- b1 %>%
   add_case(tmp)
 
 b2 <- broom.mixed::tidy(lmer(interpret_nlp2 ~ masking + specified + 
-                               issue + (country | sentetence), data= d)) %>%
+                               issue + (country | sentence), data= d)) %>%
   mutate(y = "Y: Overinterpreting Stance (Strict Interpretation)",
          type = "Pooled Analysis")
 
 tmp <- broom.mixed::tidy(lmer(interpret_ss2 ~ masking + specified + 
-                                   issue + (country | sentetence), data= d)) %>%
+                                   issue + (country | sentence), data= d)) %>%
   mutate(y = "Y: Overinterpreting Stance (Lenient Interpretation)",
          type = "Pooled Analysis")
 

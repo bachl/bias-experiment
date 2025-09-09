@@ -1,9 +1,26 @@
+# df_us <- d |>  
+#   filter(country == "US") |> 
+#   select(stance_nlp2, stance_ss2, masking, specified, distance, PT7, issue)
+# df_nl <- d |> 
+#   filter(country == "NL") |> 
+#   select(stance_nlp2, stance_ss2, masking, specified, distance, PT7, issue)
+
 df_us <- d |>  
   filter(country == "US") |> 
-  select(stance_nlp2, stance_ss2, masking, specified, distance, PT7, issue)
-df_nl <- d |> 
+  mutate(issue = case_when(
+    str_detect(issue, "carbon") ~ "carbon",
+    str_detect(issue, "tax") ~ "tax",
+    str_detect(issue, "military") ~ "military",
+    str_detect(issue, "immigration") ~ "immigration"
+  ))
+df_nl <- d |>  
   filter(country == "NL") |> 
-  select(stance_nlp2, stance_ss2, masking, specified, distance, PT7, issue)
+  mutate(issue = case_when(
+    str_detect(issue, "immigra") ~ "immigratie",
+    str_detect(issue, "stikstof") ~ "stikstof",
+    str_detect(issue, "belasting") ~ "belasting",
+    str_detect(issue, "Europese Unie") ~ "EU"
+  ))
 
 h1a <- broom.mixed::tidy(lmer(stance_nlp2 ~ masking + specified + 
                                 distance + PT7 + issue +
