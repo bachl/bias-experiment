@@ -28,9 +28,10 @@ cleans the raw data.
 d_nl <- read_sav(here("data/raw-private/NLOZ2206_Mariken_Bias-experiment.sav"))
 
 #Load US Data
-d_us <- fetch_survey(surveyID = "SV_86XBcsFUJka9eke", 
-                    verbose = TRUE, force_request = T,
-                    label = FALSE, convert = FALSE)
+d_us <- readRDS(here("data/raw-private/d_us.rds"))
+#d_us <- fetch_survey(surveyID = "SV_86XBcsFUJka9eke", 
+#                    verbose = TRUE, force_request = T,
+#                    label = FALSE, convert = FALSE)
 #Clean data
 source(here("src/data-processing/clean_data.R"))
 ```

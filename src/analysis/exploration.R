@@ -1,16 +1,16 @@
 df_us <- d |> 
   filter(country == "US") |> 
-  select(stance_nlp2, stance_ss2, interpret_nlp2, interpret_ss2, masking, specified, distance, PT7, issue)
+  select(stance_nlp2, stance_ss2, interpret_nlp2, interpret_ss2, masking, specified, distance, PT7, issue, sentence2)
 df_nl <- d |> 
   filter(country == "NL") |> 
-  select(stance_nlp2, stance_ss2, interpret_nlp2, interpret_ss2, masking, specified, distance, PT7, issue)
+  select(stance_nlp2, stance_ss2, interpret_nlp2, interpret_ss2, masking, specified, distance, PT7, issue, sentence2)
 
 df <- df_us %>% 
   mutate(b = specified,
          a = as.numeric(masking)) 
 
 b3_a <- lmer(stance_nlp2 ~ b * a +
-                 issue + (1 | sentence), data= df)
+                 issue + (1 | sentence2), data= df)
 b3_a2 <- tidy(b3_a) %>% 
   mutate(condition = "Condition: Underspecified Sentence",
          y = "Y: Correctly Identifying Stance (Strict Interpretation)",
@@ -21,7 +21,7 @@ b3_a <- tidy(margins::margins(b3_a, variables = "b",
          y = "Y: Correctly Identifying Stance (Strict Interpretation)",
          type = "United States")
 
-tmp <- lmer(stance_ss2 ~ b * a + issue + (1 | sentence), data= df)
+tmp <- lmer(stance_ss2 ~ b * a + issue + (1 | sentence2), data= df)
 tmpp <- tidy(tmp) %>% 
   mutate(condition = "Condition: Underspecified Sentence",
          y = "Y: Correctly Identifying Stance (Lenient Interpretation)",
@@ -40,7 +40,7 @@ b3_a <- b3_a %>%
 df <- df_us %>% 
   mutate(b = specified,
          a = as.numeric(masking))
-tmp <- lmer(stance_nlp2 ~ b * a + issue + (1 | sentence), data= df)
+tmp <- lmer(stance_nlp2 ~ b * a + issue + (1 | sentence2), data= df)
 tmpp <- tidy(tmp) %>% 
   mutate(condition = "Condition: Underspecified Sentence",
          y = "Y: Correctly Identifying Stance (Strict Interpretation)",
@@ -56,7 +56,7 @@ tmp <- tidy(margins::margins(tmp, variables = "b",
 b3_a <- b3_a %>% 
   add_case(tmp)
 
-tmp <- lmer(stance_ss2 ~ b * a + issue + (1 | sentence), data= df)
+tmp <- lmer(stance_ss2 ~ b * a + issue + (1 | sentence2), data= df)
 tmpp <- tidy(tmp) %>% 
   mutate(condition = "Condition: Underspecified Sentence",
          y = "Y: Correctly Identifying Stance (Lenient Interpretation)",
@@ -77,7 +77,7 @@ df <- df_us %>%
   mutate(b = specified,
          a = as.numeric(masking))
 b3_b <- lmer(interpret_nlp2 ~ b * a +
-               issue + (1 | sentence), data= df)
+               issue + (1 | sentence2), data= df)
 b3_b2 <- tidy(b3_b) %>% 
   mutate(condition = "Condition: Underspecified Sentence",
          y = "Y: Overinterpreting Stance (Strict Interpretation)",
@@ -88,7 +88,7 @@ b3_b <- tidy(margins::margins(b3_b, variables = "b",
          y = "Y: Overinterpreting Stance (Strict Interpretation)",
          type = "United States")
 
-tmp <- lmer(interpret_ss2 ~ b * a + issue + (1 | sentence), data= df)
+tmp <- lmer(interpret_ss2 ~ b * a + issue + (1 | sentence2), data= df)
 tmpp <- tidy(tmp) %>% 
   mutate(condition = "Condition: Underspecified Sentence",
          y = "Y: Overinterpreting Stance (Lenient Interpretation)",
@@ -108,7 +108,7 @@ df <- df_nl %>%
   mutate(b = specified,
          a = as.numeric(masking))
 tmp <- lmer(interpret_nlp2 ~ b * a +
-               issue + (1 | sentence), data= df)
+               issue + (1 | sentence2), data= df)
 tmpp <- tidy(tmp) %>% 
   mutate(condition = "Condition: Underspecified Sentence",
          y = "Y: Overinterpreting Stance (Strict Interpretation)",
@@ -123,7 +123,7 @@ tmp <- tidy(margins::margins(tmp, variables = "b",
 b3_b <- b3_b %>% 
   add_case(tmp)
 
-tmp <- lmer(interpret_ss2 ~ b * a + issue + (1 | sentence), data= df)
+tmp <- lmer(interpret_ss2 ~ b * a + issue + (1 | sentence2), data= df)
 tmpp <- tidy(tmp) %>% 
   mutate(condition = "Condition: Underspecified Sentence",
          y = "Y: Overinterpreting Stance (Lenient Interpretation)",
@@ -223,7 +223,7 @@ d_nl <- df %>%
   mutate(b = specified,
          a = congruence)
 h2a_e <- lmer(stance_nlp2 ~ masking + b * a +
-              PT7 + issue + (1 | sentence), data= d_nl)
+              PT7 + issue + (1 | sentence2), data= d_nl)
 h2a_e2 <- tidy(h2a_e) %>% 
   mutate(hyp = "Issue Congruence",
          condition = "Condition: Underspecified Sentence",
@@ -237,7 +237,7 @@ h2a_e <- tidy(margins::margins(h2a_e, variables = "b",
          type = "The Netherlands")
 
 tmp <- lmer(stance_ss2 ~ masking + b * a +
-                PT7 + issue + (1 | sentence), data= d_nl)
+                PT7 + issue + (1 | sentence2), data= d_nl)
 tmpp <- tidy(tmp) %>% 
   mutate(hyp = "Issue Congruence",
          condition = "Condition: Underspecified Sentence",
@@ -258,7 +258,7 @@ d_nl <- d_nl %>%
   mutate(b = specified,
          a = pid)
 h2b_e <- lmer(stance_nlp2 ~ masking + b * a +
-                PT7 + issue + (1 | sentence), data= d_nl)
+                PT7 + issue + (1 | sentence2), data= d_nl)
 h2b_e2 <- tidy(h2b_e) %>% 
   mutate(hyp = "Party Voted For/ Party ID",
          condition = "Condition: Underspecified Sentence",
@@ -272,7 +272,7 @@ h2b_e <- tidy(margins::margins(h2b_e, variables = "b",
          type = "The Netherlands")
 
 tmp <- lmer(stance_ss2 ~ masking + b * a +
-                PT7 + issue + (1 | sentence), data= d_nl)
+                PT7 + issue + (1 | sentence2), data= d_nl)
 tmpp <- tidy(tmp) %>% 
   mutate(hyp = "Party Voted For/ Party ID",
          condition = "Condition: Underspecified Sentence",
@@ -291,7 +291,7 @@ d_nl <- d_nl %>%
   mutate(b = specified,
          a = PT6)
 h2c_e <- lmer(stance_nlp2 ~ masking + b * a +
-                PT7 + issue + (1 | sentence), data= d_nl)
+                PT7 + issue + (1 | sentence2), data= d_nl)
 h2c_e2 <- tidy(h2c_e) %>% 
   mutate(hyp = "Ideological Position (0 = Left/Liberal, 1 = Right/Conservative)",
          condition = "Condition: Underspecified Sentence",
@@ -305,7 +305,7 @@ h2c_e <- tidy(margins::margins(h2c_e, variables = "b",
          type = "The Netherlands")
 
 tmp <- lmer(stance_ss2 ~ masking + b * a +
-                PT7 + issue + (1 | sentence), data= d_nl)
+                PT7 + issue + (1 | sentence2), data= d_nl)
 tmpp <- tidy(tmp) %>% 
   mutate(hyp = "Ideological Position (0 = Left/Liberal, 1 = Right/Conservative)",
          condition = "Condition: Underspecified Sentence",
@@ -326,7 +326,7 @@ d_nl <- d_nl %>%
   mutate(b = masking,
          a = congruence)
 h3a_e <- lmer(stance_nlp2 ~ specified + b * a +
-                PT7 + issue + (1 | sentence), data= d_nl)
+                PT7 + issue + (1 | sentence2), data= d_nl)
 h3a_e2 <- tidy(h3a_e) %>% 
   mutate(hyp = "Issue Congruence",
          condition = "Condition: Party Masked",
@@ -340,7 +340,7 @@ h3a_e <- tidy(margins::margins(h3a_e, variables = "b",
          type = "The Netherlands")
 
 tmp <- lmer(stance_ss2 ~ specified + b * a +
-                PT7 + issue + (1 | sentence), data= d_nl)
+                PT7 + issue + (1 | sentence2), data= d_nl)
 tmpp <- tidy(tmp) %>% 
   mutate(hyp = "Issue Congruence",
          condition = "Condition: Party Masked",
@@ -361,7 +361,7 @@ d_nl <- d_nl %>%
   mutate(b = masking,
          a = pid)
 h3b_e <- lmer(stance_nlp2 ~ specified + b * a +
-                PT7 + issue + (1 | sentence), data= d_nl)
+                PT7 + issue + (1 | sentence2), data= d_nl)
 h3b_e2 <- tidy(h3b_e) %>% 
   mutate(hyp = "Party Voted For/ PID",
          condition = "Condition: Party Masked",
@@ -375,7 +375,7 @@ h3b_e <- tidy(margins::margins(h3b_e, variables = "b",
          type = "The Netherlands")
 
 tmp <- lmer(stance_ss2 ~ specified + b * a +
-                PT7 + issue + (1 | sentence), data= d_nl)
+                PT7 + issue + (1 | sentence2), data= d_nl)
 tmpp <- tidy(tmp) %>% 
   mutate(hyp = "Party Voted For/ PID",
          condition = "Condition: Party Masked",
@@ -397,7 +397,7 @@ d_nl <- d_nl %>%
   mutate(b = masking,
          a = PT6)
 h3c_e <- lmer(stance_nlp2 ~ specified + b * a +
-                PT7 + issue + (1 | sentence), data= d_nl)
+                PT7 + issue + (1 | sentence2), data= d_nl)
 h3c_e2 <- tidy(h3c_e) %>% 
   mutate(hyp = "Ideological Position (0 = Left/Liberal, 1 = Right/Conservative)",
          condition = "Condition: Party Masked",
@@ -411,7 +411,7 @@ h3c_e <- tidy(margins::margins(h3c_e, variables = "b",
          type = "The Netherlands")
 
 tmp <- lmer(stance_ss2 ~ specified + b * a +
-                PT7 + issue + (1 | sentence), data= d_nl)
+                PT7 + issue + (1 | sentence2), data= d_nl)
 tmpp <- tidy(tmp) %>% 
   mutate(hyp = "Ideological Position (0 = Left/Liberal, 1 = Right/Conservative)",
          condition = "Condition: Party Masked",
@@ -432,7 +432,7 @@ d_nl <- d_nl %>%
   mutate(b = specified,
          a = congruence)
 h2a_e_ic <- lmer(interpret_nlp2 ~ masking + b * a +
-                PT7 + issue + (1 | sentence), data= d_nl)
+                PT7 + issue + (1 | sentence2), data= d_nl)
 h2a_e_ic2 <- tidy(h2a_e_ic) %>% 
   mutate(hyp = "Issue Congruence",
          condition = "Condition: Underspecified Sentence",
@@ -446,7 +446,7 @@ h2a_e_ic <- tidy(margins::margins(h2a_e_ic, variables = "b",
          type = "The Netherlands")
 
 tmp <- lmer(interpret_ss2 ~ masking + b * a +
-                   PT7 + issue + (1 | sentence), data= d_nl)
+                   PT7 + issue + (1 | sentence2), data= d_nl)
 tmpp <- tidy(tmp) %>% 
   mutate(hyp = "Issue Congruence",
          condition = "Condition: Underspecified Sentence",
@@ -467,7 +467,7 @@ d_nl <- d_nl %>%
   mutate(b = specified,
          a = pid)
 h2b_e_pid <- lmer(interpret_nlp2 ~ masking + b * a +
-                PT7 + issue + (1 | sentence), data= d_nl)
+                PT7 + issue + (1 | sentence2), data= d_nl)
 h2b_e_pid2 <- tidy(h2b_e_pid) %>% 
   mutate(hyp = "Party Voted For/ PID",
          condition = "Condition: Underspecified Sentence",
@@ -481,7 +481,7 @@ h2b_e_pid <- tidy(margins::margins(h2b_e_pid, variables = "b",
          type = "The Netherlands")
 
 tmp <- lmer(interpret_ss2 ~ masking + b * a +
-                    PT7 + issue + (1 | sentence), data= d_nl)
+                    PT7 + issue + (1 | sentence2), data= d_nl)
 tmpp <- tidy(tmp) %>% 
   mutate(hyp = "Party Voted For/ PID",
          condition = "Condition: Underspecified Sentence",
@@ -502,7 +502,7 @@ d_nl <- d_nl %>%
   mutate(b = specified,
          a = PT6)
 h2c_e_ip <- lmer(interpret_nlp2 ~ masking + b * a +
-                PT7 + issue + (1 | sentence), data= d_nl)
+                PT7 + issue + (1 | sentence2), data= d_nl)
 h2c_e_ip2 <- tidy(h2c_e_ip) %>% 
   mutate(hyp = "Ideological Position (0 = Left/Liberal, 1 = Right/Conservative)",
          condition = "Condition: Underspecified Sentence",
@@ -516,7 +516,7 @@ h2c_e_ip <- tidy(margins::margins(h2c_e_ip, variables = "b",
          type = "The Netherlands")
 
 tmp <- lmer(interpret_ss2 ~ masking + b * a +
-                   PT7 + issue + (1 | sentence), data= d_nl)
+                   PT7 + issue + (1 | sentence2), data= d_nl)
 tmpp <- tidy(tmp) %>% 
   mutate(hyp = "Ideological Position (0 = Left/Liberal, 1 = Right/Conservative)",
          condition = "Condition: Underspecified Sentence",
@@ -537,7 +537,7 @@ d_nl <- d_nl %>%
   mutate(b = masking,
          a = congruence)
 h3a_e_ic <- lmer(interpret_nlp2 ~ specified + b * a +
-                PT7 + issue + (1 | sentence), data= d_nl)
+                PT7 + issue + (1 | sentence2), data= d_nl)
 h3a_e_ic2 <- tidy(h3a_e_ic)  %>% 
   mutate(hyp = "Issue Congruence",
          condition = "Condition: Party Masked",
@@ -551,7 +551,7 @@ h3a_e_ic <- tidy(margins::margins(h3a_e_ic, variables = "b",
          type = "The Netherlands")
 
 tmp <- lmer(interpret_ss2 ~ specified + b * a +
-                   PT7 + issue + (1 | sentence), data= d_nl)
+                   PT7 + issue + (1 | sentence2), data= d_nl)
 tmpp <- tidy(tmp)  %>% 
   mutate(hyp = "Issue Congruence",
          condition = "Condition: Party Masked",
@@ -572,7 +572,7 @@ d_nl <- d_nl %>%
   mutate(b = masking,
          a = pid)
 h3b_e_pid <- lmer(interpret_nlp2 ~ specified + b * a +
-                PT7 + issue + (1 | sentence), data= d_nl)
+                PT7 + issue + (1 | sentence2), data= d_nl)
 h3b_e_pid2 <- tidy(h3b_e_pid) %>% 
   mutate(hyp = "Party Voted For/ PID",
          condition = "Condition: Party Masked",
@@ -586,7 +586,7 @@ h3b_e_pid <- tidy(margins::margins(h3b_e_pid, variables = "b",
          type = "The Netherlands")
 
 tmp <- lmer(interpret_ss2 ~ specified + b * a +
-                    PT7 + issue + (1 | sentence), data= d_nl)
+                    PT7 + issue + (1 | sentence2), data= d_nl)
 tmpp <- tidy(tmp) %>% 
   mutate(hyp = "Party Voted For/ PID",
          condition = "Condition: Party Masked",
@@ -607,7 +607,7 @@ d_nl <- d_nl %>%
   mutate(b = masking,
          a = PT6)
 h3c_e_ip <- lmer(interpret_nlp2 ~ specified + b * a +
-                PT7 + issue + (1 | sentence), data= d_nl)
+                PT7 + issue + (1 | sentence2), data= d_nl)
 h3c_e_ip2 <- tidy(h3c_e_ip) %>% 
   mutate(hyp = "Ideological Position (0 = Left/Liberal, 1 = Right/Conservative)",
          condition = "Condition: Party Masked",
@@ -621,7 +621,7 @@ h3c_e_ip <- tidy(margins::margins(h3c_e_ip, variables = "b",
          type = "The Netherlands")
 
 tmp <- lmer(interpret_ss2 ~ specified + b * a +
-                   PT7 + issue + (1 | sentence), data= d_nl)
+                   PT7 + issue + (1 | sentence2), data= d_nl)
 h3c_e_ip2 <- tidy(tmp) %>% 
   mutate(hyp = "Ideological Position (0 = Left/Liberal, 1 = Right/Conservative)",
          condition = "Condition: Party Masked",
@@ -708,7 +708,7 @@ d_us <- df %>%
          a = congruence)
 
 h2a_e <- lmer(stance_nlp2 ~ masking + b * a +
-                PT7 + issue + (1 | sentence), data= d_us)
+                PT7 + issue + (1 | sentence2), data= d_us)
 h2a_e2 <- tidy(h2a_e) %>% 
   mutate(hyp = "Issue Congruence",
          condition = "Condition: Underspecified Sentence",
@@ -722,7 +722,7 @@ h2a_e <- tidy(margins::margins(h2a_e, variables = "b",
          type = "United States")
 
 tmp <- lmer(stance_ss2 ~ masking + b * a +
-              PT7 + issue + (1 | sentence), data= d_us)
+              PT7 + issue + (1 | sentence2), data= d_us)
 tmpp <- tidy(tmp) %>% 
   mutate(hyp = "Issue Congruence",
          condition = "Condition: Underspecified Sentence",
@@ -743,7 +743,7 @@ d_us <- d_us %>%
   mutate(b = specified,
          a = pid)
 h2b_e <- lmer(stance_nlp2 ~ masking + b * a +
-                PT7 + issue + (1 | sentence), data= d_us)
+                PT7 + issue + (1 | sentence2), data= d_us)
 h2b_e2 <- tidy(h2b_e) %>% 
   mutate(hyp = "Party Voted For/ Party ID",
          condition = "Condition: Underspecified Sentence",
@@ -757,7 +757,7 @@ h2b_e <- tidy(margins::margins(h2b_e, variables = "b",
          type = "United States")
 
 tmp <- lmer(stance_ss2 ~ masking + b * a +
-              PT7 + issue + (1 | sentence), data= d_us)
+              PT7 + issue + (1 | sentence2), data= d_us)
 tmpp <- tidy(tmp) %>% 
   mutate(hyp = "Party Voted For/ Party ID",
          condition = "Condition: Underspecified Sentence",
@@ -776,7 +776,7 @@ d_us <- d_us %>%
   mutate(b = specified,
          a = PT6)
 h2c_e <- lmer(stance_nlp2 ~ masking + b * a +
-                PT7 + issue + (1 | sentence), data= d_us)
+                PT7 + issue + (1 | sentence2), data= d_us)
 h2c_e2 <- tidy(h2c_e) %>% 
   mutate(hyp = "Ideological Position (0 = Left/Liberal, 1 = Right/Conservative)",
          condition = "Condition: Underspecified Sentence",
@@ -790,7 +790,7 @@ h2c_e <- tidy(margins::margins(h2c_e, variables = "b",
          type = "United States")
 
 tmp <- lmer(stance_ss2 ~ masking + b * a +
-              PT7 + issue + (1 | sentence), data= d_us)
+              PT7 + issue + (1 | sentence2), data= d_us)
 tmpp <- tidy(tmp) %>% 
   mutate(hyp = "Ideological Position (0 = Left/Liberal, 1 = Right/Conservative)",
          condition = "Condition: Underspecified Sentence",
@@ -811,7 +811,7 @@ d_us <- d_us %>%
   mutate(b = masking,
          a = congruence)
 h3a_e <- lmer(stance_nlp2 ~ specified + b * a +
-                PT7 + issue + (1 | sentence), data= d_us)
+                PT7 + issue + (1 | sentence2), data= d_us)
 h3a_e2 <- tidy(h3a_e) %>% 
   mutate(hyp = "Issue Congruence",
          condition = "Condition: Party Masked",
@@ -825,7 +825,7 @@ h3a_e <- tidy(margins::margins(h3a_e, variables = "b",
          type = "United States")
 
 tmp <- lmer(stance_ss2 ~ specified + b * a +
-              PT7 + issue + (1 | sentence), data= d_us)
+              PT7 + issue + (1 | sentence2), data= d_us)
 tmpp <- tidy(tmp) %>% 
   mutate(hyp = "Issue Congruence",
          condition = "Condition: Party Masked",
@@ -846,7 +846,7 @@ d_us <- d_us %>%
   mutate(b = masking,
          a = pid)
 h3b_e <- lmer(stance_nlp2 ~ specified + b * a +
-                PT7 + issue + (1 | sentence), data= d_us)
+                PT7 + issue + (1 | sentence2), data= d_us)
 h3b_e2 <- tidy(h3b_e) %>% 
   mutate(hyp = "Party Voted For/ PID",
          condition = "Condition: Party Masked",
@@ -860,7 +860,7 @@ h3b_e <- tidy(margins::margins(h3b_e, variables = "b",
          type = "United States")
 
 tmp <- lmer(stance_ss2 ~ specified + b * a +
-              PT7 + issue + (1 | sentence), data= d_us)
+              PT7 + issue + (1 | sentence2), data= d_us)
 tmpp <- tidy(tmp) %>% 
   mutate(hyp = "Party Voted For/ PID",
          condition = "Condition: Party Masked",
@@ -882,7 +882,7 @@ d_us <- d_us %>%
   mutate(b = masking,
          a = PT6)
 h3c_e <- lmer(stance_nlp2 ~ specified + b * a +
-                PT7 + issue + (1 | sentence), data= d_us)
+                PT7 + issue + (1 | sentence2), data= d_us)
 h3c_e2 <- tidy(h3c_e) %>% 
   mutate(hyp = "Ideological Position (0 = Left/Liberal, 1 = Right/Conservative)",
          condition = "Condition: Party Masked",
@@ -896,7 +896,7 @@ h3c_e <- tidy(margins::margins(h3c_e, variables = "b",
          type = "United States")
 
 tmp <- lmer(stance_ss2 ~ specified + b * a +
-              PT7 + issue + (1 | sentence), data= d_us)
+              PT7 + issue + (1 | sentence2), data= d_us)
 tmpp <- tidy(tmp) %>% 
   mutate(hyp = "Ideological Position (0 = Left/Liberal, 1 = Right/Conservative)",
          condition = "Condition: Party Masked",
@@ -917,7 +917,7 @@ d_us <- d_us %>%
   mutate(b = specified,
          a = congruence)
 h2a_e_ic <- lmer(interpret_nlp2 ~ masking + b * a +
-                   PT7 + issue + (1 | sentence), data= d_us)
+                   PT7 + issue + (1 | sentence2), data= d_us)
 h2a_e_ic2 <- tidy(h2a_e_ic) %>% 
   mutate(hyp = "Issue Congruence",
          condition = "Condition: Underspecified Sentence",
@@ -931,7 +931,7 @@ h2a_e_ic <- tidy(margins::margins(h2a_e_ic, variables = "b",
          type = "United States")
 
 tmp <- lmer(interpret_ss2 ~ masking + b * a +
-              PT7 + issue + (1 | sentence), data= d_us)
+              PT7 + issue + (1 | sentence2), data= d_us)
 tmpp <- tidy(tmp) %>% 
   mutate(hyp = "Issue Congruence",
          condition = "Condition: Underspecified Sentence",
@@ -952,7 +952,7 @@ d_us <- d_us %>%
   mutate(b = specified,
          a = pid)
 h2b_e_pid <- lmer(interpret_nlp2 ~ masking + b * a +
-                    PT7 + issue + (1 | sentence), data= d_us)
+                    PT7 + issue + (1 | sentence2), data= d_us)
 h2b_e_pid2 <- tidy(h2b_e_pid) %>% 
   mutate(hyp = "Party Voted For/ PID",
          condition = "Condition: Underspecified Sentence",
@@ -966,7 +966,7 @@ h2b_e_pid <- tidy(margins::margins(h2b_e_pid, variables = "b",
          type = "United States")
 
 tmp <- lmer(interpret_ss2 ~ masking + b * a +
-              PT7 + issue + (1 | sentence), data= d_us)
+              PT7 + issue + (1 | sentence2), data= d_us)
 tmpp <- tidy(tmp) %>% 
   mutate(hyp = "Party Voted For/ PID",
          condition = "Condition: Underspecified Sentence",
@@ -987,7 +987,7 @@ d_us <- d_us %>%
   mutate(b = specified,
          a = PT6)
 h2c_e_ip <- lmer(interpret_nlp2 ~ masking + b * a +
-                   PT7 + issue + (1 | sentence), data= d_us)
+                   PT7 + issue + (1 | sentence2), data= d_us)
 h2c_e_ip2 <- tidy(h2c_e_ip) %>% 
   mutate(hyp = "Ideological Position (0 = Left/Liberal, 1 = Right/Conservative)",
          condition = "Condition: Underspecified Sentence",
@@ -1001,7 +1001,7 @@ h2c_e_ip <- tidy(margins::margins(h2c_e_ip, variables = "b",
          type = "United States")
 
 tmp <- lmer(interpret_ss2 ~ masking + b * a +
-              PT7 + issue + (1 | sentence), data= d_us)
+              PT7 + issue + (1 | sentence2), data= d_us)
 tmpp <- tidy(tmp) %>% 
   mutate(hyp = "Ideological Position (0 = Left/Liberal, 1 = Right/Conservative)",
          condition = "Condition: Underspecified Sentence",
@@ -1022,7 +1022,7 @@ d_us <- d_us %>%
   mutate(b = masking,
          a = congruence)
 h3a_e_ic <- lmer(interpret_nlp2 ~ specified + b * a +
-                   PT7 + issue + (1 | sentence), data= d_us)
+                   PT7 + issue + (1 | sentence2), data= d_us)
 h3a_e_ic2 <- tidy(h3a_e_ic)  %>% 
   mutate(hyp = "Issue Congruence",
          condition = "Condition: Party Masked",
@@ -1036,7 +1036,7 @@ h3a_e_ic <- tidy(margins::margins(h3a_e_ic, variables = "b",
          type = "United States")
 
 tmp <- lmer(interpret_ss2 ~ specified + b * a +
-              PT7 + issue + (1 | sentence), data= d_us)
+              PT7 + issue + (1 | sentence2), data= d_us)
 tmpp <- tidy(tmp)  %>% 
   mutate(hyp = "Issue Congruence",
          condition = "Condition: Party Masked",
@@ -1057,7 +1057,7 @@ d_us <- d_us %>%
   mutate(b = masking,
          a = pid)
 h3b_e_pid <- lmer(interpret_nlp2 ~ specified + b * a +
-                    PT7 + issue + (1 | sentence), data= d_us)
+                    PT7 + issue + (1 | sentence2), data= d_us)
 h3b_e_pid2 <- tidy(h3b_e_pid) %>% 
   mutate(hyp = "Party Voted For/ PID",
          condition = "Condition: Party Masked",
@@ -1071,7 +1071,7 @@ h3b_e_pid <- tidy(margins::margins(h3b_e_pid, variables = "b",
          type = "United States")
 
 tmp <- lmer(interpret_ss2 ~ specified + b * a +
-              PT7 + issue + (1 | sentence), data= d_us)
+              PT7 + issue + (1 | sentence2), data= d_us)
 tmpp <- tidy(tmp) %>% 
   mutate(hyp = "Party Voted For/ PID",
          condition = "Condition: Party Masked",
@@ -1092,7 +1092,7 @@ d_us <- d_us %>%
   mutate(b = masking,
          a = PT6)
 h3c_e_ip <- lmer(interpret_nlp2 ~ specified + b * a +
-                   PT7 + issue + (1 | sentence), data= d_us)
+                   PT7 + issue + (1 | sentence2), data= d_us)
 h3c_e_ip2 <- tidy(h3c_e_ip) %>% 
   mutate(hyp = "Ideological Position (0 = Left/Liberal, 1 = Right/Conservative)",
          condition = "Condition: Party Masked",
@@ -1106,7 +1106,7 @@ h3c_e_ip <- tidy(margins::margins(h3c_e_ip, variables = "b",
          type = "United States")
 
 tmp <- lmer(interpret_ss2 ~ specified + b * a +
-              PT7 + issue + (1 | sentence), data= d_us)
+              PT7 + issue + (1 | sentence2), data= d_us)
 h3c_e_ip2 <- tidy(tmp) %>% 
   mutate(hyp = "Ideological Position (0 = Left/Liberal, 1 = Right/Conservative)",
          condition = "Condition: Party Masked",

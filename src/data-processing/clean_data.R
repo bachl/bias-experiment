@@ -324,7 +324,8 @@ d <- bind_rows(d_nl, d_us) |>
     stance_nlp2 = ifelse(stance_nlp == "correct", 1, 0),
     stance_ss2 = ifelse(stance_ss == "correct", 1, 0),
     interpret_nlp2  = ifelse(interpret_nlp == "Correct", 0, 1),
-    interpret_ss2  = ifelse(interpret_ss == "Correct", 0, 1)
+    interpret_ss2  = ifelse(interpret_ss == "Correct", 0, 1),
+    sentence2 = id
   ) |> 
   select(-PT7_1, -PT1b)
 
