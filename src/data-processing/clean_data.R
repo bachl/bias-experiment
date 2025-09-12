@@ -327,5 +327,20 @@ d <- bind_rows(d_nl, d_us) |>
     interpret_ss2  = ifelse(interpret_ss == "Correct", 0, 1),
     sentence2 = id
   ) |> 
-  select(-PT7_1, -PT1b)
+  select(-PT7_1, -PT1b) |> 
+  mutate(issue = case_when(
+    issue == "a wealth tax for the richest Americans" ~ "Tax Policy",
+    issue == "de  rol van Nederland in de Europese Unie" ~ "Foreign Policy",
+    issue == "het belastingstelsel" ~ "Tax Policy",
+    issue == "het lidmaatschap van de Europese Unie voor Nederland" ~ "Foreign Policy",
+    issue == "het stikstofbeleid" ~ "Climate Policy",
+    issue == "het tegengaan van stikstofuitstoot" ~ "Climate Policy",
+    issue == "het verhogen van het belastingstarief voor de hoogste inkomens" ~ "Tax Policy",
+    issue == "immigranten" ~ "Immigration Policy",
+    issue == "immigratie" ~ "Immigration Policy",
+    issue == "military build-up in the Pacific Ocean" ~ "Foreign Policy",
+    issue == "military presence in the Pacific Ocean" ~ "Foreign Policy",
+    issue == "tax on carbon emissions" ~ "Climate Policy",
+    issue == "the tax system" ~ "Tax Policy"
+  ))
 
